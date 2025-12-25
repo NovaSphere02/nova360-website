@@ -5,15 +5,16 @@
   <!-- Application Structure Plan: 
        Restauration complète de l'architecture de l'information originale.
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
-       2. Accueil : Impact fort, CTA directs et carrousel de partenaires.
-       3. Catégories : Restauration des descriptions riches et des listes de bénéfices par secteur.
-       4. Showroom (Démo) : Barre latérale fixe et châssis de visualisation.
-       5. À propos : Restauration des 4 onglets thématiques (Vision originale).
-       6. Engagement : Formulaire de contact complet et section QR Code.
+       2. Accueil : Impact fort avec deux boutons d'action identiques pour une cohérence visuelle maximale.
+       3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées.
+       4. Démonstrations : Espace immersif avec barre latérale et châssis sécurisé.
+       5. Vision : 4 onglets thématiques expliquant la mission.
+       6. Engagement : Formulaire et QR Code pour la transition mobile.
   -->
   <!-- Visualization & Content Choices: 
-       - Information Architect Strategy: Chaque bloc est conçu pour être lu rapidement (Scan visuel).
-       - Interaction : JS Vanilla pour le routage de page et la gestion sonore.
+       - Information Architect Strategy: Double CTA en accueil pour diriger soit vers l'outil, soit vers l'exemple.
+       - Interaction : JS Vanilla pour la navigation sans rafraîchissement.
+       - Correction Visuelle : Liseré de la catégorie Tourisme passé en bleu profond (#315a97).
        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
   -->
 
@@ -135,7 +136,6 @@
       filter: brightness(1.1);
     }
 
-    /* Animation Slider Logotypes */
     @keyframes scrollLogos {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -167,7 +167,6 @@
       object-fit: contain;
     }
 
-    /* Structure Démo */
     #page-demo.active {
       display: flex;
       flex-direction: row;
@@ -231,7 +230,6 @@
         box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9);
     }
 
-    /* Style des Onglets Vision */
     .about-tab {
       background-color: var(--primary);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -261,10 +259,10 @@
       <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')">
           <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
-          <span id="logo-fallback" class="text-2xl font-black hidden">Nova360</span>
+          <span id="logo-fallback" class="text-2xl font-black hidden text-white">Nova360</span>
         </div>
 
-        <div class="hidden md:flex space-x-8">
+        <div class="hidden md:flex space-x-8 text-white">
           <a href="#home" class="nav-link active font-medium" data-page="home">Accueil</a>
           <a href="#categories" class="nav-link font-medium" data-page="categories">Catégories</a>
           <a href="#demo" class="nav-link font-medium" data-page="demo">Démonstrations</a>
@@ -283,13 +281,12 @@
         </div>
       </div>
 
-      <!-- Menu Mobile -->
       <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#004047] border-b border-white/10 flex flex-col p-6 space-y-4">
-          <a href="#home" class="nav-link text-lg" data-page="home">Accueil</a>
-          <a href="#categories" class="nav-link text-lg" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link text-lg" data-page="demo">Démonstrations</a>
-          <a href="#about" class="nav-link text-lg" data-page="about">Vision</a>
-          <a href="#contact" class="nav-link text-lg" data-page="contact">Contact</a>
+          <a href="#home" class="nav-link text-lg text-white" data-page="home">Accueil</a>
+          <a href="#categories" class="nav-link text-lg text-white" data-page="categories">Catégories</a>
+          <a href="#demo" class="nav-link text-lg text-white" data-page="demo">Démonstrations</a>
+          <a href="#about" class="nav-link text-lg text-white" data-page="about">Vision</a>
+          <a href="#contact" class="nav-link text-lg text-white" data-page="contact">Contact</a>
       </div>
     </nav>
 
@@ -305,7 +302,8 @@
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-5 mb-24">
           <button class="cta-button px-10 py-4 rounded-full text-white font-bold text-lg shadow-xl" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
-          <button class="bg-white/10 hover:bg-white/20 px-10 py-4 rounded-full text-white font-bold text-lg transition-all" onclick="navigateToPage('demo')">Voir la démo</button>
+          <!-- Bouton harmonisé avec style CTA et texte corrigé -->
+          <button class="cta-button px-10 py-4 rounded-full text-white font-bold text-lg shadow-xl" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-7xl mx-auto px-4">
@@ -449,7 +447,7 @@
       <!-- PAGE VISION -->
       <div id="page-about" class="page px-4 py-20 max-w-5xl mx-auto">
         <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden text-center">
-            <h2 class="text-4xl font-black mb-8 text-white">À propos de Nova360</h2>
+            <h2 class="text-4xl font-black mb-8 text-center text-white">À propos de Nova360</h2>
             <div class="space-y-8 text-slate-300 text-lg leading-relaxed">
               <p><strong>Nova360</strong> est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité des <strong>entreprises</strong>, des <strong>particuliers</strong> et des <strong>professionnels</strong> à travers une expérience numérique d'exception.</p>
               
@@ -476,7 +474,7 @@
       </div>
 
       <!-- PAGE CONTACT -->
-      <div id="page-contact" class="page px-4 py-20 max-w-xl mx-auto text-center space-y-12">
+      <div id="page-contact" class="page px-4 py-20 max-w-xl mx-auto text-center space-y-12 text-white">
         <div class="space-y-4 text-center">
             <h2 class="text-5xl font-black text-white italic">Un projet ?</h2>
             <h3 class="text-2xl font-bold text-white mb-2">Vous voulez rejoindre Nova360 ?</h3>
