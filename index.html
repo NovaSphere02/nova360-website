@@ -88,13 +88,26 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* Animation Robotique Douce pour le bouton Lancer l'App */
+    /* EFFET YO-YO AUTOMATIQUE (Appel à l'action sans hover) */
+    @keyframes cta-yoyo {
+      0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      }
+      50% { 
+        transform: scale(1.08); 
+        box-shadow: 0 20px 25px -5px rgba(0, 86, 94, 0.4);
+        background-color: var(--hover-grad);
+      }
+    }
+
+    /* Animation Robotique Douce au Survol (cumulable) */
     @keyframes robot-vibration {
-      0% { transform: translateY(-2px) scale(1.05) rotate(0deg); }
-      25% { transform: translateY(-2px) scale(1.05) rotate(0.5deg) translateX(1px); }
-      50% { transform: translateY(-2px) scale(1.05) rotate(-0.5deg) translateX(-1px); }
-      75% { transform: translateY(-2px) scale(1.05) rotate(0.3deg) translateX(0.5px); }
-      100% { transform: translateY(-2px) scale(1.05) rotate(0deg); }
+      0% { transform: translateY(-2px) scale(1.1) rotate(0deg); }
+      25% { transform: translateY(-2px) scale(1.1) rotate(0.5deg) translateX(1px); }
+      50% { transform: translateY(-2px) scale(1.1) rotate(-0.5deg) translateX(-1px); }
+      75% { transform: translateY(-2px) scale(1.1) rotate(0.3deg) translateX(0.5px); }
+      100% { transform: translateY(-2px) scale(1.1) rotate(0deg); }
     }
 
     /* Boutons CTA */
@@ -112,6 +125,11 @@
       min-width: 260px;
     }
 
+    /* Classe spécifique pour l'attention automatique dans la nav */
+    .cta-attention {
+      animation: cta-yoyo 3s ease-in-out infinite;
+    }
+
     .cta-button::before {
       content: '';
       position: absolute;
@@ -126,12 +144,11 @@
 
     .cta-button:hover::before { left: 0; }
     
-    /* Application de l'effet robotique au survol */
     .cta-button:hover {
-      transform: translateY(-2px) scale(1.05);
+      transform: translateY(-2px) scale(1.1);
       box-shadow: 0 25px 50px -12px rgba(0, 86, 94, 0.6);
       background-color: var(--hover-grad);
-      animation: robot-vibration 0.4s ease infinite; /* Mouvement robotique en boucle */
+      animation: robot-vibration 0.4s ease infinite; /* Reprise de l'effet robotique au hover */
     }
 
     /* Cartes de fonctionnalités */
@@ -147,7 +164,6 @@
       transform: translateY(-10px);
       box-shadow: 0 40px 70px -20px rgba(0, 86, 94, 0.15);
       border-color: var(--dark);
-      /* Sur les cartes on désactive l'animation robotique pour ne garder que le levage propre */
       animation: none; 
     }
 
@@ -163,7 +179,7 @@
       transition: all 0.4s ease;
     }
 
-    /* Slider Logos - Défilement horizontal infini */
+    /* Slider Logos */
     .logo-slider-container {
       overflow: hidden;
       padding: 60px 0;
@@ -197,9 +213,7 @@
       transition: transform 0.3s ease;
     }
 
-    .logo-item:hover {
-      transform: translateY(-5px);
-    }
+    .logo-item:hover { transform: translateY(-5px); }
 
     .logo-item img {
       max-width: 160px;
@@ -231,7 +245,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Mode Immersion */
+    /* Mode Immersion Spécifique */
     #page-demo.active {
       display: flex;
       flex-direction: column;
@@ -317,8 +331,8 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <!-- BOUTON AVEC EFFET ROBOTIQUE AU SURVOL -->
-          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
+          <!-- BOUTON AVEC EFFET YO-YO AUTOMATIQUE ET EFFET ROBOTIQUE AU SURVOL -->
+          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
             Lancer l'App
           </button>
           <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
@@ -384,6 +398,7 @@
             </div>
           </div>
 
+          <!-- Section Confiance avec Slider Restructuré -->
           <div class="mt-40 w-full text-center">
             <h3 class="text-2xl font-serif italic text-[#00565e] mb-12">Ils nous font confiance</h3>
             <div class="logo-slider-container">
@@ -542,7 +557,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div class="space-y-8 text-left">
             <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'excellence <br><span class="font-serif italic text-[#00565e]">de la visibilité.</span></h2>
-            <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive en rendant l'expérience utilisateur exceptionnelle.</p>
+            <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">
+              Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive en rendant l'expérience utilisateur exceptionnelle.
+            </p>
             <div class="grid grid-cols-2 gap-6 pt-10">
               <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-2 border-transparent border-t-4 border-t-[#00565e] hover:border-[#315a97] transition-all duration-300 group">
                 <div class="text-3xl font-serif italic text-[#00565e] mb-2 group-hover:text-[#315a97] transition-colors">360°</div>
