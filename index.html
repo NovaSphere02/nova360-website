@@ -7,8 +7,9 @@
        1. Arrière-plan : Fond #D4D3DC avec un léger halo "Bleu Pétrole" pour donner de la profondeur.
        2. Navigation : Bloc massif en Vert Canard (#004047) pour ancrer le design.
        3. Typographie : Contraste de caractère entre la noblesse de 'Playfair Display' et la force de 'Inter'.
-       4. Correction Logo Slider : Structure flex-row stricte avec débordement caché pour un défilement horizontal garanti.
-       5. Mise en page Accueil : Suppression du logo central et remontée du titre pour un impact immédiat.
+       4. Correction Logo Slider : Structure flex-row stricte pour un défilement horizontal garanti.
+       5. Mise en page Accueil : Contenu remonté sans logo central pour un impact immédiat et une élégance accrue.
+       6. Fenêtre Démo : Correction des dimensions pour un affichage plein écran dans le conteneur.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -87,7 +88,7 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* Cartes avec accentuation de couleur */
+    /* Cartes */
     .feature-card {
       background: white;
       border: 1px solid rgba(0, 64, 71, 0.1);
@@ -154,7 +155,7 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Démo */
+    /* Démo - Fenêtre Agrandi */
     .demo-sidebar {
       width: 280px;
       background: var(--dark);
@@ -192,10 +193,31 @@
       background: #000;
     }
 
+    .frame-container {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        padding: 15px; /* Réduit pour agrandir la fenêtre */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .virtual-frame {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 30px 100px -20px rgba(0, 0, 0, 0.5);
+    }
+
     @media (max-width: 768px) {
       #page-demo.active { flex-direction: column; }
       .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 15px; gap: 8px; }
-      .demo-item-btn { margin-bottom: 0; white-space: nowrap; }
+      .demo-item-btn { margin-bottom: 0; white-space: nowrap; padding: 10px 15px; }
+      .frame-container { padding: 8px; }
     }
   </style>
 </head>
@@ -243,7 +265,7 @@
       <!-- PAGE ACCUEIL : CONTENU REMONTÉ SANS LOGO CENTRAL -->
       <div id="page-home" class="page active px-8 pt-12 pb-20 lg:pt-20 lg:pb-32 text-center bg-transparent">
         
-        <!-- TITRE BI-STYLE RAFFINÉ AVEC ESPACEMENT AJUSTÉ -->
+        <!-- TITRE BI-STYLE RAFFINÉ -->
         <div class="mb-16">
             <h1 class="text-3xl md:text-5xl lg:text-7xl font-light leading-tight tracking-tight text-slate-800">
               <span class="font-serif italic text-slate-400 block mb-2">Un seul endroit</span>
@@ -280,16 +302,14 @@
             </div>
         </div>
 
-        <!-- Slider Partenaires Corrigé Horizontal -->
+        <!-- Slider Partenaires -->
         <div class="logo-section">
           <div class="logo-slider">
-              <!-- Série 1 -->
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
-              <!-- Série 2 (Boucle) -->
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
@@ -308,7 +328,6 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- Restaurant -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#278299]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🍽️</div>
@@ -322,7 +341,6 @@
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
             </div>
 
-            <!-- Activités -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#315a97]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🎯</div>
@@ -336,7 +354,6 @@
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
             </div>
 
-            <!-- Hébergement -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🏡</div>
@@ -369,6 +386,7 @@
           </nav>
         </aside>
         <div class="frame-container">
+          <!-- Fenêtre agrandie grâce au CSS corrigé -->
           <div class="virtual-frame border-4 border-[#004047]">
               <iframe id="demo-frame" src="https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html" class="w-full h-full border-none" allowfullscreen allow="gyroscope; accelerometer; fullscreen"></iframe>
           </div>
@@ -382,14 +400,14 @@
                 <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.7em] block">Manifeste</span>
                 <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight tracking-tighter">L'Intelligence <br><span class="font-serif italic text-7xl text-[#004047]">de l'Image.</span></h2>
                 <p class="text-lg text-slate-500 leading-relaxed font-light italic border-l-2 border-[#278299] pl-10">
-                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter votre visibilité."
+                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur."
                 </p>
                 <div class="grid grid-cols-2 gap-8 pt-12">
-                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl">
+                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
                         <div class="text-4xl font-black text-[#278299] mb-4 font-serif">360°</div>
                         <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em]">Présence</div>
                     </div>
-                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl">
+                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
                         <div class="text-4xl font-black text-[#004047] mb-4 font-serif">MÉDIA</div>
                         <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em]">Dynamique</div>
                     </div>
@@ -440,7 +458,7 @@
               <div id="form-feedback" class="md:col-span-2 hidden text-center text-[#278299] font-black p-8 bg-[#278299]/5 rounded-3xl text-xs uppercase tracking-[0.4em]">✓ Votre vision a été transmise avec succès.</div>
             </form>
             
-            <!-- QR CODE SECTION -->
+            <!-- QR CODE -->
             <div class="mt-40 pt-20 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-20 text-left">
                 <div class="max-w-md space-y-6">
                     <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Mobilité <span class="font-serif italic font-light text-[#278299]">Sans Compromis</span></h4>
