@@ -100,7 +100,6 @@
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      /* Largeur minimale pour garantir l'uniformité */
       min-width: 260px;
     }
 
@@ -163,6 +162,7 @@
       display: flex;
       width: max-content;
       animation: scrollLogos 40s linear infinite;
+      align-items: center;
     }
 
     @keyframes scrollLogos {
@@ -239,12 +239,11 @@
           <a href="#contact" class="nav-link font-bold text-[10px] uppercase" data-page="contact">Contact</a>
         </div>
 
-        <!-- Action Button (Barre du haut - reste compact) -->
+        <!-- Action Button -->
         <div class="flex items-center gap-4">
           <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
             Lancer l'App
           </button>
-          <!-- Mobile Toggle -->
           <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
         </div>
       </div>
@@ -272,11 +271,10 @@
               <span class="font-black text-xl md:text-4xl uppercase tracking-[0.4em] text-[#278299] mt-8 block text-center w-full">tous les autres</span>
             </h1>
           </div>
-          <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-            L'excellence visuelle au service de votre établissement. Nova360 crée des passerelles immersives entre le monde réel et vos futurs clients.
+          <p class="text-lg md:text-xl text-slate-500 max-w-4xl mx-auto mb-16 font-light leading-relaxed">
+            La première plateforme immersive qui vous permet de découvrir des lieux autrement grâce à la visite virtuelle 360 interactive de Nova 360.
           </p>
           
-          <!-- Boutons d'accueil - Harmonisés et Agrandis -->
           <div class="flex flex-col sm:flex-row justify-center items-center gap-8 mb-32">
             <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">
               Explorer Nova 360
@@ -286,7 +284,7 @@
             </button>
           </div>
           
-          <!-- Key Features (TOUS UNIFIÉS EN #00565e) -->
+          <!-- Key Features -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
             <div class="feature-card p-10 rounded-3xl border-t-4 border-[#00565e]">
               <div class="status-half-circle"></div>
@@ -335,7 +333,7 @@
             </div>
           </div>
 
-          <!-- NOUVELLE SECTION QR CODE (PAGE ACCUEIL) -->
+          <!-- SECTION QR CODE (PAGE ACCUEIL) -->
           <div class="mt-40 w-full max-w-4xl mx-auto">
             <div class="bg-white/40 p-12 md:p-16 rounded-[3rem] shadow-xl border-2 border-[#00565e]/10 flex flex-col md:flex-row items-center justify-center gap-12 text-center md:text-left transition-all hover:bg-white/60">
               <div class="flex-1 space-y-4">
@@ -362,6 +360,8 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+          
+          <!-- Item Restaurant -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🍽️</div>
@@ -371,9 +371,10 @@
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Réservation Directe</li>
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Menu Interactif</li>
             </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER L'UNIVERS</button>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
           </div>
 
+          <!-- Item Activités -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🎯</div>
@@ -383,20 +384,61 @@
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Sensations VR</li>
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Immersion Totale</li>
             </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER L'UNIVERS</button>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
           </div>
 
+          <!-- Item Hébergement -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🏡</div>
             <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Hébergements</h3>
-            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque détail.</p>
+            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur séjour.</p>
             <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Booking Pro</li>
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Galerie HD</li>
             </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER L'UNIVERS</button>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
           </div>
+
+          <!-- CARTE : COMMERCE -->
+          <div class="feature-card p-10 rounded-3xl flex flex-col group">
+            <div class="status-half-circle"></div>
+            <div class="text-5xl mb-8">🛍️</div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Commerce</h3>
+            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Mettez en valeur votre boutique et vos produits. Offrez une expérience shopping interactive.</p>
+            <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> SEO Local</li>
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Shopping VR</li>
+            </ul>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">VISITER</button>
+          </div>
+
+          <!-- CARTE : PROFESSIONNELLE (AJOUTÉE AVANT TOURISME) -->
+          <div class="feature-card p-10 rounded-3xl flex flex-col group">
+            <div class="status-half-circle"></div>
+            <div class="text-5xl mb-8">💼</div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Professionnelle</h3>
+            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Valorisez vos espaces de travail, bureaux et infrastructures industrielles pour vos clients et collaborateurs.</p>
+            <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Immobilier Pro</li>
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Bureaux Flex</li>
+            </ul>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">VISITER</button>
+          </div>
+
+          <!-- CARTE : TOURISME -->
+          <div class="feature-card p-10 rounded-3xl flex flex-col group">
+            <div class="status-half-circle"></div>
+            <div class="text-5xl mb-8">🏖️</div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Tourisme</h3>
+            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Sublimez le patrimoine et la culture de votre territoire grâce au storytelling immersif.</p>
+            <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Patrimoine</li>
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Storytelling</li>
+            </ul>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">VISITER</button>
+          </div>
+
         </div>
       </section>
 
