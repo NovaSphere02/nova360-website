@@ -9,6 +9,7 @@
        3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
        4. Démonstrations : Interface ultra-optimisée. Barre haute affinée (50px).
        5. Mode Immersion : Système de bascule plein écran avec incitation visuelle (flèche clignotante).
+       6. UX Enhancement : Pop-up d'accueil en mode démo pour conseiller le plein écran.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -84,6 +85,8 @@
       background: var(--primary);
       transition: width 0.3s ease;
     }
+
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
     /* Cartes Accueil */
     .feature-card {
@@ -218,6 +221,36 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
+    /* Styles de la Pop-up d'accueil Démo */
+    #demo-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 20, 22, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #D4D3DC;
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #demo-modal.show { display: flex; }
+    #demo-modal.show .modal-content { transform: scale(1); opacity: 1; }
+
     #page-demo.active {
       display: flex;
       flex-direction: column;
@@ -284,7 +317,7 @@
       <div class="max-w-7xl mx-auto px-8 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center gap-4" onclick="navigateToPage('home')">
           <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-10 w-auto brightness-0 invert">
-          <span class="text-white font-black tracking-tighter text-xl md:hidden uppercase tracking-widest italic text-center">Nova360</span>
+          <span class="text-white font-black tracking-tighter text-xl md:hidden uppercase tracking-widest italic text-center text-white">Nova360</span>
         </div>
 
         <div class="hidden md:flex space-x-12">
@@ -301,7 +334,7 @@
 
         <div class="md:hidden">
           <button id="mobile-menu-btn" class="p-2 text-white">
-            <span class="text-2xl">☰</span>
+            <span class="text-2xl text-white">☰</span>
           </button>
         </div>
       </div>
@@ -348,6 +381,21 @@
 
       <!-- PAGE DÉMONSTRATIONS -->
       <div id="page-demo" class="page overflow-hidden">
+        
+        <!-- POP-UP D'ACCUEIL DÉMO -->
+        <div id="demo-modal" onclick="closeDemoModal()">
+          <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="text-5xl mb-6">⛶</div>
+            <h2 class="text-3xl font-serif italic text-[#004047] mb-4">Optimisez votre vision</h2>
+            <p class="text-slate-600 mb-8 leading-relaxed font-light">
+              Pour une immersion totale et une expérience sans frontières, nous vous conseillons d'utiliser le bouton <strong>Plein Écran</strong> situé en haut à droite.
+            </p>
+            <button onclick="closeDemoModal()" class="cta-button px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest shadow-xl">
+              Démarrer l'expérience
+            </button>
+          </div>
+        </div>
+
         <div class="demo-topbar shadow-2xl">
           <button onclick="navigateToPage('home')" class="back-btn group">
             ← <span>Accueil</span>
@@ -362,7 +410,7 @@
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn">🏖️ Tourisme</button>
           </nav>
 
-          <!-- Incitation visuelle : flèche + bouton agrandir -->
+          <!-- Incitation visuelle -->
           <div class="flex items-center gap-3 pl-4 border-l border-white/10">
             <span class="incitation-arrow">➤</span>
             <div onclick="toggleImmersion(true)" class="expand-btn" title="Passer en plein écran">
@@ -371,7 +419,7 @@
           </div>
         </div>
 
-        <!-- Bouton Sortie Immersion (Flottant) -->
+        <!-- Bouton Sortie Immersion -->
         <div onclick="toggleImmersion(false)" class="exit-immersion" title="Quitter le plein écran">
           ✕
         </div>
@@ -392,7 +440,7 @@
     <!-- FOOTER -->
     <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5">
       <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center">
-        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center">
+        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center text-white/40">
             <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none">
             <span class="font-light tracking-[0.3em] text-[9px] uppercase">&copy; 2025 Nova360 Architectural Lab.</span>
         </div>
@@ -424,6 +472,18 @@
       }
     }
 
+    // Gestion de la Pop-up démo
+    function showDemoModal() {
+      const modal = document.getElementById('demo-modal');
+      modal.classList.add('show');
+    }
+
+    function closeDemoModal() {
+      const modal = document.getElementById('demo-modal');
+      modal.classList.remove('show');
+      setTimeout(() => { modal.style.display = 'none'; }, 400);
+    }
+
     function navigateToPage(pageId) {
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       const targetPage = document.getElementById(`page-${pageId}`);
@@ -441,6 +501,12 @@
           mainNav.style.display = 'none';
           footer.style.display = 'none';
           document.body.style.overflow = 'hidden';
+          
+          // Affichage de la pop-up au premier chargement de la démo
+          const modal = document.getElementById('demo-modal');
+          modal.style.display = 'flex';
+          setTimeout(showDemoModal, 50);
+
           if (frame.src === "about:blank" || frame.src === "" || frame.src.includes('about:blank')) {
             frame.src = currentDemoUrl;
           }
