@@ -8,8 +8,8 @@
        2. Navigation : Bloc massif en Vert Canard (#004047).
        3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
        4. Démonstrations : Interface ultra-optimisée. Barre haute affinée (50px).
-       5. Mode Immersion : Système de bascule plein écran avec bouton de sortie encadré et mis en évidence.
-       6. Catégories : Refonte design des panneaux avec accentuation bleue et pastilles de statut circulaires.
+       5. Mode Immersion : Système de bascule plein écran avec bouton de sortie encadré.
+       6. Catégories : Refonte des panneaux avec demi-cercles design et accents bleus renforcés.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -94,6 +94,7 @@
       border: 1px solid rgba(39, 130, 153, 0.1);
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
+      overflow: hidden; /* Pour que le demi-cercle reste propre */
     }
 
     .feature-card:hover {
@@ -102,16 +103,23 @@
       border-color: var(--primary);
     }
 
-    /* Pastille circulaire haut droite */
-    .status-circle {
+    /* Nouveau Demi-cercle Design */
+    .status-half-circle {
       position: absolute;
-      top: 24px;
-      right: 24px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: var(--primary);
-      box-shadow: 0 0 10px var(--primary);
+      top: 0;
+      right: 30px;
+      width: 48px;
+      height: 24px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      border-radius: 0 0 48px 48px;
+      box-shadow: 0 4px 12px rgba(39, 130, 153, 0.2);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover .status-half-circle {
+      height: 32px;
+      filter: brightness(1.2);
+      box-shadow: 0 8px 16px rgba(39, 130, 153, 0.4);
     }
 
     .cta-button {
@@ -221,7 +229,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Animation pour la flèche d'incitation */
     @keyframes arrowBlink {
       0%, 100% { opacity: 1; transform: translateX(0); }
       50% { opacity: 0.2; transform: translateX(-4px); }
@@ -235,7 +242,6 @@
       user-select: none;
     }
 
-    /* Bouton d'agrandissement */
     .expand-btn {
       width: 34px;
       height: 34px;
@@ -250,7 +256,6 @@
     }
     .expand-btn:hover { background: var(--primary); }
 
-    /* Bouton de sortie flottant */
     .exit-immersion {
       position: fixed;
       top: 25px;
@@ -277,12 +282,6 @@
       border-color: white;
     }
 
-    .exit-immersion span {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-
-    /* Styles de la Pop-up d'accueil Démo */
     #demo-modal {
       display: none;
       position: fixed;
@@ -325,7 +324,6 @@
       z-index: 100;
     }
 
-    /* Mode Immersion Active */
     #page-demo.immersion-mode .demo-topbar {
       transform: translateY(-100%);
       opacity: 0;
@@ -418,25 +416,25 @@
           <button class="border-2 border-[#004047] hover:bg-[#004047] hover:text-white text-[#004047] px-14 py-6 rounded-full font-black text-[10px] transition-all uppercase tracking-[0.3em]" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
         
-        <!-- Cards Home (vitesse, multi-support, etc.) -->
+        <!-- Cards Home -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-4 mb-32">
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#278299]">
-              <div class="status-circle"></div>
+              <div class="status-half-circle"></div>
               <div class="text-xs font-black text-[#278299] uppercase tracking-widest mb-6 text-left">Technologie 01</div>
               <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Immersion 360°</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une précision chirurgicale pour restituer l'âme de vos lieux avec une fidélité absolue.</p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-left text-left">Une précision chirurgicale pour restituer l'âme de vos lieux avec une fidélité absolue.</p>
             </div>
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#004047]">
-              <div class="status-circle"></div>
+              <div class="status-half-circle"></div>
               <div class="text-xs font-black text-[#004047] uppercase tracking-widest mb-6 text-left">Usage 02</div>
               <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Multi-supports</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une expérience optimisée pour mobile et desktop. Sans téléchargement.</p>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-left text-left text-left">Une expérience optimisée pour mobile et desktop. Sans téléchargement.</p>
             </div>
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#315a97]">
-              <div class="status-circle"></div>
+              <div class="status-half-circle"></div>
               <div class="text-xs font-black text-[#315a97] uppercase tracking-widest mb-6 text-left">Vision 03</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Conversion</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Transformez la curiosité en acte d'achat grâce à nos outils interactifs intégrés.</p>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left text-left">Conversion</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-left text-left text-left">Transformez la curiosité en acte d'achat grâce à nos outils interactifs intégrés.</p>
             </div>
         </div>
 
@@ -457,7 +455,7 @@
         </div>
       </div>
 
-      <!-- PAGE CATÉGORIES (EXPERTIISES) -->
+      <!-- PAGE CATÉGORIES (EXPERTISES) -->
       <div id="page-categories" class="page px-8 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-24">
             <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.6em] mb-4 block">Départements</span>
@@ -467,11 +465,10 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
             <!-- Restaurant -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
-              <div class="status-circle"></div>
-              <div class="absolute top-0 left-0 w-full h-1.5 bg-[#278299]"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+              <div class="status-half-circle"></div>
               <div class="text-4xl mb-10 text-left">🍽️</div>
-              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Restaurants</h3>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#278299]/10 pb-2">Restaurants</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Invitez vos clients à votre table avant même qu'ils ne passent la porte. Une mise en bouche digitale.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Réservation Directe</li>
@@ -481,11 +478,10 @@
             </div>
 
             <!-- Activités -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
-              <div class="status-circle"></div>
-              <div class="absolute top-0 left-0 w-full h-1.5 bg-[#315a97]"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+              <div class="status-half-circle"></div>
               <div class="text-4xl mb-10 text-left">🎯</div>
-              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Activités</h3>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#315a97]/10 pb-2">Activités</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Donnez le vertige. Capturez l'excitation de vos loisirs dans une expérience 360° immersive.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Sensations VR</li>
@@ -495,11 +491,10 @@
             </div>
 
             <!-- Hébergement -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
-              <div class="status-circle"></div>
-              <div class="absolute top-0 left-0 w-full h-1.5 bg-[#004047]"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+              <div class="status-half-circle"></div>
               <div class="text-4xl mb-10 text-left">🏡</div>
-              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Hébergements</h3>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#004047]/10 pb-2">Hébergements</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur futur séjour.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Confiance Totale</li>
@@ -509,12 +504,11 @@
             </div>
 
             <!-- Shopping -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden text-left">
-                <div class="status-circle"></div>
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-[#278299]"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+                <div class="status-half-circle"></div>
                 <div class="text-4xl mb-10 text-left">🛍️</div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Shopping</h3>
-                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left">Transformez votre point de vente en une destination digitale interactive accessible 24h/24.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#278299]/10 pb-2">Shopping</h3>
+                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Transformez votre point de vente en une destination digitale interactive accessible 24h/24.</p>
                 <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                   <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Tags Produits</li>
                   <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> SEO Local</li>
@@ -523,12 +517,11 @@
             </div>
 
             <!-- Professionnels -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden text-left">
-                <div class="status-circle"></div>
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-[#315a97]"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+                <div class="status-half-circle"></div>
                 <div class="text-4xl mb-10 text-left">💼</div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Professionnels</h3>
-                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left">Valorisez vos bureaux et infrastructures industrielles pour vos clients et collaborateurs.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#315a97]/10 pb-2">Professionnels</h3>
+                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Valorisez vos bureaux et infrastructures industrielles pour vos clients et collaborateurs.</p>
                 <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                   <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Recrutement</li>
                   <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Immobilier Pro</li>
@@ -537,12 +530,11 @@
             </div>
 
             <!-- Tourisme -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden text-left">
-                <div class="status-circle"></div>
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-[#004047]"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+                <div class="status-half-circle"></div>
                 <div class="text-4xl mb-10 text-left">🏖️</div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left text-left">Tourisme</h3>
-                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left">Sublimez le patrimoine et la culture de votre territoire grâce au storytelling immersif.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#004047]/10 pb-2">Tourisme</h3>
+                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Sublimez le patrimoine et la culture de votre territoire grâce au storytelling immersif.</p>
                 <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                   <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Territoires</li>
                   <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Storytelling</li>
@@ -559,7 +551,7 @@
           <div class="modal-content" onclick="event.stopPropagation()">
             <div class="text-5xl mb-6 text-[#278299]">⛶</div>
             <h2 class="text-3xl font-serif italic text-[#004047] mb-4 text-center">Optimisez votre vision</h2>
-            <p class="text-slate-600 mb-8 leading-relaxed font-light text-center">
+            <p class="text-slate-600 mb-8 leading-relaxed font-light text-center text-left">
               Pour une immersion totale et une expérience sans frontières, nous vous conseillons d'utiliser le bouton <strong>Plein Écran</strong> situé en haut à droite.
             </p>
             <button onclick="closeDemoModal()" class="cta-button px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest shadow-xl">
@@ -616,12 +608,12 @@
                 </p>
                 <div class="grid grid-cols-2 gap-8 pt-12">
                     <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
-                        <div class="status-circle mx-auto relative top-0 right-0 mb-4"></div>
+                        <div class="status-half-circle relative top-0 right-0 mx-auto mb-4"></div>
                         <div class="text-4xl font-black text-[#278299] mb-4 font-serif text-center">360°</div>
                         <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center text-center">Présence</div>
                     </div>
                     <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none text-center">
-                        <div class="status-circle mx-auto relative top-0 right-0 mb-4"></div>
+                        <div class="status-half-circle relative top-0 right-0 mx-auto mb-4"></div>
                         <div class="text-4xl font-black text-[#004047] mb-4 font-serif text-center text-center">MÉDIA</div>
                         <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center text-center text-center">Dynamique</div>
                     </div>
@@ -644,9 +636,9 @@
       </div>
 
       <!-- PAGE CONTACT -->
-      <div id="page-contact" class="page px-8 py-24 max-w-5xl mx-auto">
-        <div class="bg-white p-16 md:p-24 rounded-[4rem] shadow-2xl border border-slate-100 text-center relative overflow-hidden">
-            <div class="text-center mb-24 space-y-6">
+      <div id="page-contact" class="page px-8 py-24 max-w-5xl mx-auto text-left">
+        <div class="bg-white p-16 md:p-24 rounded-[4rem] shadow-2xl border border-slate-100 text-center relative overflow-hidden text-left">
+            <div class="text-center mb-24 space-y-6 text-left">
                 <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.8em] block text-center">Alliance</span>
                 <h2 class="text-5xl font-serif italic text-slate-900 tracking-tighter text-center">Écrivons votre <span class="font-sans font-black text-slate-200">Futur.</span></h2>
             </div>
@@ -655,7 +647,7 @@
               <div class="space-y-10 text-left">
                 <div class="group text-left">
                   <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left">Votre Nom</label>
-                  <input type="text" placeholder="JEAN DUPONT" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold">
+                  <input type="text" placeholder="JEAN DUPONT" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold text-left">
                 </div>
                 <div class="group text-left">
                   <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left text-left">Votre Email</label>
@@ -663,8 +655,8 @@
                 </div>
               </div>
               <div class="flex flex-col group text-left">
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left">Votre Vision</label>
-                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold text-left"></textarea>
+                <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left text-left">Votre Vision</label>
+                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold text-left text-left"></textarea>
               </div>
               <div class="md:col-span-2 pt-10 text-center">
                 <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all text-center">Transmettre la demande</button>
@@ -676,8 +668,8 @@
                     <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter text-left">Mobilité <span class="font-serif italic font-light text-[#278299]">Sans Compromis</span></h4>
                     <p class="text-xs text-slate-500 font-light leading-relaxed uppercase tracking-[0.2em] text-left">Scannez pour activer l'expérience Nova360 sur votre terminal personnel.</p>
                 </div>
-                <div class="p-10 bg-white rounded-[3.5rem] shadow-2xl border border-slate-50 relative group">
-                    <div class="absolute inset-0 bg-[#278299]/5 rounded-[3.5rem] scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                <div class="p-10 bg-white rounded-[3.5rem] shadow-2xl border border-slate-50 relative group text-left">
+                    <div class="absolute inset-0 bg-[#278299]/5 rounded-[3.5rem] scale-0 group-hover:scale-100 transition-transform duration-500 text-left"></div>
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://nova360.app.codinsight.app/&color=004047" alt="QR Code" class="h-28 w-28 opacity-90 relative z-10 text-white text-white">
                 </div>
             </div>
@@ -687,15 +679,15 @@
     </main>
 
     <!-- FOOTER -->
-    <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5">
-      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center">
-        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center text-white/40">
-            <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none">
-            <span class="font-light tracking-[0.3em] text-[9px] uppercase">&copy; 2025 Nova360 Architectural Lab.</span>
+    <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5 text-left">
+      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center text-left">
+        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center text-white/40 text-left">
+            <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none text-left">
+            <span class="font-light tracking-[0.3em] text-[9px] uppercase text-left">&copy; 2025 Nova360 Architectural Lab.</span>
         </div>
-        <div class="flex space-x-16 font-bold uppercase tracking-[0.4em] justify-center text-[9px]">
-          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40">Mentions</a>
-          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40">Confidentialité</a>
+        <div class="flex space-x-16 font-bold uppercase tracking-[0.4em] justify-center text-[9px] text-left">
+          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40 text-left">Mentions</a>
+          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40 text-left">Confidentialité</a>
         </div>
       </div>
     </footer>
