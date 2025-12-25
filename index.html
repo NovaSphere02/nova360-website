@@ -9,7 +9,7 @@
        3. Typographie : Contraste de caractère entre la noblesse de 'Playfair Display' et la force de 'Inter'.
        4. Correction Logo Slider : Structure flex-row stricte pour un défilement horizontal garanti.
        5. Mise en page Accueil : Contenu remonté sans logo central pour un impact immédiat et une élégance accrue.
-       6. Fenêtre Démo : Correction des dimensions pour un affichage plein écran dans le conteneur.
+       6. Fenêtre Démo : Correction des permissions (allow) pour débloquer toutes les fonctionnalités des visites (VR, gyroscope, etc.).
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -197,7 +197,7 @@
         flex: 1;
         min-width: 0;
         height: 100%;
-        padding: 15px; /* Réduit pour agrandir la fenêtre */
+        padding: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -207,7 +207,7 @@
         width: 100%;
         height: 100%;
         background: #000;
-        border-radius: 16px;
+        border-radius: 12px;
         overflow: hidden;
         position: relative;
         box-shadow: 0 30px 100px -20px rgba(0, 0, 0, 0.5);
@@ -217,7 +217,7 @@
       #page-demo.active { flex-direction: column; }
       .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 15px; gap: 8px; }
       .demo-item-btn { margin-bottom: 0; white-space: nowrap; padding: 10px 15px; }
-      .frame-container { padding: 8px; }
+      .frame-container { padding: 5px; }
     }
   </style>
 </head>
@@ -262,7 +262,7 @@
 
     <main class="flex-grow">
       
-      <!-- PAGE ACCUEIL : CONTENU REMONTÉ SANS LOGO CENTRAL -->
+      <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-8 pt-12 pb-20 lg:pt-20 lg:pb-32 text-center bg-transparent">
         
         <!-- TITRE BI-STYLE RAFFINÉ -->
@@ -305,11 +305,13 @@
         <!-- Slider Partenaires -->
         <div class="logo-section">
           <div class="logo-slider">
+              <!-- Série 1 -->
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
+              <!-- Série 2 (Boucle) -->
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
@@ -328,6 +330,7 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <!-- Restaurant -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#278299]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🍽️</div>
@@ -341,6 +344,7 @@
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
             </div>
 
+            <!-- Activités -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#315a97]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🎯</div>
@@ -354,6 +358,7 @@
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
             </div>
 
+            <!-- Hébergement -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🏡</div>
@@ -372,7 +377,7 @@
       <!-- PAGE DÉMONSTRATIONS -->
       <div id="page-demo" class="page overflow-hidden">
         <aside class="demo-sidebar shadow-2xl">
-          <div class="mb-12">
+          <div class="mb-12 text-left">
             <h4 class="text-white font-black text-[10px] uppercase tracking-[0.5em] mb-4">La Galerie</h4>
             <p class="text-[10px] text-white/30 italic font-serif leading-relaxed">Vivez l'expérience immersive en un clic.</p>
           </div>
@@ -386,9 +391,13 @@
           </nav>
         </aside>
         <div class="frame-container">
-          <!-- Fenêtre agrandie grâce au CSS corrigé -->
           <div class="virtual-frame border-4 border-[#004047]">
-              <iframe id="demo-frame" src="https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html" class="w-full h-full border-none" allowfullscreen allow="gyroscope; accelerometer; fullscreen"></iframe>
+              <!-- Mise à jour des permissions allow pour activer toutes les options interactives des visites -->
+              <iframe id="demo-frame" 
+                      src="https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html" 
+                      class="w-full h-full border-none" 
+                      allow="accelerometer; autoplay; gyroscope; magnetometer; vr; xr-spatial-tracking; fullscreen" 
+                      allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -417,12 +426,12 @@
                 <h3 class="text-white font-black text-[11px] uppercase tracking-[0.5em] opacity-30 text-center">Nos Fondations</h3>
                 <div class="space-y-6">
                     <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white">
-                        <div class="text-2xl font-black mb-3 font-serif italic">Humain</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
+                        <div class="text-2xl font-black mb-3 font-serif italic text-left">Humain</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed text-left">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
                     </div>
                     <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white">
-                        <div class="text-2xl font-black mb-3 font-serif italic">Simple</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed">Une technologie invisible pour une navigation fluide et instinctive.</p>
+                        <div class="text-2xl font-black mb-3 font-serif italic text-left">Simple</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed text-left">Une technologie invisible pour une navigation fluide et instinctive.</p>
                     </div>
                 </div>
             </div>
@@ -433,26 +442,26 @@
       <div id="page-contact" class="page px-8 py-24 max-w-5xl mx-auto">
         <div class="bg-white p-16 md:p-24 rounded-[4rem] shadow-2xl border border-slate-100 text-center relative overflow-hidden">
             <div class="text-center mb-24 space-y-6">
-                <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.8em] block">Alliance</span>
-                <h2 class="text-5xl font-serif italic text-slate-900 tracking-tighter">Écrivons votre <span class="font-sans font-black text-slate-200">Futur.</span></h2>
+                <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.8em] block text-center">Alliance</span>
+                <h2 class="text-5xl font-serif italic text-slate-900 tracking-tighter text-center">Écrivons votre <span class="font-sans font-black text-slate-200">Futur.</span></h2>
             </div>
 
             <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
-              <div class="space-y-10">
-                <div class="group">
-                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors">Votre Nom</label>
+              <div class="space-y-10 text-left">
+                <div class="group text-left">
+                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left">Votre Nom</label>
                   <input type="text" placeholder="JEAN DUPONT" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold">
                 </div>
-                <div class="group">
-                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors">Votre Email</label>
-                  <input type="email" placeholder="CONTACT@ENTREPRISE.FR" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold">
+                <div class="group text-left">
+                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left">Votre Email</label>
+                  <input type="email" placeholder="CONTACT@ENTREPRISE.FR" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold text-left">
                 </div>
               </div>
-              <div class="flex flex-col group">
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors">Votre Vision</label>
+              <div class="flex flex-col group text-left">
+                <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left">Votre Vision</label>
                 <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold"></textarea>
               </div>
-              <div class="md:col-span-2 pt-10">
+              <div class="md:col-span-2 pt-10 text-center">
                 <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all">Transmettre la demande</button>
               </div>
               <div id="form-feedback" class="md:col-span-2 hidden text-center text-[#278299] font-black p-8 bg-[#278299]/5 rounded-3xl text-xs uppercase tracking-[0.4em]">✓ Votre vision a été transmise avec succès.</div>
@@ -460,9 +469,9 @@
             
             <!-- QR CODE -->
             <div class="mt-40 pt-20 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-20 text-left">
-                <div class="max-w-md space-y-6">
-                    <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter">Mobilité <span class="font-serif italic font-light text-[#278299]">Sans Compromis</span></h4>
-                    <p class="text-xs text-slate-500 font-light leading-relaxed uppercase tracking-[0.2em]">Scannez pour activer l'expérience Nova360 sur votre terminal personnel.</p>
+                <div class="max-w-md space-y-6 text-left">
+                    <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter text-left">Mobilité <span class="font-serif italic font-light text-[#278299]">Sans Compromis</span></h4>
+                    <p class="text-xs text-slate-500 font-light leading-relaxed uppercase tracking-[0.2em] text-left">Scannez pour activer l'expérience Nova360 sur votre terminal personnel.</p>
                 </div>
                 <div class="p-10 bg-white rounded-[3.5rem] shadow-2xl border border-slate-50 relative group">
                     <div class="absolute inset-0 bg-[#278299]/5 rounded-[3.5rem] scale-0 group-hover:scale-100 transition-transform duration-500"></div>
@@ -476,7 +485,7 @@
 
     <!-- FOOTER -->
     <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5">
-      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center">
+      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center">
         <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0">
             <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none">
             <div class="h-10 w-px bg-white/10 hidden md:block"></div>
