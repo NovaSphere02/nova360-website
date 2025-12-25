@@ -5,7 +5,7 @@
   <!-- Application Structure Plan: 
        Restauration complète de l'architecture de l'information originale.
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
-       2. Accueil : Impact visuel raffiné (Hero Section) avec une typographie hybride élégante et logo centralisé (corrigé avec lien direct .png).
+       2. Accueil : Impact visuel raffiné (Hero Section) avec une typographie hybride élégante et logo centralisé agrandi.
        3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées (Correction liseré Tourisme).
        4. Démonstrations : Espace immersif avec barre latérale et châssis sécurisé.
        5. Vision : 4 onglets thématiques expliquant la mission.
@@ -30,7 +30,7 @@
       --surface: #004047;    /* Surface sombre */
       --text: #f8fafc;
       --glass: rgba(0, 86, 94, 0.85);
-      --nav-height: 73px;    
+      --nav-height: 80px;    
     }
 
     * {
@@ -261,8 +261,8 @@
     <nav class="glass-nav sticky top-0 z-50 border-b border-white/10">
       <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')">
-          <!-- Utilisation du nouveau lien direct pour le logo dans la nav -->
-          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
+          <!-- Logo de navigation légèrement agrandi -->
+          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-12 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
           <span id="logo-fallback" class="text-2xl font-black hidden text-white tracking-tighter">Nova360</span>
         </div>
 
@@ -298,12 +298,12 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
-        <!-- Logo central non cliquable avec le lien direct corrigé -->
-        <div class="flex justify-center mb-12">
-          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo Nova360" class="h-16 md:h-20 w-auto pointer-events-none select-none shadow-xl rounded-xl opacity-90">
+        <!-- Logo central agrandi et bien visible -->
+        <div class="flex justify-center mb-16">
+          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo Nova360" class="h-28 md:h-36 w-auto pointer-events-none select-none shadow-xl rounded-2xl opacity-90">
         </div>
 
-        <!-- TITRE RAFFINÉ ET CLASSE (DIMENSION RÉDUITE) -->
+        <!-- TITRE RAFFINÉ ET CLASSE -->
         <div class="mb-12">
             <span class="text-white/40 font-medium uppercase tracking-[0.4em] text-xs mb-4 block tracking-tighter">Plateforme Immersive</span>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight tracking-tight text-white">
