@@ -5,16 +5,15 @@
   <!-- Application Structure Plan: 
        Restauration complète de l'architecture de l'information originale.
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
-       2. Accueil : Impact visuel raffiné avec une typographie hybride (Serif/Sans) et logo central.
-       3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées.
+       2. Accueil : Impact visuel raffiné (Hero Section) avec une typographie hybride élégante et logo centralisé.
+       3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées (Correction liseré Tourisme).
        4. Démonstrations : Espace immersif avec barre latérale et châssis sécurisé.
        5. Vision : 4 onglets thématiques expliquant la mission.
        6. Engagement : Formulaire de contact complet et section QR Code.
   -->
   <!-- Visualization & Content Choices: 
-       - Information Architect Strategy: Utilisation de contrastes typographiques pour une lecture plus "premium".
-       - Interaction : JS Vanilla pour la navigation sans rafraîchissement.
-       - Correction Visuelle : Titre réduit et logo stabilisé.
+       - Stratégie de l'Architecte de l'Information : Utilisation de la police 'Playfair Display' pour le côté prestige et 'Inter' pour la modernité.
+       - Interaction : JS Vanilla pour la navigation sans rafraîchissement et coupure du son des iframes.
        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
   -->
 
@@ -262,19 +261,19 @@
     <nav class="glass-nav sticky top-0 z-50 border-b border-white/10">
       <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')">
-          <img src="Logo_Nova_360_V2.0.jpg" alt="Nova360" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
-          <span id="logo-fallback" class="text-2xl font-black hidden text-white">Nova360</span>
+          <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
+          <span id="logo-fallback" class="text-2xl font-black hidden text-white tracking-tighter">Nova360</span>
         </div>
 
         <div class="hidden md:flex space-x-8 text-white">
-          <a href="#home" class="nav-link active font-medium" data-page="home">Accueil</a>
-          <a href="#categories" class="nav-link font-medium" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link font-medium" data-page="demo">Démonstrations</a>
-          <a href="#about" class="nav-link font-medium" data-page="about">Vision</a>
-          <a href="#contact" class="nav-link font-medium" data-page="contact">Contact</a>
+          <a href="#home" class="nav-link active font-medium text-xs uppercase tracking-widest" data-page="home">Accueil</a>
+          <a href="#categories" class="nav-link font-medium text-xs uppercase tracking-widest" data-page="categories">Catégories</a>
+          <a href="#demo" class="nav-link font-medium text-xs uppercase tracking-widest" data-page="demo">Démonstrations</a>
+          <a href="#about" class="nav-link font-medium text-xs uppercase tracking-widest" data-page="about">Vision</a>
+          <a href="#contact" class="nav-link font-medium text-xs uppercase tracking-widest" data-page="contact">Contact</a>
         </div>
 
-        <button onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')" class="cta-button hidden md:block text-sm font-semibold px-6 py-2.5 rounded-full text-white">
+        <button onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')" class="cta-button hidden md:block text-[10px] font-bold px-6 py-2.5 rounded-full text-white uppercase tracking-widest">
           Lancer Nova 360
         </button>
 
@@ -298,49 +297,52 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
-        <!-- Logo central non cliquable et visible -->
-        <div class="flex justify-center mb-10">
-          <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Logo Nova360" class="h-20 md:h-24 w-auto pointer-events-none select-none shadow-xl rounded-2xl">
+        <!-- Logo central non cliquable -->
+        <div class="flex justify-center mb-12">
+          <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Logo Nova360" class="h-16 md:h-20 w-auto pointer-events-none select-none shadow-xl rounded-xl opacity-90">
         </div>
 
-        <!-- TITRE IMPACTANT ET ÉLÉGANT -->
-        <h1 class="text-4xl md:text-6xl font-light leading-tight tracking-tight text-white mb-8">
-          Un seul endroit <br>
-          <span class="font-serif italic text-[#278299] text-5xl md:text-7xl">pour explorer</span><br>
-          <span class="font-black block text-2xl md:text-4xl uppercase tracking-[0.25em] text-white/50 mt-4">tous les autres</span>
-        </h1>
+        <!-- TITRE RAFFINÉ ET CLASSE -->
+        <div class="mb-12">
+            <span class="text-white/40 font-medium uppercase tracking-[0.4em] text-xs mb-4 block">Plateforme Immersive</span>
+            <h1 class="text-4xl md:text-6xl font-light leading-tight tracking-tight text-white">
+              Un seul endroit <br>
+              <span class="font-serif italic text-[#278299] text-5xl md:text-7xl block my-2">pour explorer</span>
+              <span class="font-black text-2xl md:text-4xl uppercase tracking-[0.2em] text-white/60">tous les autres</span>
+            </h1>
+        </div>
         
-        <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-12 font-medium">
-            Découvrez des lieux exceptionnels grâce à la visite virtuelle nouvelle génération. Accessible partout, tout le temps.
+        <p class="text-lg text-slate-300 max-w-xl mx-auto mb-12 font-light leading-relaxed">
+            Découvrez le monde à travers une expérience numérique d'exception. Accessible partout, tout le temps.
         </p>
         
         <div class="flex flex-col sm:flex-row justify-center gap-6 mb-24">
-          <button class="cta-button px-10 py-5 rounded-full text-white font-black text-sm shadow-xl uppercase tracking-widest" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
-          <button class="cta-button px-10 py-5 rounded-full text-white font-black text-sm shadow-xl uppercase tracking-widest" onclick="navigateToPage('demo')">Démonstrations</button>
+          <button class="cta-button px-10 py-4 rounded-full text-white font-black text-xs shadow-xl uppercase tracking-widest" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
+          <button class="cta-button px-10 py-4 rounded-full text-white font-black text-xs shadow-xl uppercase tracking-widest" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-6xl mx-auto px-4">
             <div class="feature-card p-10 rounded-3xl cursor-pointer" onclick="navigateToPage('categories')">
-              <div class="text-3xl mb-6">🌍</div>
-              <h3 class="text-xl font-bold mb-3 text-white">Visites 360°</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Une immersion fluide et interactive pour un réalisme saisissant dans chaque détail.</p>
+              <div class="text-3xl mb-6 opacity-80">🌍</div>
+              <h3 class="text-lg font-bold mb-3 text-white uppercase tracking-wider">Visites 360°</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Une immersion fluide et interactive pour un réalisme saisissant.</p>
             </div>
             <div class="feature-card p-10 rounded-3xl">
-              <div class="text-3xl mb-6">👥</div>
-              <h3 class="text-xl font-bold mb-3 text-white">Multi-secteurs</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Restaurants, Immobilier, Tourisme ou Commerces : une solution adaptée.</p>
+              <div class="text-3xl mb-6 opacity-80">👥</div>
+              <h3 class="text-lg font-bold mb-3 text-white uppercase tracking-wider">Multi-secteurs</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Restaurants, Immobilier ou Commerces : une solution sur-mesure.</p>
             </div>
             <div class="feature-card p-10 rounded-3xl">
-              <div class="text-3xl mb-6">✨</div>
-              <h3 class="text-xl font-bold mb-3 text-white">Ultra Rapide</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">Chargement instantané sur mobile et desktop pour ne jamais perdre l'attention.</p>
+              <div class="text-3xl mb-6 opacity-80">✨</div>
+              <h3 class="text-lg font-bold mb-3 text-white uppercase tracking-wider">Ultra Rapide</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Chargement instantané pour une expérience utilisateur optimale.</p>
             </div>
         </div>
 
         <!-- Slider Partenaires -->
         <div class="py-24 overflow-hidden border-t border-white/5 mt-16">
-          <h3 class="text-2xl font-bold mb-12 text-white/30 uppercase tracking-widest text-xs">Ils nous font confiance</h3>
-          <div class="logo-slider">
+          <h3 class="text-[10px] font-bold mb-12 text-white/30 uppercase tracking-[0.3em]">Ils nous font confiance</h3>
+          <div class="logo-slider opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-700">
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
@@ -357,82 +359,82 @@
       <div id="page-categories" class="page px-4 py-20 max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-black mb-4 text-white">Nos Catégories</h2>
-            <p class="text-slate-400 max-w-2xl mx-auto">Explorez les lieux d'une manière immersive grâce à nos visites virtuelles 360°.</p>
+            <p class="text-slate-400 max-w-2xl mx-auto font-light">Explorez les lieux d'une manière immersive grâce à nos visites virtuelles 360°.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Restaurant -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">🍽️</span>
-              <h3 class="text-2xl font-bold mb-4 text-white">Restaurants</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Faites découvrir l'ambiance de votre établissement en facilitant la découverte, grâce à la visite virtuelle 360° interactive.</p>
-              <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Coordonnées pour appeler</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Lien vers les réseaux sociaux</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Fichier, PDF et vidéo</li>
+              <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Restaurants</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Faites découvrir l'ambiance de votre établissement en facilitant la découverte interactive.</p>
+              <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Appels directs</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réseaux sociaux</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Vidéo & PDF</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-[10px] tracking-[0.2em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
             </div>
 
             <!-- Activités -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block">🎯</span>
-              <h3 class="text-2xl font-bold mb-4 text-white">Activités</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs et captiver votre audience.</p>
-              <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Vivez l'expérience comme si vous y étiez</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Valorisation de vos espaces de divertissement</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Immersion totale pour captiver vos futurs clients</li>
+              <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Activités</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs.</p>
+              <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Immersion totale</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Valorisation</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Captiver l'audience</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-[10px] tracking-[0.2em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
             </div>
 
             <!-- Hébergement -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">🏡</span>
-              <h3 class="text-2xl font-bold mb-4 text-white">Hébergements</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Explorez des lieux d'exception pour vos séjours et rassurez vos voyageurs sur le confort et la disposition des lieux.</p>
-              <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Visite "comme à la maison"</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Lien de réservation</li>
+              <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Hébergements</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Explorez des lieux d'exception pour vos séjours et rassurez vos voyageurs.</p>
+              <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Visite réaliste</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réservation directe</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-[10px] tracking-[0.2em]" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
             </div>
 
             <!-- Shopping -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block">🛍️</span>
-              <h3 class="text-2xl font-bold mb-4 text-white">Shopping</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique physique en un espace de démonstration digital accessible 24h/24 et 7j/7.</p>
-              <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Tags produits interactifs</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Visibilité SEO accrue</li>
+              <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Shopping</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique en un espace de démonstration digital accessible 24h/24.</p>
+              <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Tags produits</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Visibilité SEO</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-[10px] tracking-[0.2em]" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">VISITER</button>
             </div>
 
             <!-- Professionnels -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">💼</span>
-              <h3 class="text-2xl font-bold mb-4 text-white">Professionnels</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux, démonstrations et espaces industriels pour vos clients et futurs collaborateurs.</p>
-              <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
+              <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Professionnels</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux et espaces industriels pour vos clients et collaborateurs.</p>
+              <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Espaces de travail</li>
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Branding immersif</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Branding</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-xs" onclick="navigateToPage('demo')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-[10px] tracking-[0.2em]" onclick="navigateToPage('demo')">VISITER</button>
             </div>
 
             <!-- Tourisme -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block text-white">🗺️</span>
-              <h3 class="text-2xl font-bold mb-4 text-white">Tourisme</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez le patrimoine culturel et les sites naturels pour attirer les visiteurs du monde entier.</p>
-              <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Valorisation patrimoine</li>
+              <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Tourisme</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez le patrimoine culturel et naturel pour attirer les visiteurs du monde entier.</p>
+              <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Patrimoine</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Exploration libre</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-bold text-[10px] tracking-[0.2em]" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">VISITER</button>
             </div>
         </div>
       </div>
@@ -460,26 +462,26 @@
       <!-- PAGE VISION -->
       <div id="page-about" class="page px-4 py-20 max-w-5xl mx-auto text-center">
         <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden">
-            <h2 class="text-4xl font-black mb-8 text-white">À propos de Nova360</h2>
+            <h2 class="text-4xl font-black mb-8 text-white uppercase tracking-tighter">Notre Vision</h2>
             <div class="space-y-8 text-slate-300 text-lg leading-relaxed">
-              <p><strong>Nova360</strong> est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité des <strong>entreprises</strong>, des <strong>particuliers</strong> et des <strong>professionnels</strong> à travers une expérience numérique d'exception.</p>
+              <p class="font-light"><strong>Nova360</strong> est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité à travers une expérience numérique d'exception.</p>
               
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12">
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2 text-center">360°</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Immersion</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase">360°</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Immersion</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2 text-center">MÉDIA</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Vidéo & PDF</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase">MÉDIA</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Vidéo & PDF</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2 text-center">HUMAIN</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Convivialité</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase">HUMAIN</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Convivialité</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2 text-center">SIMPLE</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Intuition</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase">SIMPLE</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Intuition</div>
                 </div>
               </div>
             </div>
@@ -489,36 +491,36 @@
       <!-- PAGE CONTACT -->
       <div id="page-contact" class="page px-4 py-20 max-w-xl mx-auto text-center space-y-12 text-white">
         <div class="space-y-4">
-            <h2 class="text-5xl font-black italic">Un projet ?</h2>
-            <h3 class="text-2xl font-bold text-white mb-2">Vous voulez rejoindre Nova360 ?</h3>
-            <p class="text-xl text-[#278299] font-bold">Augmentez votre visibilité grâce à la visite virtuelle interactive de Nova360.</p>
+            <h2 class="text-5xl font-serif italic">Contact</h2>
+            <h3 class="text-xl font-bold text-white mb-2 uppercase tracking-widest">Rejoindre Nova360</h3>
+            <p class="text-sm text-[#278299] font-bold uppercase tracking-widest">Augmentez votre visibilité digitale.</p>
         </div>
 
         <form id="contact-form" class="space-y-6 bg-white/5 p-12 rounded-[2.5rem] border border-white/10 shadow-2xl text-left">
           <div>
-            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Nom Complet</label>
-            <input type="text" placeholder="Jean Dupont" required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299]">
+            <label class="block text-[9px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Nom Complet</label>
+            <input type="text" placeholder="Jean Dupont" required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299] text-sm">
           </div>
           <div>
-            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Email Professionnel</label>
-            <input type="email" placeholder="contact@votre-entreprise.fr" required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299]">
+            <label class="block text-[9px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Email</label>
+            <input type="email" placeholder="contact@votre-entreprise.fr" required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299] text-sm">
           </div>
           <div>
-            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Message</label>
-            <textarea rows="4" placeholder="Décrivez votre besoin..." required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299]"></textarea>
+            <label class="block text-[9px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Message</label>
+            <textarea rows="4" placeholder="Votre projet..." required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299] text-sm"></textarea>
           </div>
-          <button type="submit" class="cta-button w-full py-6 rounded-2xl text-white font-black text-lg uppercase tracking-widest shadow-xl">Envoyer la demande</button>
-          <div id="form-feedback" class="hidden text-center text-[#278299] font-black p-4 bg-white/5 rounded-2xl border border-[#278299]/20">✓ Message transmis avec succès !</div>
+          <button type="submit" class="cta-button w-full py-6 rounded-2xl text-white font-black text-xs uppercase tracking-[0.25em] shadow-xl transition-all">Envoyer la demande</button>
+          <div id="form-feedback" class="hidden text-center text-[#278299] font-black p-4 bg-white/5 rounded-2xl border border-[#278299]/20 text-xs uppercase tracking-widest">✓ Message transmis avec succès !</div>
         </form>
 
         <!-- QR SECTION -->
         <div class="bg-white/5 p-10 rounded-[3rem] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20">
             <div class="text-left space-y-2">
-                <h4 class="text-2xl font-black text-white">Emportez l'expérience</h4>
-                <p class="text-sm text-slate-400">Scannez ce QR Code pour ouvrir l'application sur smartphone.</p>
+                <h4 class="text-xl font-black text-white uppercase tracking-tighter">Emportez l'expérience</h4>
+                <p class="text-xs text-slate-400 font-light leading-relaxed">Scannez ce QR Code pour ouvrir l'application sur smartphone.</p>
             </div>
             <div class="p-4 bg-white rounded-3xl shadow-xl">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://nova360.app.codinsight.app/&color=00565e" alt="QR Code" class="h-32 w-32">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://nova360.app.codinsight.app/&color=00565e" alt="QR Code" class="h-28 w-28">
             </div>
         </div>
       </div>
@@ -529,10 +531,10 @@
     <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-xs text-center">
       <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <div class="flex items-center gap-4 justify-center md:justify-start">
-            <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Logo Nova360" class="h-6 opacity-40 grayscale pointer-events-none">
-            <span>&copy; 2025 Nova360. Immersion garantie.</span>
+            <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Nova360" class="h-6 opacity-20 grayscale pointer-events-none">
+            <span class="font-light tracking-wide">&copy; 2025 Nova360. Immersion garantie.</span>
         </div>
-        <div class="flex space-x-8 mt-6 md:mt-0 font-bold uppercase tracking-widest justify-center">
+        <div class="flex space-x-8 mt-6 md:mt-0 font-bold uppercase tracking-[0.2em] justify-center text-[10px]">
           <a href="#" class="hover:text-white transition-colors underline decoration-[#278299]">Mentions légales</a>
           <a href="#" class="hover:text-white transition-colors underline decoration-[#278299]">Confidentialité</a>
         </div>
