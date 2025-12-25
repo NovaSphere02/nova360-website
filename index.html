@@ -1,14 +1,13 @@
 <!doctype html>
 <html lang="fr" class="h-full">
 <head>
-  <!-- Chosen Palette: Nova Petrol & Deep Blue on #D4D3DC Background -->
+  <!-- Chosen Palette: Midnight Sapphire & Tech Slate on #D4D3DC -->
   <!-- Application Structure Plan: 
-       Transition vers une esthétique "Modern Grey Premium" pour plus de profondeur.
-       1. Architecture : Fond en #D4D3DC pour une ambiance plus douce et haut de gamme.
-       2. Navigation : Reste en "Deep Duck Green" (#004047) pour le contraste.
-       3. Typographie : Contraste maintenu entre 'Inter' et 'Playfair Display'.
-       4. Hiérarchie : Le titre utilise les accents bleu pétrole sur le fond gris perle.
-       5. Cartes : Utilisent la couleur #D4D3DC avec des ombres portées pour le relief.
+       Transition vers une esthétique "Architectural Premium".
+       1. Architecture : Fond en #D4D3DC pour une douceur haut de gamme.
+       2. Navigation : Utilise un bleu saphir profond pour l'autorité visuelle.
+       3. Typographie : Alliance de Playfair Display (élégance) et Inter (précision).
+       4. Correction Logo Slider : Utilisation de flex-nowrap et flex-shrink-0 pour garantir l'alignement horizontal strict.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -19,11 +18,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #278299;    /* Bleu pétrole */
-      --secondary: #315a97;  /* Bleu profond */
-      --dark: #004047;       /* Vert canard profond */
-      --bg-custom: #D4D3DC;  /* Votre nouvelle couleur de fond */
-      --text-main: #0f172a;  /* Texte sombre pour lisibilité */
+      --primary: #1e40af;    /* Bleu Saphir plus intense */
+      --secondary: #334155;  /* Ardoise profonde */
+      --dark: #0f172a;       /* Bleu nuit presque noir pour la nav */
+      --accent: #278299;     /* Rappel de votre bleu pétrole en accent */
+      --bg-custom: #D4D3DC;  /* Votre couleur de fond spécifique */
+      --text-main: #1e293b;  
       --nav-height: 80px;    
     }
 
@@ -57,7 +57,6 @@
       transform: translateY(0);
     }
 
-    /* Header & Footer Style */
     .glass-nav {
       background-color: var(--dark);
       height: var(--nav-height);
@@ -66,7 +65,7 @@
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .nav-link:hover, .nav-link.active { color: white; }
@@ -78,24 +77,23 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--primary);
+      background: var(--accent);
       transition: width 0.3s ease;
     }
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* Feature Cards - Version Premium avec votre couleur */
     .feature-card {
-      background: var(--bg-custom);
+      background: white;
       border: 1px solid rgba(0, 0, 0, 0.05);
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
     }
 
     .feature-card:hover {
       transform: translateY(-10px);
-      box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15);
-      border-color: var(--primary);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      border-color: var(--accent);
     }
 
     .cta-button {
@@ -107,17 +105,60 @@
     .cta-button:hover {
       transform: translateY(-2px);
       filter: brightness(1.1);
-      box-shadow: 0 10px 20px -5px rgba(39, 130, 153, 0.4);
+      box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.4);
     }
 
-    /* Demo Sidebar remains dark for focus */
+    /* Correction Slider Horizontal */
+    .logo-container-full {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 40px 0;
+    }
+
+    .logo-slider {
+      display: flex;
+      flex-direction: row; /* Horizontal strict */
+      flex-wrap: nowrap;   /* Pas de retour à la ligne */
+      width: fit-content;
+      animation: scrollLogos 40s linear infinite;
+      align-items: center;
+    }
+
+    .logo-item {
+      flex-shrink: 0; /* Empêche les logos de s'écraser */
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-item img {
+      height: 45px;
+      width: auto;
+      filter: grayscale(1) contrast(0.8);
+      opacity: 0.6;
+      transition: all 0.4s ease;
+    }
+
+    .logo-item img:hover {
+      filter: grayscale(0) contrast(1);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    @keyframes scrollLogos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     .demo-sidebar {
       width: 260px;
       background: var(--dark);
       padding: 24px;
       overflow-y: auto;
       flex-shrink: 0;
-      z-index: 40;
     }
 
     .demo-item-btn {
@@ -127,13 +168,13 @@
       margin-bottom: 8px;
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.05);
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.5);
       font-size: 0.8rem;
       transition: all 0.2s ease;
     }
 
     .demo-item-btn:hover, .demo-item-btn.active {
-      background: var(--primary);
+      background: var(--accent);
       color: white;
     }
 
@@ -142,16 +183,7 @@
       flex-direction: row;
       height: calc(100vh - var(--nav-height));
       width: 100vw;
-      overflow: hidden;
       background: #000;
-    }
-
-    .virtual-frame {
-        width: 100%;
-        max-width: 1400px;
-        height: 100%;
-        background: #000;
-        box-shadow: 0 0 50px rgba(0,0,0,0.5);
     }
 
     @media (max-width: 768px) {
@@ -159,38 +191,28 @@
       .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 10px; gap: 6px; }
       .demo-item-btn { margin-bottom: 0; white-space: nowrap; }
     }
-
-    .logo-slider img {
-      filter: grayscale(1) contrast(1.2);
-      opacity: 0.4;
-      transition: all 0.3s ease;
-    }
-    .logo-slider img:hover {
-      filter: grayscale(0);
-      opacity: 1;
-    }
   </style>
 </head>
 <body class="h-full w-full">
   <div id="app" class="flex flex-col min-h-screen">
     
     <!-- NAVIGATION PRESTIGE -->
-    <nav class="glass-nav sticky top-0 z-50 shadow-lg">
+    <nav class="glass-nav sticky top-0 z-50 shadow-2xl">
       <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center gap-3" onclick="navigateToPage('home')">
-          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-12 w-auto brightness-200">
+          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-10 w-auto brightness-0 invert">
           <span class="text-white font-black tracking-tighter text-xl md:hidden">Nova360</span>
         </div>
 
         <div class="hidden md:flex space-x-10">
-          <a href="#home" class="nav-link active font-semibold text-[11px] uppercase tracking-[0.2em]" data-page="home">Accueil</a>
-          <a href="#categories" class="nav-link font-semibold text-[11px] uppercase tracking-[0.2em]" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link font-semibold text-[11px] uppercase tracking-[0.2em]" data-page="demo">Démonstrations</a>
-          <a href="#about" class="nav-link font-semibold text-[11px] uppercase tracking-[0.2em]" data-page="about">Vision</a>
-          <a href="#contact" class="nav-link font-semibold text-[11px] uppercase tracking-[0.2em]" data-page="contact">Contact</a>
+          <a href="#home" class="nav-link active font-semibold text-[11px] uppercase tracking-[0.25em]" data-page="home">Accueil</a>
+          <a href="#categories" class="nav-link font-semibold text-[11px] uppercase tracking-[0.25em]" data-page="categories">Catégories</a>
+          <a href="#demo" class="nav-link font-semibold text-[11px] uppercase tracking-[0.25em]" data-page="demo">Démonstrations</a>
+          <a href="#about" class="nav-link font-semibold text-[11px] uppercase tracking-[0.25em]" data-page="about">Vision</a>
+          <a href="#contact" class="nav-link font-semibold text-[11px] uppercase tracking-[0.25em]" data-page="contact">Contact</a>
         </div>
 
-        <button onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')" class="cta-button text-[10px] font-bold px-8 py-3 rounded-full uppercase tracking-widest">
+        <button onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')" class="cta-button text-[10px] font-bold px-8 py-3 rounded-full uppercase tracking-widest shadow-lg">
           Lancer Nova 360
         </button>
 
@@ -201,7 +223,7 @@
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#004047] border-b border-white/10 flex flex-col p-6 space-y-4 text-white">
+      <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#0f172a] border-b border-white/10 flex flex-col p-6 space-y-4 text-white z-[100]">
           <a href="#home" class="nav-link text-sm uppercase tracking-widest" data-page="home">Accueil</a>
           <a href="#categories" class="nav-link text-sm uppercase tracking-widest" data-page="categories">Catégories</a>
           <a href="#demo" class="nav-link text-sm uppercase tracking-widest" data-page="demo">Démonstrations</a>
@@ -213,60 +235,63 @@
     <main class="flex-grow">
       
       <!-- PAGE ACCUEIL -->
-      <div id="page-home" class="page active px-6 py-20 lg:py-32 text-center">
-        <!-- Logo central focal -->
-        <div class="flex justify-center mb-16">
-          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo Nova360" class="h-24 md:h-28 w-auto pointer-events-none select-none drop-shadow-md">
+      <div id="page-home" class="page active px-6 py-20 lg:py-32 text-center bg-transparent">
+        <!-- Logo central focal agrandi -->
+        <div class="flex justify-center mb-20">
+          <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo Nova360" class="h-28 md:h-36 w-auto pointer-events-none select-none drop-shadow-lg">
         </div>
 
-        <!-- TITRE RAFFINÉ -->
-        <div class="mb-16">
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-light leading-tight tracking-tight text-slate-800">
+        <!-- TITRE ARCHITECTURAL -->
+        <div class="mb-20">
+            <h1 class="text-3xl md:text-5xl lg:text-7xl font-light leading-tight tracking-tight text-slate-900">
               Un seul endroit <br>
-              <span class="font-serif italic text-[#278299] text-4xl md:text-7xl lg:text-8xl block my-4">pour explorer</span>
-              <span class="font-black text-xl md:text-3xl lg:text-4xl uppercase tracking-[0.4em] text-slate-600/40">tous les autres</span>
+              <span class="font-serif italic text-[#278299] text-5xl md:text-8xl lg:text-9xl block my-6">pour explorer</span>
+              <span class="font-black text-xl md:text-3xl lg:text-4xl uppercase tracking-[0.5em] text-slate-400">tous les autres</span>
             </h1>
         </div>
         
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
-            Redéfinissez l'immersion. Nova360 transforme vos espaces physiques en expériences numériques d'exception, accessibles partout et instantanément.
+        <p class="text-lg text-slate-600 max-w-xl mx-auto mb-20 font-light leading-relaxed">
+            Élevez votre présence digitale. Nova360 fusionne architecture réelle et immersion virtuelle pour des expériences sans frontières.
         </p>
         
-        <div class="flex flex-col sm:flex-row justify-center gap-8 mb-32">
-          <button class="cta-button px-12 py-5 rounded-full font-black text-[11px] shadow-lg uppercase tracking-[0.2em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
-          <button class="border-2 border-slate-400/30 hover:border-[#278299] text-slate-700 px-12 py-5 rounded-full font-black text-[11px] transition-all uppercase tracking-[0.2em]" onclick="navigateToPage('demo')">Démonstrations</button>
+        <div class="flex flex-col sm:flex-row justify-center gap-10 mb-40">
+          <button class="cta-button px-14 py-6 rounded-full font-black text-[11px] shadow-2xl uppercase tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
+          <button class="border-2 border-slate-900 hover:border-[#278299] hover:text-[#278299] text-slate-900 px-14 py-6 rounded-full font-black text-[11px] transition-all uppercase tracking-[0.3em]" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
 
-        <!-- Cartes accueil épurées -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-6 mb-24">
-            <div class="feature-card p-12 rounded-2xl border-l-4 border-[#278299]">
-              <div class="text-2xl mb-8 opacity-30 italic font-serif text-slate-800">01.</div>
-              <h3 class="text-sm font-black text-slate-800 uppercase tracking-[0.2em] mb-4">Visites 360°</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light">Une fluidité inégalée pour un réalisme qui capte l'attention dès la première seconde.</p>
+        <!-- Cards en relief sur fond gris -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-6 mb-32">
+            <div class="feature-card p-12 rounded-2xl border-t-4 border-[#278299]">
+              <div class="text-3xl mb-8 font-serif italic text-slate-300">I.</div>
+              <h3 class="text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-4">Immersion Totale</h3>
+              <p class="text-slate-500 text-sm leading-relaxed font-light">Une technologie de pointe pour une sensation de présence absolue dans chaque lieu visité.</p>
             </div>
-            <div class="feature-card p-12 rounded-2xl border-l-4 border-[#315a97]">
-              <div class="text-2xl mb-8 opacity-30 italic font-serif text-slate-800">02.</div>
-              <h3 class="text-sm font-black text-slate-800 uppercase tracking-[0.2em] mb-4">Multi-secteurs</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light">Immobilier, Hôtellerie ou Industrie : nous adaptons la technologie à vos besoins métiers.</p>
+            <div class="feature-card p-12 rounded-2xl border-t-4 border-[#1e40af]">
+              <div class="text-3xl mb-8 font-serif italic text-slate-300">II.</div>
+              <h3 class="text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-4">Stratégie Digitale</h3>
+              <p class="text-slate-500 text-sm leading-relaxed font-light">Plus qu'une image, nous créons un outil de conversion puissant pour votre activité.</p>
             </div>
-            <div class="feature-card p-12 rounded-2xl border-l-4 border-slate-400">
-              <div class="text-2xl mb-8 opacity-30 italic font-serif text-slate-800">03.</div>
-              <h3 class="text-sm font-black text-slate-800 uppercase tracking-[0.2em] mb-4">Haute Performance</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light">Une technologie optimisée pour le web mobile, garantissant zéro latence.</p>
+            <div class="feature-card p-12 rounded-2xl border-t-4 border-slate-900">
+              <div class="text-3xl mb-8 font-serif italic text-slate-300">III.</div>
+              <h3 class="text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-4">Prestige & Qualité</h3>
+              <p class="text-slate-500 text-sm leading-relaxed font-light">Chaque pixel est optimisé pour refléter le haut standard de votre propre marque.</p>
             </div>
         </div>
 
-        <!-- Slider Partenaires -->
-        <div class="py-20 border-t border-slate-400/10">
-          <h3 class="text-[9px] font-bold mb-16 text-slate-500 uppercase tracking-[0.4em]">Confiances & Collaborations</h3>
+        <!-- Slider Partenaires Corrigé (Horizontal Strict) -->
+        <div class="logo-container-full border-t border-slate-900/10">
+          <h3 class="text-[10px] font-bold mb-12 text-slate-400 uppercase tracking-[0.5em]">Collaborations de Prestige</h3>
           <div class="logo-slider">
-              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
-              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
-              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
-              <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
-              <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
-              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
-              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Logo Partenaire" class="h-12 w-auto"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Logo 5"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Logo 4"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Logo 1"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Logo 2"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Logo 3"></div>
+              <!-- Duplicate pour boucle infinie -->
+              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Logo 5"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Logo 4"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Logo 1"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Logo 2"></div>
           </div>
         </div>
       </div>
@@ -274,66 +299,58 @@
       <!-- PAGE CATÉGORIES -->
       <div id="page-categories" class="page px-6 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-24">
-            <span class="text-[#278299] font-black text-[10px] uppercase tracking-[0.5em] mb-4 block">Expertises</span>
-            <h2 class="text-4xl md:text-5xl font-light text-slate-800 uppercase tracking-tighter text-center">Nos <span class="font-serif italic">Catégories</span></h2>
-            <div class="w-20 h-1 bg-[#278299] mx-auto mt-6"></div>
+            <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.6em] mb-4 block">Départements</span>
+            <h2 class="text-4xl md:text-5xl font-light text-slate-900 uppercase tracking-tighter">Nos <span class="font-serif italic">Expertises</span></h2>
+            <div class="w-16 h-0.5 bg-slate-900 mx-auto mt-8 opacity-20"></div>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div class="feature-card p-12 rounded-xl flex flex-col group">
-              <div class="flex justify-between items-start mb-8">
-                  <span class="text-3xl">🍽️</span>
-                  <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secteur 01</span>
-              </div>
-              <h3 class="text-lg font-black text-slate-800 mb-4 uppercase tracking-wider">Restaurants</h3>
-              <p class="text-slate-600 text-sm mb-8 leading-relaxed font-light">Valorisez l'ambiance de votre table et facilitez la découverte visuelle avant réservation.</p>
-              <ul class="text-[10px] text-slate-500 space-y-3 mb-10 border-t border-slate-400/20 pt-8 uppercase tracking-widest">
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Appels directs</li>
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réseaux sociaux</li>
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Vidéo & PDF</li>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <div class="feature-card p-12 rounded-2xl flex flex-col group border-none">
+              <div class="text-3xl mb-8">🍽️</div>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 uppercase tracking-widest font-serif italic">Restaurants</h3>
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">L'art de la table rencontre l'art numérique. Sublimez votre gastronomie.</p>
+              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 uppercase tracking-widest font-bold">
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#278299] rotate-45"></span> Booking direct</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#278299] rotate-45"></span> Menu Interactif</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#278299] rotate-45"></span> Réseaux Sociaux</li>
               </ul>
-              <button class="cta-button py-4 rounded-full mt-auto font-black text-[9px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">DÉCOUVRIR</button>
+              <button class="cta-button py-4 rounded-full mt-auto font-black text-[10px] tracking-[0.4em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
             </div>
 
-            <div class="feature-card p-12 rounded-xl flex flex-col group">
-              <div class="flex justify-between items-start mb-8">
-                  <span class="text-3xl">🎯</span>
-                  <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secteur 02</span>
-              </div>
-              <h3 class="text-lg font-black text-slate-800 mb-4 uppercase tracking-wider">Activités</h3>
-              <p class="text-slate-600 text-sm mb-8 leading-relaxed font-light">Proposez une immersion totale pour captiver une audience en quête de sensations.</p>
-              <ul class="text-[10px] text-slate-500 space-y-3 mb-10 border-t border-slate-400/20 pt-8 uppercase tracking-widest">
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Expérience VR</li>
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Valorisation</li>
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Captation</li>
+            <div class="feature-card p-12 rounded-2xl flex flex-col group border-none">
+              <div class="text-3xl mb-8">🎯</div>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 uppercase tracking-widest font-serif italic">Activités</h3>
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Donnez un avant-goût du frisson. L'immersion pour capturer l'envie.</p>
+              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 uppercase tracking-widest font-bold">
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#1e40af] rotate-45"></span> Expérience VR</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#1e40af] rotate-45"></span> Teasing visuel</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#1e40af] rotate-45"></span> Adrénaline</li>
               </ul>
-              <button class="cta-button py-4 rounded-full mt-auto font-black text-[9px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">DÉCOUVRIR</button>
+              <button class="cta-button py-4 rounded-full mt-auto font-black text-[10px] tracking-[0.4em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
             </div>
 
-            <div class="feature-card p-12 rounded-xl flex flex-col group">
-              <div class="flex justify-between items-start mb-8">
-                  <span class="text-3xl">🏡</span>
-                  <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secteur 03</span>
-              </div>
-              <h3 class="text-lg font-black text-slate-800 mb-4 uppercase tracking-wider">Hébergements</h3>
-              <p class="text-slate-600 text-sm mb-8 leading-relaxed font-light">Rassurez vos voyageurs sur le confort de vos chambres avec une visite réaliste.</p>
-              <ul class="text-[10px] text-slate-500 space-y-3 mb-10 border-t border-slate-400/20 pt-8 uppercase tracking-widest">
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réalisme total</li>
-                <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réservation</li>
+            <div class="feature-card p-12 rounded-2xl flex flex-col group border-none">
+              <div class="text-3xl mb-8">🏡</div>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 uppercase tracking-widest font-serif italic">Hébergements</h3>
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort palpable. Rassurez et séduisez vos futurs résidents.</p>
+              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 uppercase tracking-widest font-bold">
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#278299] rotate-45"></span> Réalisme total</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#278299] rotate-45"></span> Confiance client</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 border border-[#278299] rotate-45"></span> Booking Pro</li>
               </ul>
-              <button class="cta-button py-4 rounded-full mt-auto font-black text-[9px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">DÉCOUVRIR</button>
+              <button class="cta-button py-4 rounded-full mt-auto font-black text-[10px] tracking-[0.4em]" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
             </div>
         </div>
       </div>
 
       <!-- PAGE DÉMONSTRATIONS -->
       <div id="page-demo" class="page overflow-hidden">
-        <aside class="demo-sidebar text-white shadow-2xl">
-          <div class="mb-10">
-            <h4 class="text-white font-black text-[10px] uppercase tracking-[0.3em] mb-4">Showroom Interactif</h4>
-            <p class="text-[10px] text-white/40 leading-relaxed italic font-serif">Sélectionnez un univers ci-dessous.</p>
+        <aside class="demo-sidebar shadow-2xl">
+          <div class="mb-12 border-b border-white/5 pb-8">
+            <h4 class="text-white font-black text-[10px] uppercase tracking-[0.4em] mb-4">Galerie Interactive</h4>
+            <p class="text-[10px] text-white/30 leading-relaxed font-light">Cliquez sur un secteur pour charger l'expérience.</p>
           </div>
-          <nav class="space-y-2">
+          <nav class="space-y-3">
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active">🍽️ &nbsp; Restaurants</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 &nbsp; Activités</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn">🏡 &nbsp; Hébergements</button>
@@ -351,34 +368,34 @@
 
       <!-- PAGE VISION -->
       <div id="page-about" class="page px-6 py-24 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div class="space-y-8 text-left">
-                <span class="text-[#278299] font-black text-[10px] uppercase tracking-[0.5em] block">Manifeste</span>
-                <h2 class="text-4xl md:text-5xl font-light text-slate-800 leading-tight">Redéfinir <br><span class="font-serif italic text-6xl">la visibilité.</span></h2>
-                <p class="text-lg text-slate-600 leading-relaxed font-light italic">
-                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité à travers une expérience numérique d'exception."
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div class="space-y-10">
+                <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.5em] block">Manifeste</span>
+                <h2 class="text-4xl md:text-6xl font-light text-slate-900 leading-tight tracking-tighter">L'Architecture <br><span class="font-serif italic text-7xl text-[#1e40af]">du Virtuel.</span></h2>
+                <p class="text-xl text-slate-500 leading-relaxed font-light italic border-l-4 border-slate-900 pl-8 py-4">
+                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur."
                 </p>
-                <div class="grid grid-cols-2 gap-6 pt-8">
-                    <div class="feature-card p-8 rounded-2xl text-center">
-                        <div class="text-3xl font-black text-[#278299] mb-2 font-serif">360°</div>
-                        <div class="text-[9px] uppercase font-bold text-slate-500 tracking-widest">Immersion pure</div>
+                <div class="grid grid-cols-2 gap-8 pt-8">
+                    <div class="bg-white p-10 rounded-2xl shadow-xl border border-slate-100 text-center">
+                        <div class="text-4xl font-black text-[#278299] mb-3 font-serif">360°</div>
+                        <div class="text-[9px] uppercase font-bold text-slate-400 tracking-[0.3em]">Pure Presence</div>
                     </div>
-                    <div class="feature-card p-8 rounded-2xl text-center">
-                        <div class="text-3xl font-black text-[#278299] mb-2 font-serif">MÉDIA</div>
-                        <div class="text-[9px] uppercase font-bold text-slate-500 tracking-widest">Vidéo & PDF</div>
+                    <div class="bg-white p-10 rounded-2xl shadow-xl border border-slate-100 text-center">
+                        <div class="text-4xl font-black text-[#1e40af] mb-3 font-serif">SMART</div>
+                        <div class="text-[9px] uppercase font-bold text-slate-400 tracking-[0.3em]">Média Tech</div>
                     </div>
                 </div>
             </div>
-            <div class="bg-[#004047] p-12 rounded-[2.5rem] shadow-2xl text-center space-y-8">
-                <h3 class="text-white font-black text-sm uppercase tracking-widest">Nos Piliers</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="p-6 bg-white/5 border border-white/10 rounded-xl text-white">
-                        <div class="text-xl font-black mb-1">Humain</div>
-                        <p class="text-[10px] opacity-60">Au coeur du digital</p>
+            <div class="bg-slate-900 p-16 rounded-[4rem] shadow-2xl text-center space-y-12">
+                <h3 class="text-white font-black text-xs uppercase tracking-[0.5em] opacity-40">Fondations</h3>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-white/10 transition-all cursor-default">
+                        <div class="text-2xl font-black mb-2 font-serif italic">Humain</div>
+                        <p class="text-[11px] opacity-40 uppercase tracking-widest">Placer l'utilisateur au centre</p>
                     </div>
-                    <div class="p-6 bg-white/5 border border-white/10 rounded-xl text-white">
-                        <div class="text-xl font-black mb-1">Simple</div>
-                        <p class="text-[10px] opacity-60">Interface intuitive</p>
+                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-white/10 transition-all cursor-default">
+                        <div class="text-2xl font-black mb-2 font-serif italic">Simple</div>
+                        <p class="text-[11px] opacity-40 uppercase tracking-widest">La complexité devenue invisible</p>
                     </div>
                 </div>
             </div>
@@ -386,41 +403,45 @@
       </div>
 
       <!-- PAGE CONTACT -->
-      <div id="page-contact" class="page px-6 py-24 max-w-4xl mx-auto">
-        <div class="feature-card p-12 md:p-20 rounded-[3rem] text-center border-none shadow-xl">
-            <div class="text-center mb-16 space-y-4">
-                <h2 class="text-4xl font-serif italic text-[#278299]">Contactez-nous</h2>
-                <p class="text-sm font-black uppercase tracking-widest text-slate-500">Pour un projet d'envergure</p>
+      <div id="page-contact" class="page px-6 py-24 max-w-5xl mx-auto">
+        <div class="bg-white p-16 md:p-24 rounded-[4rem] shadow-2xl border border-slate-100 relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-full blur-3xl opacity-50 -mr-32 -mt-32"></div>
+
+            <div class="text-center mb-24 space-y-6">
+                <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.5em] block">Connectons-nous</span>
+                <h2 class="text-5xl font-serif italic text-slate-900 tracking-tighter">Votre prochain <span class="font-sans font-black text-slate-200">chapitre.</span></h2>
             </div>
 
-            <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-              <div class="space-y-6">
+            <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left relative z-10">
+              <div class="space-y-8">
                 <div>
-                  <label class="block text-[9px] uppercase font-bold text-slate-500 mb-2 tracking-widest">Votre Nom</label>
-                  <input type="text" placeholder="Jean Dupont" required class="w-full px-6 py-4 bg-white border border-slate-200 rounded-xl text-slate-800 outline-none focus:border-[#278299] text-sm shadow-sm">
+                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-3 tracking-[0.3em]">Votre Nom</label>
+                  <input type="text" placeholder="JEAN DUPONT" required class="w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-2xl text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest">
                 </div>
                 <div>
-                  <label class="block text-[9px] uppercase font-bold text-slate-500 mb-2 tracking-widest">Email Professionnel</label>
-                  <input type="email" placeholder="contact@votre-entreprise.fr" required class="w-full px-6 py-4 bg-white border border-slate-200 rounded-xl text-slate-800 outline-none focus:border-[#278299] text-sm shadow-sm">
+                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-3 tracking-[0.3em]">Votre Email</label>
+                  <input type="email" placeholder="CONTACT@ENTREPRISE.FR" required class="w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-2xl text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest">
                 </div>
               </div>
-              <div>
-                <label class="block text-[9px] uppercase font-bold text-slate-500 mb-2 tracking-widest">Votre Message</label>
-                <textarea rows="5" placeholder="Décrivez votre besoin..." required class="w-full px-6 py-4 bg-white border border-slate-200 rounded-xl text-slate-800 outline-none focus:border-[#278299] text-sm shadow-sm"></textarea>
+              <div class="flex flex-col">
+                <label class="block text-[10px] font-black uppercase text-slate-400 mb-3 tracking-[0.3em]">Votre Vision</label>
+                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-5 bg-slate-50 border border-slate-100 rounded-2xl text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest"></textarea>
               </div>
               <div class="md:col-span-2">
-                <button type="submit" class="cta-button w-full py-6 rounded-full text-white font-black text-xs uppercase tracking-[0.3em] shadow-xl">Envoyer la demande</button>
+                <button type="submit" class="cta-button w-full py-7 rounded-full text-white font-black text-xs uppercase tracking-[0.4em] shadow-2xl transition-all">Envoyer le message</button>
               </div>
-              <div id="form-feedback" class="md:col-span-2 hidden text-center text-[#278299] font-black p-4 bg-[#278299]/10 rounded-xl text-xs uppercase tracking-widest">✓ Message envoyé avec succès !</div>
+              <div id="form-feedback" class="md:col-span-2 hidden text-center text-[#278299] font-black p-6 bg-[#278299]/10 rounded-2xl text-xs uppercase tracking-[0.3em]">✓ Votre demande a été transmise aux archives.</div>
             </form>
             
-            <div class="mt-24 pt-16 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-12 text-left">
-                <div class="max-w-sm space-y-3">
-                    <h4 class="text-lg font-black text-slate-800 uppercase tracking-tighter">Expérience Mobile</h4>
-                    <p class="text-xs text-slate-500 font-light leading-relaxed">Scannez ce QR Code pour transporter l'univers Nova360 dans votre poche.</p>
+            <!-- QR CODE SECTION -->
+            <div class="mt-32 pt-20 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-16 text-left">
+                <div class="max-w-md space-y-4">
+                    <h4 class="text-xl font-black text-slate-900 uppercase tracking-tighter">Application <span class="font-serif italic font-light text-slate-400">Mobile Directe</span></h4>
+                    <p class="text-xs text-slate-500 font-light leading-relaxed uppercase tracking-widest">L'univers Nova360, optimisé pour votre terminal mobile personnel. Scannez pour activer.</p>
                 </div>
-                <div class="p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://nova360.app.codinsight.app/&color=004047" alt="QR Code" class="h-24 w-24">
+                <div class="p-8 bg-white rounded-[3rem] shadow-xl border border-slate-50">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://nova360.app.codinsight.app/&color=0f172a" alt="QR Code" class="h-28 w-28 opacity-80">
                 </div>
             </div>
         </div>
@@ -429,15 +450,16 @@
     </main>
 
     <!-- FOOTER PRESTIGE -->
-    <footer id="main-footer" class="py-16 bg-[#004047] text-white/30 text-xs text-center">
-      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-        <div class="flex items-center gap-6 justify-center md:justify-start">
-            <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-6 opacity-40 brightness-200 grayscale pointer-events-none">
-            <span class="font-light tracking-[0.1em] text-center">&copy; 2025 Nova360. Immersion garantie.</span>
+    <footer id="main-footer" class="py-20 bg-[#0f172a] text-white/20 text-xs text-center border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center gap-8 justify-center md:justify-start mb-8 md:mb-0">
+            <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none">
+            <div class="h-8 w-px bg-white/10 hidden md:block"></div>
+            <span class="font-light tracking-[0.2em] text-[10px] uppercase">&copy; 2025 Nova360 Architectural Immersive Lab.</span>
         </div>
-        <div class="flex space-x-12 mt-8 md:mt-0 font-bold uppercase tracking-[0.2em] justify-center text-[9px]">
-          <a href="#" class="hover:text-white transition-colors underline decoration-[#278299] underline-offset-4">Mentions légales</a>
-          <a href="#" class="hover:text-white transition-colors underline decoration-[#278299] underline-offset-4">Confidentialité</a>
+        <div class="flex space-x-12 font-bold uppercase tracking-[0.3em] justify-center text-[9px]">
+          <a href="#" class="hover:text-white transition-colors underline decoration-[#278299] underline-offset-8">Mentions</a>
+          <a href="#" class="hover:text-white transition-colors underline decoration-[#278299] underline-offset-8">Privacy</a>
         </div>
       </div>
     </footer>
