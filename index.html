@@ -297,7 +297,7 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
-        <h1 class="text-5xl md:text-8xl font-black mb-8 leading-tight">
+        <h1 class="text-5xl md:text-8xl font-black mb-8 leading-tight text-white">
           Un seul endroit pour explorer<br><span class="opacity-60 text-3xl md:text-5xl font-light text-white">tous les autres</span>
         </h1>
         <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
@@ -309,7 +309,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-7xl mx-auto px-4">
-            <div class="feature-card p-10 rounded-3xl" onclick="navigateToPage('categories')">
+            <div class="feature-card p-10 rounded-3xl cursor-pointer" onclick="navigateToPage('categories')">
               <div class="text-3xl mb-6">🌍</div>
               <h3 class="text-xl font-bold mb-3 text-white">Visites 360°</h3>
               <p class="text-slate-400 text-sm">Une immersion fluide et interactive pour un réalisme saisissant dans chaque détail.</p>
@@ -448,25 +448,25 @@
 
       <!-- PAGE VISION -->
       <div id="page-about" class="page px-4 py-20 max-w-5xl mx-auto">
-        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden">
-            <h2 class="text-4xl font-black mb-8 text-center text-white">À propos de Nova360</h2>
-            <div class="space-y-8 text-slate-300 text-lg leading-relaxed text-center">
+        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden text-center">
+            <h2 class="text-4xl font-black mb-8 text-white">À propos de Nova360</h2>
+            <div class="space-y-8 text-slate-300 text-lg leading-relaxed">
               <p><strong>Nova360</strong> est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité des <strong>entreprises</strong>, des <strong>particuliers</strong> et des <strong>professionnels</strong> à travers une expérience numérique d'exception.</p>
               
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12">
-                <div class="about-tab text-center p-8 rounded-3xl shadow-lg">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 text-center">
+                <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
                     <div class="text-2xl font-black text-white mb-2">360°</div>
                     <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Immersion</div>
                 </div>
-                <div class="about-tab text-center p-8 rounded-3xl shadow-lg">
+                <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
                     <div class="text-2xl font-black text-white mb-2">MÉDIA</div>
                     <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Vidéo & PDF</div>
                 </div>
-                <div class="about-tab text-center p-8 rounded-3xl shadow-lg">
+                <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
                     <div class="text-2xl font-black text-white mb-2">HUMAIN</div>
                     <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Convivialité</div>
                 </div>
-                <div class="about-tab text-center p-8 rounded-3xl shadow-lg">
+                <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
                     <div class="text-2xl font-black text-white mb-2">SIMPLE</div>
                     <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Intuition</div>
                 </div>
@@ -477,7 +477,7 @@
 
       <!-- PAGE CONTACT -->
       <div id="page-contact" class="page px-4 py-20 max-w-xl mx-auto text-center space-y-12">
-        <div class="space-y-4">
+        <div class="space-y-4 text-center">
             <h2 class="text-5xl font-black text-white italic">Un projet ?</h2>
             <h3 class="text-2xl font-bold text-white mb-2">Vous voulez rejoindre Nova360 ?</h3>
             <p class="text-xl text-[#278299] font-bold">Augmentez votre visibilité grâce à la visite virtuelle interactive de Nova360.</p>
@@ -516,12 +516,12 @@
 
     <!-- FOOTER -->
     <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-xs">
-      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-        <div class="flex items-center gap-4">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center">
+        <div class="flex items-center gap-4 justify-center md:justify-start">
             <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-6 opacity-40">
             <span>&copy; 2025 Nova360. Immersion garantie.</span>
         </div>
-        <div class="flex space-x-8 mt-6 md:mt-0 font-bold uppercase tracking-widest">
+        <div class="flex space-x-8 mt-6 md:mt-0 font-bold uppercase tracking-widest justify-center">
           <a href="#" class="hover:text-white transition-colors underline decoration-[#278299]">Mentions légales</a>
           <a href="#" class="hover:text-white transition-colors underline decoration-[#278299]">Confidentialité</a>
         </div>
