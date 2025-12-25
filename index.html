@@ -7,7 +7,8 @@
        1. Arrière-plan : Fond #D4D3DC avec un léger halo "Bleu Pétrole".
        2. Navigation : Bloc massif en Vert Canard (#004047).
        3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
-       4. Démonstrations : Barre latérale ultra-compacte (180px) et fenêtre maximisée pour un ratio d'immersion optimal.
+       4. Démonstrations : Navigation déplacée en haut (top bar) pour maximiser la surface de l'iframe à 100% de largeur.
+       5. Bouton Retour : Ajout d'un point d'ancrage rapide vers l'accueil dans l'interface de démo.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -153,49 +154,83 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Démo - Sidebar Ultra-Réduite et Fenêtre Maximisée */
-    .demo-sidebar {
-      width: 180px; /* Réduit encore pour gagner de la place à gauche */
+    /* Démo - Nouvelle barre de navigation haute */
+    .demo-topbar {
+      width: 100%;
       background: var(--dark);
-      padding: 15px;
-      overflow-y: auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 40;
       flex-shrink: 0;
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .demo-nav-scroll {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      flex: 1;
+      scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+    }
+
+    .demo-nav-scroll::-webkit-scrollbar {
+      display: none; /* Cache la scrollbar sur Chrome/Safari */
     }
 
     .demo-item-btn {
-      width: 100%;
-      text-align: left;
-      padding: 10px;
-      margin-bottom: 6px;
-      border-radius: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.03);
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.65rem; /* Ajusté pour la largeur étroite */
-      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.7rem;
+      font-weight: 700;
       transition: all 0.3s ease;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
-      white-space: normal; /* Permet le retour à la ligne si besoin */
+      letter-spacing: 0.1em;
+      white-space: nowrap;
     }
 
     .demo-item-btn:hover, .demo-item-btn.active {
       background: var(--primary);
       color: white;
-      transform: translateX(3px);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .back-btn:hover {
+      background: white;
+      color: var(--dark);
     }
 
     #page-demo.active {
       display: flex;
-      flex-direction: row;
+      flex-direction: column; /* Changement de row à column */
       height: calc(100vh - var(--nav-height));
       width: 100vw;
       background: #000;
+      overflow: hidden;
     }
 
     .frame-container {
         flex: 1;
-        min-width: 0;
+        width: 100%;
         height: 100%;
         padding: 0;
         display: flex;
@@ -212,10 +247,8 @@
     }
 
     @media (max-width: 768px) {
-      #page-demo.active { flex-direction: column; }
-      .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 10px; gap: 8px; }
-      .demo-item-btn { margin-bottom: 0; white-space: nowrap; padding: 8px 12px; }
-      .frame-container { height: 100%; }
+      .demo-topbar { padding: 10px; gap: 10px; }
+      .back-btn span { display: none; } /* Cache le texte sur petit mobile */
     }
   </style>
 </head>
@@ -329,8 +362,8 @@
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#278299]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🍽️</div>
               <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif text-center uppercase tracking-widest italic">Restaurants</h3>
-              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Invitez vos clients à votre table avant même qu'ils ne passent la porte. Une mise en bouche digitale.</p>
-              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest">
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Invitez vos clients à votre table avant même qu'ils ne passent la porte. Une mise en bouche digitale.</p>
+              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Réservation Directe</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Menu PDF</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Réseaux Sociaux</li>
@@ -342,8 +375,8 @@
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#315a97]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🎯</div>
               <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif text-center uppercase tracking-widest italic">Activités</h3>
-              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Donnez le vertige. Capturez l'excitation de vos loisirs dans une expérience 360° immersive.</p>
-              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest">
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Donnez le vertige. Capturez l'excitation de vos loisirs dans une expérience 360° immersive.</p>
+              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Sensations VR</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Teasing Interactif</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Captation</li>
@@ -355,8 +388,8 @@
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🏡</div>
               <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif text-center uppercase tracking-widest italic">Hébergements</h3>
-              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur futur séjour.</p>
-              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest">
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur futur séjour.</p>
+              <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Confiance Totale</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Galerie HD</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Booking Pro</li>
@@ -366,14 +399,16 @@
         </div>
       </div>
 
-      <!-- PAGE DÉMONSTRATIONS : FENÊTRE MAXIMISÉE -->
+      <!-- PAGE DÉMONSTRATIONS : FENÊTRE MAXIMISÉE AVEC BARRE HAUTE -->
       <div id="page-demo" class="page overflow-hidden">
-        <aside class="demo-sidebar shadow-2xl">
-          <div class="mb-8 text-left">
-            <h4 class="text-white font-black text-[8px] uppercase tracking-[0.4em] mb-4">Exploration 360°</h4>
-            <p class="text-[8px] text-white/30 italic font-serif leading-relaxed">Cliquez pour charger.</p>
-          </div>
-          <nav class="space-y-1.5">
+        <div class="demo-topbar shadow-xl">
+          <!-- Bouton retour à l'accueil -->
+          <button onclick="navigateToPage('home')" class="back-btn group">
+            ← <span>Retour</span>
+          </button>
+          
+          <!-- Navigation défilante des catégories -->
+          <nav class="demo-nav-scroll">
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active">🍽️ Restaurants</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 Activités</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn">🏡 Hébergements</button>
@@ -381,7 +416,8 @@
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Coworking%20les%20barques/output/index.html', this)" class="demo-item-btn">💼 Pros</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn">🏖️ Tourisme</button>
           </nav>
-        </aside>
+        </div>
+
         <div class="frame-container">
           <div class="virtual-frame">
               <iframe id="demo-frame" 
@@ -415,14 +451,14 @@
             </div>
             <div class="bg-[#004047] p-16 rounded-[4rem] shadow-2xl space-y-12">
                 <h3 class="text-white font-black text-[11px] uppercase tracking-[0.5em] opacity-30 text-center">Nos Fondations</h3>
-                <div class="space-y-6">
+                <div class="space-y-6 text-left">
                     <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white">
-                        <div class="text-2xl font-black mb-3 font-serif italic text-left">Humain</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed text-left">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
+                        <div class="text-2xl font-black mb-3 font-serif italic">Humain</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
                     </div>
                     <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white">
-                        <div class="text-2xl font-black mb-3 font-serif italic text-left">Simple</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed text-left">Une technologie invisible pour une navigation fluide et instinctive.</p>
+                        <div class="text-2xl font-black mb-3 font-serif italic">Simple</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed">Une technologie invisible pour une navigation fluide et instinctive.</p>
                     </div>
                 </div>
             </div>
@@ -450,7 +486,7 @@
               </div>
               <div class="flex flex-col group text-left">
                 <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left">Votre Vision</label>
-                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold"></textarea>
+                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold text-left"></textarea>
               </div>
               <div class="md:col-span-2 pt-10 text-center">
                 <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all">Transmettre la demande</button>
@@ -477,7 +513,7 @@
     <!-- FOOTER -->
     <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5">
       <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center">
-        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0">
+        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center">
             <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none">
             <div class="h-10 w-px bg-white/10 hidden md:block"></div>
             <span class="font-light tracking-[0.3em] text-[9px] uppercase">&copy; 2025 Nova360 Architectural Lab.</span>
