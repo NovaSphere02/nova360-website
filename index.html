@@ -7,7 +7,7 @@
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
        2. Accueil : Impact fort, CTA directs et carrousel de partenaires.
        3. Catégories : Restauration des descriptions riches et des listes de bénéfices par secteur.
-       4. Démonstations (Démo) : Barre latérale fixe et châssis de visualisation.
+       4. Démonstrations (Démo) : Barre latérale fixe et châssis de visualisation.
        5. À propos : Restauration des 4 onglets thématiques (Vision originale).
        6. Engagement : Formulaire de contact complet et section QR Code.
   -->
@@ -167,7 +167,7 @@
       object-fit: contain;
     }
 
-    /* Structure Showroom */
+    /* Structure Démo */
     #page-demo.active {
       display: flex;
       flex-direction: row;
@@ -267,7 +267,7 @@
         <div class="hidden md:flex space-x-8">
           <a href="#home" class="nav-link active font-medium" data-page="home">Accueil</a>
           <a href="#categories" class="nav-link font-medium" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link font-medium" data-page="demo">Showroom</a>
+          <a href="#demo" class="nav-link font-medium" data-page="demo">Démonstrations</a>
           <a href="#about" class="nav-link font-medium" data-page="about">Vision</a>
           <a href="#contact" class="nav-link font-medium" data-page="contact">Contact</a>
         </div>
@@ -287,7 +287,7 @@
       <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#004047] border-b border-white/10 flex flex-col p-6 space-y-4">
           <a href="#home" class="nav-link text-lg" data-page="home">Accueil</a>
           <a href="#categories" class="nav-link text-lg" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link text-lg" data-page="demo">Showroom</a>
+          <a href="#demo" class="nav-link text-lg" data-page="demo">Démonstrations</a>
           <a href="#about" class="nav-link text-lg" data-page="about">Vision</a>
           <a href="#contact" class="nav-link text-lg" data-page="contact">Contact</a>
       </div>
@@ -392,7 +392,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block">🛍️</span>
               <h3 class="text-2xl font-bold mb-4 text-white">Shopping</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique physique en un showroom digital accessible 24h/24 et 7j/7.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique physique en un espace de démonstration digital accessible 24h/24 et 7j/7.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Tags produits interactifs</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Visibilité SEO accrue</li>
@@ -404,7 +404,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">💼</span>
               <h3 class="text-2xl font-bold mb-4 text-white">Professionnels</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux, showrooms et espaces industriels pour vos clients et futurs collaborateurs.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux, démonstrations et espaces industriels pour vos clients et futurs collaborateurs.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Espaces de travail</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Branding immersif</li>
@@ -426,10 +426,10 @@
         </div>
       </div>
 
-      <!-- PAGE SHOWROOM -->
+      <!-- PAGE DÉMONSTRATIONS -->
       <div id="page-demo" class="page overflow-hidden">
         <aside class="demo-sidebar text-white">
-          <h4 class="text-white font-black text-xs uppercase tracking-widest mb-6 opacity-60">Showroom Virtuel</h4>
+          <h4 class="text-white font-black text-xs uppercase tracking-widest mb-6 opacity-60">Démonstrations</h4>
           <nav>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active"><span>🍽️</span> Restaurants</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn"><span>🎯</span> Activités</button>
@@ -497,7 +497,7 @@
             <textarea rows="4" placeholder="Décrivez votre besoin..." required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white outline-none focus:border-[#278299]"></textarea>
           </div>
           <button type="submit" class="cta-button w-full py-6 rounded-2xl text-white font-black text-lg uppercase tracking-widest shadow-xl">Envoyer la demande</button>
-          <div id="form-feedback" class="hidden text-center text-[#278299] font-black p-4 bg-white/5 rounded-2xl">✓ Message transmis avec succès !</div>
+          <div id="form-feedback" class="hidden text-center text-[#278299] font-black p-4 bg-white/5 rounded-2xl border border-[#278299]/20">✓ Message transmis avec succès !</div>
         </form>
 
         <!-- QR SECTION -->
