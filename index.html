@@ -7,8 +7,8 @@
        1. Arrière-plan : Fond #D4D3DC avec un léger halo "Bleu Pétrole".
        2. Navigation : Bloc massif en Vert Canard (#004047).
        3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
-       4. Démonstrations : Navigation déplacée en haut (top bar) pour maximiser la surface de l'iframe à 100% de largeur.
-       5. Bouton Retour : Ajout d'un point d'ancrage rapide vers l'accueil dans l'interface de démo.
+       4. Démonstrations : La barre de navigation principale est masquée pour laisser place à une barre d'outils dédiée qui occupe le haut de l'écran, maximisant l'iframe.
+       5. Logique de Navigation : Le bouton "Retour" réinitialise l'affichage de la navigation globale et retourne à l'accueil.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -59,7 +59,7 @@
     }
 
     /* Header Navigation */
-    .glass-nav {
+    #main-nav {
       background-color: var(--dark);
       height: var(--nav-height);
       box-shadow: 0 10px 30px -10px rgba(0, 64, 71, 0.5);
@@ -154,16 +154,17 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Démo - Nouvelle barre de navigation haute */
+    /* Démo - Barre de navigation dédiée haute */
     .demo-topbar {
       width: 100%;
       background: var(--dark);
-      padding: 10px 20px;
+      padding: 0 20px;
+      height: 70px; /* Taille fixe pour la barre de démo */
       display: flex;
       align-items: center;
       gap: 20px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 40;
+      z-index: 60;
       flex-shrink: 0;
     }
 
@@ -172,13 +173,13 @@
       flex-direction: row;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 0;
       flex: 1;
-      scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+      scrollbar-width: none;
     }
 
     .demo-nav-scroll::-webkit-scrollbar {
-      display: none; /* Cache la scrollbar sur Chrome/Safari */
+      display: none;
     }
 
     .demo-item-btn {
@@ -221,11 +222,15 @@
 
     #page-demo.active {
       display: flex;
-      flex-direction: column; /* Changement de row à column */
-      height: calc(100vh - var(--nav-height));
+      flex-direction: column;
+      height: 100vh; /* Utilise 100% de la hauteur car le nav principal est masqué */
       width: 100vw;
       background: #000;
       overflow: hidden;
+      position: fixed; /* Fixé pour recouvrir tout */
+      top: 0;
+      left: 0;
+      z-index: 100;
     }
 
     .frame-container {
@@ -236,31 +241,33 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background: #000;
     }
 
     .virtual-frame {
         width: 100%;
         height: 100%;
         background: #000;
+        border: none;
         overflow: hidden;
         position: relative;
     }
 
     @media (max-width: 768px) {
-      .demo-topbar { padding: 10px; gap: 10px; }
-      .back-btn span { display: none; } /* Cache le texte sur petit mobile */
+      .demo-topbar { padding: 0 10px; gap: 10px; height: 60px; }
+      .back-btn span { display: none; }
     }
   </style>
 </head>
 <body class="h-full w-full">
   <div id="app" class="flex flex-col min-h-screen">
     
-    <!-- NAVIGATION -->
-    <nav class="glass-nav sticky top-0 z-50">
+    <!-- NAVIGATION PRINCIPALE -->
+    <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-8 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center gap-4" onclick="navigateToPage('home')">
           <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-10 w-auto brightness-0 invert">
-          <span class="text-white font-black tracking-tighter text-xl md:hidden">Nova360</span>
+          <span class="text-white font-black tracking-tighter text-xl md:hidden text-center uppercase tracking-widest italic">Nova360</span>
         </div>
 
         <div class="hidden md:flex space-x-12">
@@ -296,8 +303,8 @@
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-8 pt-12 pb-20 lg:pt-20 lg:pb-32 text-center bg-transparent">
         
-        <div class="mb-16">
-            <h1 class="text-3xl md:text-5xl lg:text-7xl font-light leading-tight tracking-tight text-slate-800">
+        <div class="mb-16 text-center">
+            <h1 class="text-3xl md:text-5xl lg:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-slate-400 block mb-2 text-center">Un seul endroit</span>
               <span class="font-serif italic text-[#278299] text-5xl md:text-8xl block my-4 underline decoration-[#004047]/10 underline-offset-8 text-center">pour explorer</span>
               <span class="font-black text-xl md:text-3xl lg:text-4xl uppercase tracking-[0.5em] text-[#004047] mt-8 block text-center">tous les autres</span>
@@ -313,26 +320,26 @@
           <button class="border-2 border-[#004047] hover:bg-[#004047] hover:text-white text-[#004047] px-14 py-6 rounded-full font-black text-[10px] transition-all uppercase tracking-[0.3em]" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
 
-        <!-- Cards accentuées -->
+        <!-- Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-4 mb-32">
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#278299]">
               <div class="text-xs font-black text-[#278299] uppercase tracking-widest mb-6">Technologie 01</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic">Immersion 360°</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light">Une précision chirurgicale pour restituer l'âme de vos lieux avec une fidélité absolue.</p>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Immersion 360°</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une précision chirurgicale pour restituer l'âme de vos lieux avec une fidélité absolue.</p>
             </div>
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#004047]">
               <div class="text-xs font-black text-[#004047] uppercase tracking-widest mb-6">Usage 02</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic">Multi-supports</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light">Une expérience optimisée pour mobile, tablette et desktop. Sans téléchargement.</p>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Multi-supports</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une expérience optimisée pour mobile, tablette et desktop. Sans téléchargement.</p>
             </div>
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#315a97]">
               <div class="text-xs font-black text-[#315a97] uppercase tracking-widest mb-6">Vision 03</div>
-              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic">Conversion</h3>
-              <p class="text-slate-600 text-sm leading-relaxed font-light">Transformez la curiosité en acte d'achat grâce à nos outils interactifs intégrés.</p>
+              <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Conversion</h3>
+              <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Transformez la curiosité en acte d'achat grâce à nos outils interactifs intégrés.</p>
             </div>
         </div>
 
-        <!-- Slider Partenaires -->
+        <!-- Slider -->
         <div class="logo-section">
           <div class="logo-slider">
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
@@ -387,7 +394,7 @@
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🏡</div>
-              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif text-center uppercase tracking-widest italic">Hébergements</h3>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif text-center uppercase tracking-widest italic text-left">Hébergements</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur futur séjour.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Confiance Totale</li>
@@ -399,15 +406,14 @@
         </div>
       </div>
 
-      <!-- PAGE DÉMONSTRATIONS : FENÊTRE MAXIMISÉE AVEC BARRE HAUTE -->
+      <!-- PAGE DÉMONSTRATIONS : FENÊTRE MAXIMISÉE PLEIN ÉCRAN -->
       <div id="page-demo" class="page overflow-hidden">
         <div class="demo-topbar shadow-xl">
           <!-- Bouton retour à l'accueil -->
           <button onclick="navigateToPage('home')" class="back-btn group">
-            ← <span>Retour</span>
+            ← <span>Accueil</span>
           </button>
           
-          <!-- Navigation défilante des catégories -->
           <nav class="demo-nav-scroll">
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active">🍽️ Restaurants</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 Activités</button>
@@ -449,16 +455,16 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-[#004047] p-16 rounded-[4rem] shadow-2xl space-y-12">
+            <div class="bg-[#004047] p-16 rounded-[4rem] shadow-2xl space-y-12 text-center">
                 <h3 class="text-white font-black text-[11px] uppercase tracking-[0.5em] opacity-30 text-center">Nos Fondations</h3>
-                <div class="space-y-6 text-left">
+                <div class="space-y-6">
                     <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white">
-                        <div class="text-2xl font-black mb-3 font-serif italic">Humain</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
+                        <div class="text-2xl font-black mb-3 font-serif italic text-left">Humain</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed text-left text-white/60">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
                     </div>
                     <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white">
-                        <div class="text-2xl font-black mb-3 font-serif italic">Simple</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed">Une technologie invisible pour une navigation fluide et instinctive.</p>
+                        <div class="text-2xl font-black mb-3 font-serif italic text-left">Simple</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed text-left text-white/60">Une technologie invisible pour une navigation fluide et instinctive.</p>
                     </div>
                 </div>
             </div>
@@ -494,7 +500,6 @@
               <div id="form-feedback" class="md:col-span-2 hidden text-center text-[#278299] font-black p-8 bg-[#278299]/5 rounded-3xl text-xs uppercase tracking-[0.4em]">✓ Votre vision a été transmise avec succès.</div>
             </form>
             
-            <!-- QR CODE -->
             <div class="mt-40 pt-20 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-20 text-left">
                 <div class="max-w-md space-y-6 text-left">
                     <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter text-left">Mobilité <span class="font-serif italic font-light text-[#278299]">Sans Compromis</span></h4>
@@ -540,21 +545,26 @@
     function navigateToPage(pageId) {
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       const targetPage = document.getElementById(`page-${pageId}`);
+      const mainNav = document.getElementById('main-nav');
+      const footer = document.getElementById('main-footer');
       
       if (targetPage) {
         targetPage.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
         const frame = document.getElementById('demo-frame');
-        const footer = document.getElementById('main-footer');
         
         if (pageId === 'demo') {
+          // Masquer la navigation globale et le footer pour le plein écran
+          mainNav.style.display = 'none';
           footer.style.display = 'none';
           document.body.style.overflow = 'hidden';
           if (frame.src === "about:blank" || frame.src === "" || frame.src.includes('about:blank')) {
             frame.src = currentDemoUrl;
           }
         } else {
+          // Rétablir la navigation globale et le footer
+          mainNav.style.display = 'block';
           footer.style.display = 'block';
           document.body.style.overflow = 'auto';
           if (frame) frame.src = "about:blank"; 
