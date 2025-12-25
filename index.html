@@ -6,7 +6,7 @@
        Palette harmonisée : 
        - Deep Petrol (#00565e) : Structure et navigation
        - Accent Soft Teal (#278299) : Unification du titre (début et fin) et boutons
-       - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion
+       - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion et panneau Vision
        - Surface (#D4D3DC) : Gris Perle
   -->
   <meta charset="UTF-8">
@@ -20,7 +20,7 @@
       --primary: #00565e;    /* Deep Petrol */
       --accent: #2BA7C2;     /* Accent Azure */
       --hover-grad: #278299; /* Couleur de dégradé au survol et accent principal titre */
-      --secondary: #315a97;  /* Bleu profond secondaire - utilisé pour l'encadré de sortie */
+      --secondary: #315a97;  /* Bleu profond secondaire - utilisé pour l'encadré de sortie et panneau vision */
       --dark: #00565e;       
       --bg-custom: #D4D3DC;  
       --text-main: #1F2937;  
@@ -183,7 +183,6 @@
       top: 0; left: 0; z-index: 1000;
     }
 
-    /* L'iframe prend tout l'espace */
     .demo-content-wrapper {
       position: relative;
       flex-grow: 1;
@@ -191,7 +190,6 @@
       width: 100%;
     }
 
-    /* Quand le mode immersion est activé */
     .immersion-mode .demo-topbar { 
       height: 0;
       overflow: hidden;
@@ -210,7 +208,7 @@
       align-items: center;
       justify-content: center;
       background: rgba(0, 0, 0, 0.5);
-      border: 2px solid var(--secondary); /* Encadré bleu demandé */
+      border: 2px solid var(--secondary);
       border-radius: 8px;
       color: white;
       cursor: pointer;
@@ -489,25 +487,28 @@
               Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive en rendant l'expérience utilisateur exceptionnelle.
             </p>
             <div class="grid grid-cols-2 gap-6 pt-10">
-              <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-t-4 border-[#00565e]">
+              <!-- Cartes avec liseré bleu au survol (#315a97) -->
+              <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-t-4 border-[#00565e] hover:border-[#315a97]">
                 <div class="text-3xl font-serif italic text-[#00565e] mb-2">360°</div>
                 <div class="text-[9px] uppercase font-bold text-slate-400 tracking-widest">Vision Totale</div>
               </div>
-              <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-t-4 border-[#00565e]">
+              <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-t-4 border-[#00565e] hover:border-[#315a97]">
                 <div class="text-3xl font-serif italic text-[#00565e] mb-2">PRO</div>
                 <div class="text-[9px] uppercase font-bold text-slate-400 tracking-widest">Haute Fidélité</div>
               </div>
             </div>
           </div>
-          <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white text-left">
+          <!-- Gros panneau couleur #315a97 -->
+          <div class="bg-[#315a97] p-12 rounded-[3rem] shadow-2xl text-white text-left">
             <h3 class="font-black text-[11px] uppercase tracking-widest opacity-40 mb-10 text-center">Nos Valeurs Fondatrices</h3>
             <div class="space-y-6">
-              <div class="p-8 bg-white/5 border border-white/10 rounded-3xl">
-                <div class="text-2xl font-serif italic mb-2">Humain</div>
+              <!-- Nouvelle couleur pour les blocs Humain et Simplicité (Gris Perle Subtil) -->
+              <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
+                <div class="text-2xl font-serif italic mb-2 text-white">Humain</div>
                 <p class="text-sm text-white/60 font-light">Une technologie invisible pour une expérience organique.</p>
               </div>
-              <div class="p-8 bg-white/5 border border-white/10 rounded-3xl">
-                <div class="text-2xl font-serif italic mb-2">Simplicité</div>
+              <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
+                <div class="text-2xl font-serif italic mb-2 text-white">Simplicité</div>
                 <p class="text-sm text-white/60 font-light">Accès universel et immédiat.</p>
               </div>
             </div>
