@@ -88,7 +88,7 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* Boutons CTA - Unifiés avec le dégradé persistant #278299 */
+    /* Boutons CTA - Unifiés et Agrandis */
     .cta-button {
       position: relative;
       overflow: hidden;
@@ -100,6 +100,8 @@
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      /* Largeur minimale pour garantir l'uniformité */
+      min-width: 260px;
     }
 
     .cta-button::before {
@@ -119,8 +121,8 @@
     }
 
     .cta-button:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 20px 40px -10px rgba(0, 86, 94, 0.5);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 25px 50px -12px rgba(0, 86, 94, 0.6);
       background-color: var(--hover-grad);
     }
 
@@ -237,9 +239,9 @@
           <a href="#contact" class="nav-link font-bold text-[10px] uppercase" data-page="contact">Contact</a>
         </div>
 
-        <!-- Action Button -->
+        <!-- Action Button (Barre du haut - reste compact) -->
         <div class="flex items-center gap-4">
-          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
+          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
             Lancer l'App
           </button>
           <!-- Mobile Toggle -->
@@ -262,25 +264,29 @@
       
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
-        <div class="max-w-6xl mx-auto text-center">
+        <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
           <div class="mb-12">
-            <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800">
-              <!-- Unification de la couleur avec la demande : #278299 -->
-              <span class="font-serif italic text-[#278299] block mb-2">Un seul endroit</span>
-              <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8">pour explorer</span>
-              <span class="font-black text-xl md:text-4xl uppercase tracking-[0.4em] text-[#278299] mt-8 block">tous les autres</span>
+            <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
+              <span class="font-serif italic text-[#278299] block mb-2 text-center w-full">Un seul endroit</span>
+              <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
+              <span class="font-black text-xl md:text-4xl uppercase tracking-[0.4em] text-[#278299] mt-8 block text-center w-full">tous les autres</span>
             </h1>
           </div>
           <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
             L'excellence visuelle au service de votre établissement. Nova360 crée des passerelles immersives entre le monde réel et vos futurs clients.
           </p>
           
-          <div class="flex flex-col sm:flex-row justify-center gap-6 mb-32">
-            <button class="cta-button px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Explorer Nova 360</button>
-            <button class="cta-button px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-widest text-white" onclick="navigateToPage('demo')">Voir les Démos</button>
+          <!-- Boutons d'accueil - Harmonisés et Agrandis -->
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-8 mb-32">
+            <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">
+              Explorer Nova 360
+            </button>
+            <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="navigateToPage('demo')">
+              Voir les Démos
+            </button>
           </div>
           
-          <!-- Key Features (TOUS UNIFIÉS EN #00565e) -->
+          <!-- Key Features -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
             <div class="feature-card p-10 rounded-3xl border-t-4 border-[#00565e]">
               <div class="status-half-circle"></div>
@@ -339,8 +345,7 @@
           <div class="w-12 h-1 bg-[#00565e] mx-auto mt-6"></div>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Item Restaurant -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🍽️</div>
@@ -353,7 +358,6 @@
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER L'UNIVERS</button>
           </div>
 
-          <!-- Item Activités -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🎯</div>
@@ -366,7 +370,6 @@
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER L'UNIVERS</button>
           </div>
 
-          <!-- Item Hébergement -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🏡</div>
@@ -416,7 +419,7 @@
       <!-- PAGE VISION -->
       <section id="page-about" class="page px-6 py-24 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div class="space-y-8">
+          <div class="space-y-8 text-left">
             <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block">Notre Manifeste</span>
             <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'Intelligence <br><span class="font-serif italic text-[#00565e]">de l'Image.</span></h2>
             <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">
@@ -433,7 +436,7 @@
               </div>
             </div>
           </div>
-          <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white">
+          <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white text-left">
             <h3 class="font-black text-[11px] uppercase tracking-widest opacity-40 mb-10 text-center">Nos Valeurs Fondatrices</h3>
             <div class="space-y-6">
               <div class="p-8 bg-white/5 border border-white/10 rounded-3xl">
@@ -451,12 +454,12 @@
 
       <!-- PAGE CONTACT -->
       <section id="page-contact" class="page px-6 py-24 max-w-5xl mx-auto">
-        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden">
+        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
           <div class="text-center mb-16">
             <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block mb-4">Contact & Partenariat</span>
             <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900">Dessinons votre <span class="font-sans font-black text-slate-200">Futur.</span></h2>
           </div>
-          <form class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <form class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
             <div class="space-y-8">
               <div>
                 <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">Votre Nom</label>
@@ -472,11 +475,11 @@
               <textarea rows="5" placeholder="DÉTAILLEZ VOTRE VISION ICI..." class="w-full p-6 bg-slate-50 rounded-2xl border border-slate-100 outline-none focus:border-[#00565e] focus:bg-white transition-all text-sm font-bold tracking-wider"></textarea>
             </div>
             <div class="md:col-span-2">
-              <button type="submit" class="cta-button w-full py-6 rounded-full font-black text-xs uppercase tracking-[0.4em] text-white">Transmettre la Demande</button>
+              <button type="submit" class="cta-button w-full py-7 rounded-full font-black text-xs uppercase tracking-[0.4em] text-white">Transmettre la Demande</button>
             </div>
           </form>
           
-          <div class="mt-24 pt-12 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-10">
+          <div class="mt-24 pt-12 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-10 text-left">
             <div>
               <h4 class="text-xl font-black text-slate-900 uppercase">Accès <span class="font-serif italic text-[#00565e] font-light">Nomade</span></h4>
               <p class="text-xs text-slate-400 mt-2 uppercase tracking-widest">Activez l'expérience sur votre mobile.</p>
