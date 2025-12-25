@@ -4,7 +4,7 @@
   <!-- 
        Architecture de Marque : Nova360 - Architectural Lab
        Palette harmonisée : 
-       - Deep Petrol (#00565e) : Structure, navigation et panneau Vision principal
+       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision et Slider logos
        - Accent Soft Teal (#278299) : Unification du titre (début et fin) et boutons
        - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion et survol cartes
        - Surface (#D4D3DC) : Gris Perle
@@ -20,7 +20,7 @@
       --primary: #00565e;    /* Deep Petrol */
       --accent: #2BA7C2;     /* Accent Azure */
       --hover-grad: #278299; /* Couleur de dégradé au survol et accent principal titre */
-      --secondary: #315a97;  /* Bleu profond secondaire - utilisé pour l'encadré de sortie et survol vision */
+      --secondary: #315a97;  /* Bleu profond secondaire */
       --dark: #00565e;       
       --bg-custom: #D4D3DC;  
       --text-main: #1F2937;  
@@ -88,6 +88,15 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
+    /* Animation Robotique Douce pour le bouton Lancer l'App */
+    @keyframes robot-vibration {
+      0% { transform: translateY(-2px) scale(1.05) rotate(0deg); }
+      25% { transform: translateY(-2px) scale(1.05) rotate(0.5deg) translateX(1px); }
+      50% { transform: translateY(-2px) scale(1.05) rotate(-0.5deg) translateX(-1px); }
+      75% { transform: translateY(-2px) scale(1.05) rotate(0.3deg) translateX(0.5px); }
+      100% { transform: translateY(-2px) scale(1.05) rotate(0deg); }
+    }
+
     /* Boutons CTA */
     .cta-button {
       position: relative;
@@ -116,13 +125,16 @@
     }
 
     .cta-button:hover::before { left: 0; }
+    
+    /* Application de l'effet robotique au survol */
     .cta-button:hover {
       transform: translateY(-2px) scale(1.05);
       box-shadow: 0 25px 50px -12px rgba(0, 86, 94, 0.6);
       background-color: var(--hover-grad);
+      animation: robot-vibration 0.4s ease infinite; /* Mouvement robotique en boucle */
     }
 
-    /* Cartes */
+    /* Cartes de fonctionnalités */
     .feature-card {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       border: 1px solid rgba(0, 86, 94, 0.1);
@@ -135,6 +147,8 @@
       transform: translateY(-10px);
       box-shadow: 0 40px 70px -20px rgba(0, 86, 94, 0.15);
       border-color: var(--dark);
+      /* Sur les cartes on désactive l'animation robotique pour ne garder que le levage propre */
+      animation: none; 
     }
 
     .status-half-circle {
@@ -147,6 +161,51 @@
       border-radius: 0 0 40px 40px;
       opacity: 0.8;
       transition: all 0.4s ease;
+    }
+
+    /* Slider Logos - Défilement horizontal infini */
+    .logo-slider-container {
+      overflow: hidden;
+      padding: 60px 0;
+      position: relative;
+      width: 100%;
+    }
+
+    .logo-slider-track {
+      display: flex;
+      width: max-content;
+      animation: scroll 40s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .logo-item {
+      width: 240px;
+      height: 110px;
+      background-color: #00565e;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .logo-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .logo-item img {
+      max-width: 160px;
+      max-height: 60px;
+      filter: brightness(0) invert(1);
+      opacity: 0.95;
     }
 
     /* Demo Interface */
@@ -172,7 +231,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Mode Immersion Spécifique */
+    /* Mode Immersion */
     #page-demo.active {
       display: flex;
       flex-direction: column;
@@ -258,6 +317,7 @@
         </div>
 
         <div class="flex items-center gap-4">
+          <!-- BOUTON AVEC EFFET ROBOTIQUE AU SURVOL -->
           <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
             Lancer l'App
           </button>
@@ -326,19 +386,18 @@
 
           <div class="mt-40 w-full text-center">
             <h3 class="text-2xl font-serif italic text-[#00565e] mb-12">Ils nous font confiance</h3>
-            <div class="overflow-hidden relative py-10">
-              <div class="logo-slider gap-12 items-center">
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire" class="max-h-20"></div>
-                <!-- Doublon pour le loop infini -->
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire" class="max-h-20"></div>
-                <div class="bg-white p-4 rounded-xl shadow-md w-32 h-32 flex items-center justify-center"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire" class="max-h-20"></div>
+            <div class="logo-slider-container">
+              <div class="logo-slider-track">
+                <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
+                <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
               </div>
             </div>
           </div>
@@ -483,9 +542,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div class="space-y-8 text-left">
             <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'excellence <br><span class="font-serif italic text-[#00565e]">de la visibilité.</span></h2>
-            <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">
-              Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive en rendant l'expérience utilisateur exceptionnelle.
-            </p>
+            <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive en rendant l'expérience utilisateur exceptionnelle.</p>
             <div class="grid grid-cols-2 gap-6 pt-10">
               <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-2 border-transparent border-t-4 border-t-[#00565e] hover:border-[#315a97] transition-all duration-300 group">
                 <div class="text-3xl font-serif italic text-[#00565e] mb-2 group-hover:text-[#315a97] transition-colors">360°</div>
@@ -497,11 +554,8 @@
               </div>
             </div>
           </div>
-          
           <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white text-left">
-            <!-- TITRE PLUS EN ÉVIDENCE -->
             <h3 class="font-serif italic text-3xl md:text-4xl mb-12 text-center relative pb-6 border-b border-white/10">Nos Valeurs Fondatrices</h3>
-            
             <div class="space-y-6">
               <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
                 <div class="text-2xl font-serif italic mb-2 text-white">Humain</div>
