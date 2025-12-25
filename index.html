@@ -3,9 +3,11 @@
 <head>
   <!-- 
        Architecture de Marque : Nova360 - Architectural Lab
-       Palette harmonisée : Deep Petrol (#00565e) & Accent Azure (#2BA7C2)
-       Hover Gradient Accent : #278299
-       Surface : #D4D3DC (Gris Perle)
+       Palette harmonisée : 
+       - Deep Petrol (#00565e) : Structure et navigation
+       - Accent Soft Teal (#278299) : Unification du titre (début et fin) et boutons
+       - Deep Blue Accent (#315a97) : Hover des cartes et éléments secondaires
+       - Surface (#D4D3DC) : Gris Perle
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +19,8 @@
     :root {
       --primary: #00565e;    /* Deep Petrol */
       --accent: #2BA7C2;     /* Accent Azure */
-      --hover-grad: #278299; /* Nouvelle couleur de dégradé au survol */
-      --secondary: #1a3a3d;  
+      --hover-grad: #278299; /* Couleur de dégradé au survol et accent principal titre */
+      --secondary: #315a97;  /* Bleu profond secondaire */
       --dark: #00565e;       
       --bg-custom: #D4D3DC;  
       --text-main: #1F2937;  
@@ -86,7 +88,7 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* Boutons CTA - Unifiés avec le nouveau dégradé #278299 */
+    /* Boutons CTA - Unifiés avec le dégradé persistant #278299 */
     .cta-button {
       position: relative;
       overflow: hidden;
@@ -100,7 +102,6 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* Effet de balayage (Sweep) utilisant le dégradé #278299 */
     .cta-button::before {
       content: '';
       position: absolute;
@@ -108,18 +109,19 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      /* Utilisation de la couleur demandée dans le dégradé de balayage */
-      background: linear-gradient(90deg, transparent, var(--hover-grad), transparent);
-      transition: all 0.6s ease;
+      background: linear-gradient(135deg, var(--dark), var(--hover-grad));
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: -1;
     }
 
-    .cta-button:hover::before { left: 100%; }
+    .cta-button:hover::before { 
+      left: 0; 
+    }
 
     .cta-button:hover {
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 20px 40px -10px rgba(0, 86, 94, 0.5);
-      background-color: #00454b;
+      background-color: var(--hover-grad);
     }
 
     /* Cartes de fonctionnalités */
@@ -259,26 +261,26 @@
     <main class="flex-grow">
       
       <!-- PAGE ACCUEIL -->
-      <section id="page-home" class="page active px-6 pt-16 pb-24 lg:pt-24 lg:pb-40 bg-transparent">
+      <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
         <div class="max-w-6xl mx-auto text-center">
           <div class="mb-12">
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800">
-              <span class="font-serif italic text-slate-400 block mb-2">Un seul endroit</span>
+              <!-- Unification de la couleur avec la demande : #278299 -->
+              <span class="font-serif italic text-[#278299] block mb-2">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8">pour explorer</span>
-              <span class="font-black text-xl md:text-4xl uppercase tracking-[0.4em] text-[#00565e] mt-8 block">tous les autres</span>
+              <span class="font-black text-xl md:text-4xl uppercase tracking-[0.4em] text-[#278299] mt-8 block">tous les autres</span>
             </h1>
           </div>
           <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-16 font-light leading-relaxed">
             L'excellence visuelle au service de votre établissement. Nova360 crée des passerelles immersives entre le monde réel et vos futurs clients.
           </p>
           
-          <!-- Boutons d'accueil unifiés -->
           <div class="flex flex-col sm:flex-row justify-center gap-6 mb-32">
             <button class="cta-button px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Explorer Nova 360</button>
             <button class="cta-button px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-widest text-white" onclick="navigateToPage('demo')">Voir les Démos</button>
           </div>
           
-          <!-- Key Features -->
+          <!-- Key Features (TOUS UNIFIÉS EN #00565e) -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
             <div class="feature-card p-10 rounded-3xl border-t-4 border-[#00565e]">
               <div class="status-half-circle"></div>
@@ -358,8 +360,8 @@
             <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Activités</h3>
             <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Capturez l'excitation de vos loisirs. Offrez un avant-goût de l'adrénaline.</p>
             <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Sensations VR</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Immersion Totale</li>
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Sensations VR</li>
+              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Immersion Totale</li>
             </ul>
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-widest text-white" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER L'UNIVERS</button>
           </div>
