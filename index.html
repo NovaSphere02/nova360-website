@@ -5,11 +5,11 @@
   <!-- Application Structure Plan: 
        Restauration complète de l'architecture de l'information originale.
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
-       2. Accueil : Impact visuel massif avec une typographie "Hero" à fort contraste.
+       2. Accueil : Impact visuel massif avec une typographie "Hero" à fort contraste. Intégration du logo central (non cliquable).
        3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées.
        4. Démonstrations : Espace immersif avec barre latérale et châssis sécurisé.
        5. Vision : 4 onglets thématiques expliquant la mission.
-       6. Engagement : Formulaire et QR Code pour la transition mobile.
+       6. Engagement : Formulaire de contact complet et section QR Code.
   -->
   <!-- Visualization & Content Choices: 
        - Information Architect Strategy: Double CTA en accueil avec boutons harmonisés.
@@ -294,6 +294,11 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
+        <!-- Logo central non cliquable -->
+        <div class="flex justify-center mb-8">
+          <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-24 w-auto pointer-events-none select-none opacity-90 shadow-2xl rounded-xl">
+        </div>
+
         <!-- TITRE IMPACTANT RE-TRAVAILLÉ -->
         <h1 class="text-6xl md:text-9xl font-black leading-[0.95] tracking-tighter text-white mb-10 uppercase italic">
           Un seul endroit<br>
