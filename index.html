@@ -5,7 +5,7 @@
   <!-- Application Structure Plan: 
        Restauration complète de l'architecture de l'information originale.
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
-       2. Accueil : Impact visuel raffiné (Hero Section) avec une typographie hybride élégante et logo centralisé (corrigé avec lien .png).
+       2. Accueil : Impact visuel raffiné (Hero Section) avec une typographie hybride élégante et logo centralisé (corrigé avec lien direct .png).
        3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées (Correction liseré Tourisme).
        4. Démonstrations : Espace immersif avec barre latérale et châssis sécurisé.
        5. Vision : 4 onglets thématiques expliquant la mission.
@@ -261,6 +261,7 @@
     <nav class="glass-nav sticky top-0 z-50 border-b border-white/10">
       <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')">
+          <!-- Utilisation du nouveau lien direct pour le logo dans la nav -->
           <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
           <span id="logo-fallback" class="text-2xl font-black hidden text-white tracking-tighter">Nova360</span>
         </div>
@@ -284,12 +285,12 @@
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#004047] border-b border-white/10 flex flex-col p-6 space-y-4">
-          <a href="#home" class="nav-link text-lg text-white" data-page="home">Accueil</a>
-          <a href="#categories" class="nav-link text-lg text-white" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link text-lg text-white" data-page="demo">Démonstrations</a>
-          <a href="#about" class="nav-link text-lg text-white" data-page="about">Vision</a>
-          <a href="#contact" class="nav-link text-lg text-white" data-page="contact">Contact</a>
+      <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#004047] border-b border-white/10 flex flex-col p-6 space-y-4 text-white">
+          <a href="#home" class="nav-link text-lg" data-page="home">Accueil</a>
+          <a href="#categories" class="nav-link text-lg" data-page="categories">Catégories</a>
+          <a href="#demo" class="nav-link text-lg" data-page="demo">Démonstrations</a>
+          <a href="#about" class="nav-link text-lg" data-page="about">Vision</a>
+          <a href="#contact" class="nav-link text-lg" data-page="contact">Contact</a>
       </div>
     </nav>
 
@@ -297,18 +298,18 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
-        <!-- Logo central non cliquable et fonctionnel -->
+        <!-- Logo central non cliquable avec le lien direct corrigé -->
         <div class="flex justify-center mb-12">
           <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo Nova360" class="h-16 md:h-20 w-auto pointer-events-none select-none shadow-xl rounded-xl opacity-90">
         </div>
 
-        <!-- TITRE RAFFINÉ ET CLASSE -->
+        <!-- TITRE RAFFINÉ ET CLASSE (DIMENSION RÉDUITE) -->
         <div class="mb-12">
             <span class="text-white/40 font-medium uppercase tracking-[0.4em] text-xs mb-4 block tracking-tighter">Plateforme Immersive</span>
-            <h1 class="text-4xl md:text-6xl font-light leading-tight tracking-tight text-white">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight tracking-tight text-white">
               Un seul endroit <br>
-              <span class="font-serif italic text-[#278299] text-5xl md:text-7xl block my-2">pour explorer</span>
-              <span class="font-black text-2xl md:text-4xl uppercase tracking-[0.2em] text-white/60">tous les autres</span>
+              <span class="font-serif italic text-[#278299] text-5xl md:text-6xl lg:text-7xl block my-2">pour explorer</span>
+              <span class="font-black text-2xl md:text-3xl lg:text-4xl uppercase tracking-[0.2em] text-white/60">tous les autres</span>
             </h1>
         </div>
         
@@ -358,7 +359,7 @@
       <!-- PAGE CATÉGORIES -->
       <div id="page-categories" class="page px-4 py-20 max-w-7xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-black mb-4 text-white">Nos Catégories</h2>
+            <h2 class="text-4xl md:text-5xl font-black mb-4 text-white uppercase tracking-tighter">Nos Catégories</h2>
             <p class="text-slate-400 max-w-2xl mx-auto font-light">Explorez les lieux d'une manière immersive grâce à nos visites virtuelles 360°.</p>
         </div>
         
@@ -367,7 +368,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">🍽️</span>
               <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Restaurants</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Faites découvrir l'ambiance de votre établissement en facilitant la découverte interactive.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">Faites découvrir l'ambiance de votre établissement en facilitant la découverte interactive.</p>
               <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Appels directs</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réseaux sociaux</li>
@@ -380,7 +381,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block">🎯</span>
               <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Activités</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs.</p>
               <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Immersion totale</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Valorisation</li>
@@ -393,7 +394,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">🏡</span>
               <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Hébergements</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Explorez des lieux d'exception pour vos séjours et rassurez vos voyageurs.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">Explorez des lieux d'exception pour vos séjours et rassurez vos voyageurs.</p>
               <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Visite réaliste</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Réservation directe</li>
@@ -405,7 +406,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block">🛍️</span>
               <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Shopping</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique en un espace de démonstration digital accessible 24h/24.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">Transformez votre boutique en un espace de démonstration digital accessible 24h/24.</p>
               <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Tags produits</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Visibilité SEO</li>
@@ -417,7 +418,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] group">
               <span class="text-4xl mb-6 block">💼</span>
               <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Professionnels</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux et espaces industriels pour vos clients et collaborateurs.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">Valorisez vos bureaux et espaces industriels pour vos clients et collaborateurs.</p>
               <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Espaces de travail</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Branding</li>
@@ -429,7 +430,7 @@
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] group">
               <span class="text-4xl mb-6 block text-white">🗺️</span>
               <h3 class="text-xl font-bold mb-4 text-white uppercase tracking-wider">Tourisme</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez le patrimoine culturel et naturel pour attirer les visiteurs du monde entier.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed font-light">Valorisez le patrimoine culturel et naturel pour attirer les visiteurs du monde entier.</p>
               <ul class="text-[11px] text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6 uppercase tracking-wider">
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Patrimoine</li>
                 <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Exploration libre</li>
@@ -461,27 +462,27 @@
 
       <!-- PAGE VISION -->
       <div id="page-about" class="page px-4 py-20 max-w-5xl mx-auto text-center">
-        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden">
-            <h2 class="text-4xl font-black mb-8 text-white uppercase tracking-tighter text-center">Notre Vision</h2>
+        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden text-white">
+            <h2 class="text-4xl font-black mb-8 uppercase tracking-tighter text-center">Notre Vision</h2>
             <div class="space-y-8 text-slate-300 text-lg leading-relaxed">
               <p class="font-light"><strong>Nova360</strong> est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité à travers une expérience numérique d'exception.</p>
               
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 text-center">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12">
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-xl font-black text-white mb-2 text-center uppercase">360°</div>
-                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Immersion</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase tracking-tighter">360°</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center opacity-70">Immersion</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-xl font-black text-white mb-2 text-center uppercase">MÉDIA</div>
-                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Vidéo & PDF</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase tracking-tighter">MÉDIA</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center opacity-70">Vidéo & PDF</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-xl font-black text-white mb-2 text-center uppercase">HUMAIN</div>
-                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Convivialité</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase tracking-tighter">HUMAIN</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center opacity-70">Convivialité</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-xl font-black text-white mb-2 text-center uppercase">SIMPLE</div>
-                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center">Intuition</div>
+                    <div class="text-xl font-black text-white mb-2 text-center uppercase tracking-tighter">SIMPLE</div>
+                    <div class="text-[9px] uppercase font-bold text-slate-200 tracking-widest text-center opacity-70">Intuition</div>
                 </div>
               </div>
             </div>
@@ -531,6 +532,7 @@
     <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-xs text-center">
       <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <div class="flex items-center gap-4 justify-center md:justify-start">
+            <!-- Footer Logo -->
             <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-6 opacity-20 grayscale pointer-events-none">
             <span class="font-light tracking-wide">&copy; 2025 Nova360. Immersion garantie.</span>
         </div>
