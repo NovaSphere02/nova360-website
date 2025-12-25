@@ -7,7 +7,7 @@
        1. Arrière-plan : Fond #D4D3DC avec un léger halo "Bleu Pétrole".
        2. Navigation : Bloc massif en Vert Canard (#004047).
        3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
-       4. Démonstrations : Fenêtre agrandie et barre de catégories réduite pour un focus maximal sur l'immersion.
+       4. Démonstrations : Barre latérale ultra-compacte (180px) et fenêtre maximisée pour un ratio d'immersion optimal.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -67,7 +67,7 @@
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(248, 250, 252, 0.6);
       letter-spacing: 0.1em;
     }
 
@@ -153,11 +153,11 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Démo - Sidebar Réduite et Fenêtre Agrandie */
+    /* Démo - Sidebar Ultra-Réduite et Fenêtre Maximisée */
     .demo-sidebar {
-      width: 210px; /* Réduit de 280px */
+      width: 180px; /* Réduit encore pour gagner de la place à gauche */
       background: var(--dark);
-      padding: 20px;
+      padding: 15px;
       overflow-y: auto;
       flex-shrink: 0;
       border-right: 1px solid rgba(255, 255, 255, 0.05);
@@ -166,22 +166,23 @@
     .demo-item-btn {
       width: 100%;
       text-align: left;
-      padding: 12px;
-      margin-bottom: 8px;
-      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 6px;
+      border-radius: 6px;
       background: rgba(255, 255, 255, 0.03);
       color: rgba(255, 255, 255, 0.4);
-      font-size: 0.7rem; /* Légèrement réduit pour s'adapter */
+      font-size: 0.65rem; /* Ajusté pour la largeur étroite */
       font-weight: 600;
       transition: all 0.3s ease;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
+      white-space: normal; /* Permet le retour à la ligne si besoin */
     }
 
     .demo-item-btn:hover, .demo-item-btn.active {
       background: var(--primary);
       color: white;
-      transform: translateX(5px);
+      transform: translateX(3px);
     }
 
     #page-demo.active {
@@ -196,7 +197,7 @@
         flex: 1;
         min-width: 0;
         height: 100%;
-        padding: 0; /* Suppression du padding pour maximiser la taille */
+        padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -213,7 +214,7 @@
     @media (max-width: 768px) {
       #page-demo.active { flex-direction: column; }
       .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 10px; gap: 8px; }
-      .demo-item-btn { margin-bottom: 0; white-space: nowrap; padding: 10px 15px; }
+      .demo-item-btn { margin-bottom: 0; white-space: nowrap; padding: 8px 12px; }
       .frame-container { height: 100%; }
     }
   </style>
@@ -365,20 +366,20 @@
         </div>
       </div>
 
-      <!-- PAGE DÉMONSTRATIONS : FENÊTRE AGRANDIE -->
+      <!-- PAGE DÉMONSTRATIONS : FENÊTRE MAXIMISÉE -->
       <div id="page-demo" class="page overflow-hidden">
         <aside class="demo-sidebar shadow-2xl">
-          <div class="mb-10 text-left">
-            <h4 class="text-white font-black text-[9px] uppercase tracking-[0.5em] mb-4">Galerie 360°</h4>
-            <p class="text-[9px] text-white/30 italic font-serif leading-relaxed">Cliquez pour explorer.</p>
+          <div class="mb-8 text-left">
+            <h4 class="text-white font-black text-[8px] uppercase tracking-[0.4em] mb-4">Exploration 360°</h4>
+            <p class="text-[8px] text-white/30 italic font-serif leading-relaxed">Cliquez pour charger.</p>
           </div>
-          <nav class="space-y-2">
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active">🍽️ &nbsp; Restaurants</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 &nbsp; Activités</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn">🏡 &nbsp; Hébergements</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Le%20Petit%20Bouchon/output/index.html', this)" class="demo-item-btn">🛍️ &nbsp; Shopping</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Coworking%20les%20barques/output/index.html', this)" class="demo-item-btn">💼 &nbsp; Professionnels</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn">🏖️ &nbsp; Tourisme</button>
+          <nav class="space-y-1.5">
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active">🍽️ Restaurants</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 Activités</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn">🏡 Hébergements</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Le%20Petit%20Bouchon/output/index.html', this)" class="demo-item-btn">🛍️ Shopping</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Coworking%20les%20barques/output/index.html', this)" class="demo-item-btn">💼 Pros</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn">🏖️ Tourisme</button>
           </nav>
         </aside>
         <div class="frame-container">
@@ -399,7 +400,7 @@
                 <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.7em] block">Manifeste</span>
                 <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight tracking-tighter text-left">L'Intelligence <br><span class="font-serif italic text-7xl text-[#004047]">de l'Image.</span></h2>
                 <p class="text-lg text-slate-500 leading-relaxed font-light italic border-l-2 border-[#278299] pl-10 text-left">
-                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter votre visibilité."
+                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur."
                 </p>
                 <div class="grid grid-cols-2 gap-8 pt-12">
                     <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
