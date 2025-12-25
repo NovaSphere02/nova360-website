@@ -9,7 +9,7 @@
        3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
        4. Boutons : Design unifié avec effet de balayage (sweep) de gauche à droite au survol.
        5. Démonstrations : Interface ultra-optimisée avec mode immersion et pop-up d'accueil.
-       6. Catégories : Panneaux design avec demi-cercles et accents bleus.
+       6. Catégories : Panneaux design avec demi-cercles, accents bleus et fond en dégradé lumineux.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -102,7 +102,6 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* L'effet de défilement de gauche à droite */
     .cta-button::before {
       content: '';
       position: absolute;
@@ -122,13 +121,14 @@
     .cta-button:hover {
       transform: scale(1.06);
       box-shadow: 0 20px 40px -10px rgba(0, 64, 71, 0.4);
-      letter-spacing: 0.35em; /* Légère extension du texte pour le relief */
+      letter-spacing: 0.35em;
     }
 
-    /* Cartes Accueil & Catégories */
+    /* --- DESIGN DES PANNEAUX (RECTANGLES) : FOND CLAIR & DÉGRADÉ --- */
     .feature-card {
-      background: white;
-      border: 1px solid rgba(39, 130, 153, 0.1);
+      /* Dégradé lumineux du blanc pur vers un bleu givré très léger */
+      background: linear-gradient(135deg, #ffffff 0%, #f4f7f8 100%);
+      border: 1px solid rgba(39, 130, 153, 0.15);
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden; 
@@ -138,6 +138,8 @@
       transform: translateY(-12px);
       box-shadow: 0 30px 60px -15px rgba(0, 64, 71, 0.15);
       border-color: var(--primary);
+      /* Intensification du dégradé au survol */
+      background: linear-gradient(135deg, #ffffff 0%, #ebf1f3 100%);
     }
 
     .status-half-circle {
@@ -328,6 +330,11 @@
       border-color: white;
     }
 
+    .exit-immersion span {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
     #demo-modal {
       display: none;
       position: fixed;
@@ -459,12 +466,11 @@
             L'excellence visuelle au service de votre établissement. Nova360 crée des passerelles immersives entre le monde réel et vos futurs clients.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-8 mb-32 text-center">
-          <!-- BOUTONS UNIFIES AVEC EFFET SWEEP -->
           <button class="cta-button px-14 py-6 rounded-full font-black text-[10px] shadow-2xl uppercase tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
           <button class="cta-button px-14 py-6 rounded-full font-black text-[10px] shadow-2xl uppercase tracking-[0.3em]" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
         
-        <!-- Cards Home (LOGOS & TEXTE CORRIGÉS) -->
+        <!-- Cards Home (DÉGRADÉ LUMINEUX APPLIQUÉ) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-4 mb-32">
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#278299]">
               <div class="status-half-circle"></div>
@@ -512,13 +518,11 @@
           </div>
           <div class="logo-section text-left">
             <div class="logo-slider text-left">
-                <!-- Série 1 -->
                 <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
-                <!-- Série 2 -->
                 <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
@@ -529,7 +533,7 @@
         </div>
       </div>
 
-      <!-- PAGE CATÉGORIES (EXPERTISES) -->
+      <!-- PAGE CATÉGORIES (EXPERTISES - DÉGRADÉ APPLIQUÉ AUSSI ICI) -->
       <div id="page-categories" class="page px-8 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-24">
             <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.6em] mb-4 block text-center">Départements</span>
@@ -553,7 +557,7 @@
 
             <!-- Activités -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
-              <div class="status-half-circle text-left"></div>
+              <div class="status-half-circle"></div>
               <div class="text-4xl mb-10 text-left">🎯</div>
               <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#315a97]/10 pb-2">Activités</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left">Donnez le vertige. Capturez l'excitation de vos loisirs dans une expérience 360° immersive.</p>
@@ -565,8 +569,8 @@
             </div>
 
             <!-- Hébergement -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
-              <div class="status-half-circle text-left"></div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left text-left">
+              <div class="status-half-circle"></div>
               <div class="text-4xl mb-10 text-left">🏡</div>
               <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#004047]/10 pb-2 text-left">Hébergements</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left text-left">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur futur séjour.</p>
@@ -578,9 +582,9 @@
             </div>
 
             <!-- Shopping -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left text-left">
                 <div class="status-half-circle text-left"></div>
-                <div class="text-4xl mb-10 text-left">🛍️</div>
+                <div class="text-4xl mb-10 text-left text-left">🛍️</div>
                 <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#278299]/10 pb-2 text-left text-left">Shopping</h3>
                 <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left text-left text-left">Transformez votre boutique en une destination digitale interactive accessible 24h/24.</p>
                 <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left text-left text-left text-left text-left text-left">
@@ -591,9 +595,9 @@
             </div>
 
             <!-- Professionnels -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left">
-                <div class="status-half-circle text-left"></div>
-                <div class="text-4xl mb-10 text-left">💼</div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left text-left text-left">
+                <div class="status-half-circle text-left text-left"></div>
+                <div class="text-4xl mb-10 text-left text-left">💼</div>
                 <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#315a97]/10 pb-2 text-left text-left text-left text-left">Professionnels</h3>
                 <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left text-left text-left text-left">Valorisez vos bureaux et infrastructures industrielles pour vos clients et collaborateurs.</p>
                 <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left text-left text-left text-left text-left text-left text-left">
@@ -604,9 +608,9 @@
             </div>
 
             <!-- Tourisme -->
-            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left text-left">
-                <div class="status-half-circle text-left"></div>
-                <div class="text-4xl mb-10 text-left text-left">🏖️</div>
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group text-left text-left text-left text-left">
+                <div class="status-half-circle text-left text-left text-left"></div>
+                <div class="text-4xl mb-10 text-left text-left text-left">🏖️</div>
                 <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left border-b-2 border-[#004047]/10 pb-2 text-left text-left text-left text-left text-left">Tourisme</h3>
                 <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left text-left text-left text-left text-left">Sublimez le patrimoine et la culture de votre territoire grâce au storytelling immersif.</p>
                 <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left text-left text-left text-left text-left text-left">
@@ -622,38 +626,38 @@
       <div id="page-demo" class="page overflow-hidden text-white text-left text-left">
         <div id="demo-modal" onclick="closeDemoModal()" class="text-left text-left">
           <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="text-5xl mb-6 text-[#278299] text-center">⛶</div>
-            <h2 class="text-3xl font-serif italic text-[#004047] mb-4 text-center">Optimisez votre vision</h2>
-            <p class="text-slate-600 mb-8 leading-relaxed font-light text-center text-left text-left">
+            <div class="text-5xl mb-6 text-[#278299] text-center text-center">⛶</div>
+            <h2 class="text-3xl font-serif italic text-[#004047] mb-4 text-center text-center">Optimisez votre vision</h2>
+            <p class="text-slate-600 mb-8 leading-relaxed font-light text-center text-left text-left text-left">
               Pour une immersion totale et une expérience sans frontières, nous vous conseillons d'utiliser le bouton <strong>Plein Écran</strong> situé en haut à droite.
             </p>
-            <button onclick="closeDemoModal()" class="cta-button px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest shadow-xl text-center">
+            <button onclick="closeDemoModal()" class="cta-button px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest shadow-xl text-center text-center text-white">
               Démarrer l'expérience
             </button>
           </div>
         </div>
 
-        <div class="demo-topbar shadow-2xl text-left">
-          <button onclick="navigateToPage('home')" class="back-btn group text-left text-white">
+        <div class="demo-topbar shadow-2xl text-left text-left">
+          <button onclick="navigateToPage('home')" class="back-btn group text-left text-left text-white">
             ← <span>Accueil</span>
           </button>
-          <nav class="demo-nav-scroll text-left">
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html', this)" class="demo-item-btn active text-left">🍽️ Restaurants</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn text-left">🎯 Activités</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Domaines%20%26%20Ch%C3%A2teaux/11100%20-%20Narbonne%20-%20Ch%C3%A2teau%20Jonqui%C3%A8res/output/index.html', this)" class="demo-item-btn text-left">🏡 Hébergements</button>
+          <nav class="demo-nav-scroll text-left text-left">
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html', this)" class="demo-item-btn active text-left text-left">🍽️ Restaurants</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn text-left text-left">🎯 Activités</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Domaines%20%26%20Ch%C3%A2teaux/11100%20-%20Narbonne%20-%20Ch%C3%A2teau%20Jonqui%C3%A8res/output/index.html', this)" class="demo-item-btn text-left text-left">🏡 Hébergements</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Le%20Petit%20Bouchon/output/index.html', this)" class="demo-item-btn text-left text-left">🛍️ Shopping</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20Narbonne%20-%20WAW%21/output/index.html', this)" class="demo-item-btn text-left text-left">💼 Pros</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn text-left text-left">🏖️ Tourisme</button>
           </nav>
           <div class="flex items-center gap-3 pl-4 border-l border-white/10 text-left text-left">
-            <span class="incitation-arrow">➤</span>
-            <div onclick="toggleImmersion(true)" class="expand-btn text-left text-white" title="Passer en plein écran">
+            <span class="incitation-arrow text-left">➤</span>
+            <div onclick="toggleImmersion(true)" class="expand-btn text-left text-left text-white" title="Passer en plein écran">
               ⛶
             </div>
           </div>
         </div>
 
-        <div onclick="toggleImmersion(false)" class="exit-immersion text-left text-white" title="Quitter le plein écran">
+        <div onclick="toggleImmersion(false)" class="exit-immersion text-left text-left text-white" title="Quitter le plein écran">
           <span>✕</span>
         </div>
 
@@ -674,32 +678,32 @@
             <div class="space-y-10 text-left">
                 <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.7em] block text-left">Manifeste</span>
                 <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight tracking-tighter text-left text-left">L'Intelligence <br><span class="font-serif italic text-7xl text-[#004047]">de l'Image.</span></h2>
-                <p class="text-lg text-slate-500 leading-relaxed font-light italic border-l-2 border-[#278299] pl-10 text-left text-left">
+                <p class="text-lg text-slate-500 leading-relaxed font-light italic border-l-2 border-[#278299] pl-10 text-left text-left text-left">
                     "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur."
                 </p>
-                <div class="grid grid-cols-2 gap-8 pt-12 text-left text-left">
-                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none text-left">
-                        <div class="status-half-circle relative top-0 right-0 mx-auto mb-4 text-left"></div>
-                        <div class="text-4xl font-black text-[#278299] mb-4 font-serif text-center">360°</div>
-                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center">Présence</div>
+                <div class="grid grid-cols-2 gap-8 pt-12 text-left text-left text-left">
+                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none text-left text-left text-left">
+                        <div class="status-half-circle relative top-0 right-0 mx-auto mb-4 text-left text-left text-left"></div>
+                        <div class="text-4xl font-black text-[#278299] mb-4 font-serif text-center text-center text-center">360°</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center text-center text-center text-center text-center">Présence</div>
                     </div>
-                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none text-center text-left text-left">
-                        <div class="status-half-circle relative top-0 right-0 mx-auto mb-4 text-left text-left"></div>
-                        <div class="text-4xl font-black text-[#004047] mb-4 font-serif text-center">MÉDIA</div>
-                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center">Dynamique</div>
+                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none text-center text-left text-left text-left text-left">
+                        <div class="status-half-circle relative top-0 right-0 mx-auto mb-4 text-left text-left text-left text-left text-left"></div>
+                        <div class="text-4xl font-black text-[#004047] mb-4 font-serif text-center text-center text-center text-center text-center">MÉDIA</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center text-center text-center text-center text-center text-center">Dynamique</div>
                     </div>
                 </div>
             </div>
-            <div class="bg-[#004047] p-16 rounded-[4rem] shadow-2xl space-y-12 text-left">
-                <h3 class="text-white font-black text-[11px] uppercase tracking-[0.5em] opacity-30 text-center text-left">Nos Fondations</h3>
-                <div class="space-y-6 text-left">
-                    <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white text-left">
-                        <div class="text-2xl font-black mb-3 font-serif italic text-left text-white text-left">Humain</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed text-left text-white/60">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
+            <div class="bg-[#004047] p-16 rounded-[4rem] shadow-2xl space-y-12 text-left text-left text-left text-left">
+                <h3 class="text-white font-black text-[11px] uppercase tracking-[0.5em] opacity-30 text-center text-left text-left text-left text-left">Nos Fondations</h3>
+                <div class="space-y-6 text-left text-left text-left text-left">
+                    <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white text-left text-left text-left text-left">
+                        <div class="text-2xl font-black mb-3 font-serif italic text-left text-white text-left text-left text-left text-left text-left text-left">Humain</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed text-left text-white/60 text-left text-left text-left text-left">Nous replaçons le visiteur au centre de l'expérience interactive.</p>
                     </div>
-                    <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white text-left text-left">
-                        <div class="text-2xl font-black mb-3 font-serif italic text-left text-white text-left text-left">Simple</div>
-                        <p class="text-xs opacity-50 font-light leading-relaxed text-left text-white/60">Une technologie invisible pour une navigation fluide et instinctive.</p>
+                    <div class="p-10 bg-white/5 border border-white/10 rounded-[2rem] text-white text-left text-left text-left text-left text-left text-left">
+                        <div class="text-2xl font-black mb-3 font-serif italic text-left text-white text-left text-left text-left text-left text-left text-left text-left text-left">Simple</div>
+                        <p class="text-xs opacity-50 font-light leading-relaxed text-left text-white/60 text-left text-left text-left text-left text-left text-left text-left">Une technologie invisible pour une navigation fluide et instinctive.</p>
                     </div>
                 </div>
             </div>
@@ -707,40 +711,40 @@
       </div>
 
       <!-- PAGE CONTACT -->
-      <div id="page-contact" class="page px-8 py-24 max-w-5xl mx-auto text-left text-left text-left">
-        <div class="bg-white p-16 md:p-24 rounded-[4rem] shadow-2xl border border-slate-100 text-center relative overflow-hidden text-left text-left text-left">
-            <div class="text-center mb-24 space-y-6 text-left">
-                <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.8em] block text-center text-left text-left">Alliance</span>
-                <h2 class="text-5xl font-serif italic text-slate-900 tracking-tighter text-center text-left">Écrivons votre <span class="font-sans font-black text-slate-200">Futur.</span></h2>
+      <div id="page-contact" class="page px-8 py-24 max-w-5xl mx-auto text-left text-left text-left text-left text-left text-left">
+        <div class="bg-white p-16 md:p-24 rounded-[4rem] shadow-2xl border border-slate-100 text-center relative overflow-hidden text-left text-left text-left text-left text-left text-left">
+            <div class="text-center mb-24 space-y-6 text-left text-left text-left text-left text-left text-left text-left">
+                <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.8em] block text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left">Alliance</span>
+                <h2 class="text-5xl font-serif italic text-slate-900 tracking-tighter text-center text-left text-left text-left text-left text-left text-left">Écrivons votre <span class="font-sans font-black text-slate-200 text-left text-left text-left">Futur.</span></h2>
             </div>
-            <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-left">
-              <div class="space-y-10 text-left text-left">
-                <div class="group text-left text-left">
-                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left">Votre Nom</label>
-                  <input type="text" placeholder="JEAN DUPONT" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold text-left">
+            <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left text-left text-left text-left text-left text-left text-left text-left">
+              <div class="space-y-10 text-left text-left text-left text-left text-left text-left text-left text-left">
+                <div class="group text-left text-left text-left text-left text-left text-left text-left text-left">
+                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left text-left text-left text-left">Votre Nom</label>
+                  <input type="text" placeholder="JEAN DUPONT" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold text-left text-left text-left">
                 </div>
-                <div class="group text-left text-left text-left">
-                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left">Votre Email</label>
-                  <input type="email" placeholder="CONTACT@ENTREPRISE.FR" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold text-left">
+                <div class="group text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                  <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left text-left text-left text-left text-left">Votre Email</label>
+                  <input type="email" placeholder="CONTACT@ENTREPRISE.FR" required class="w-full px-0 py-4 bg-transparent border-b-2 border-slate-100 text-slate-900 outline-none focus:border-[#278299] transition-all text-sm uppercase tracking-widest font-bold text-left text-left text-left text-left text-left">
                 </div>
               </div>
-              <div class="flex flex-col group text-left text-left text-left">
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left">Votre Vision</label>
-                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold text-left text-left text-left"></textarea>
+              <div class="flex flex-col group text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                <label class="block text-[10px] font-black uppercase text-slate-400 mb-4 tracking-[0.4em] group-focus-within:text-[#278299] transition-colors text-left text-left text-left text-left text-left text-left">Votre Vision</label>
+                <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold text-left text-left text-left text-left text-left text-left text-left"></textarea>
               </div>
-              <div class="md:col-span-2 pt-10 text-center text-left text-left">
-                <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all text-center">Transmettre la demande</button>
+              <div class="md:col-span-2 pt-10 text-center text-left text-left text-left text-left text-left text-left text-left text-left">
+                <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all text-center text-left text-left text-left text-white">Transmettre la demande</button>
               </div>
             </form>
             
-            <div class="mt-40 pt-20 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-20 text-left text-left text-left text-left">
-                <div class="max-w-md space-y-6 text-left text-left">
-                    <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter text-left text-left">Mobilité <span class="font-serif italic font-light text-[#278299]">Sans Compromis</span></h4>
-                    <p class="text-xs text-slate-500 font-light leading-relaxed uppercase tracking-[0.2em] text-left text-left">Scannez pour activer l'expérience Nova360 sur votre terminal personnel.</p>
+            <div class="mt-40 pt-20 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-20 text-left text-left text-left text-left text-left text-left text-left text-left">
+                <div class="max-w-md space-y-6 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+                    <h4 class="text-2xl font-black text-slate-900 uppercase tracking-tighter text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Mobilité <span class="font-serif italic font-light text-[#278299] text-left text-left text-left text-left text-left text-left text-left text-left">Sans Compromis</span></h4>
+                    <p class="text-xs text-slate-500 font-light leading-relaxed uppercase tracking-[0.2em] text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">Scannez pour activer l'expérience Nova360 sur votre terminal personnel.</p>
                 </div>
-                <div class="p-10 bg-white rounded-[3.5rem] shadow-2xl border border-slate-50 relative group text-left text-left">
-                    <div class="absolute inset-0 bg-[#278299]/5 rounded-[3.5rem] scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://nova360.app.codinsight.app/&color=004047" alt="QR Code" class="h-28 w-28 opacity-90 relative z-10 text-white">
+                <div class="p-10 bg-white rounded-[3.5rem] shadow-2xl border border-slate-50 relative group text-left text-left text-left text-left text-left text-left text-left text-left">
+                    <div class="absolute inset-0 bg-[#278299]/5 rounded-[3.5rem] scale-0 group-hover:scale-100 transition-transform duration-500 text-left text-left text-left"></div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://nova360.app.codinsight.app/&color=004047" alt="QR Code" class="h-28 w-28 opacity-90 relative z-10 text-white text-white text-left text-left text-left text-left text-left text-left text-left text-left text-left">
                 </div>
             </div>
         </div>
@@ -749,15 +753,15 @@
     </main>
 
     <!-- FOOTER -->
-    <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5 text-left text-left text-left">
-      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center text-left text-left">
-        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center text-white/40 text-left">
-            <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none text-left">
-            <span class="font-light tracking-[0.3em] text-[9px] uppercase text-left">&copy; 2025 Nova360 Architectural Lab.</span>
+    <footer id="main-footer" class="py-24 bg-[#0a0a0a] text-white/20 text-xs text-center border-t border-white/5 text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+      <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center text-center text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+        <div class="flex items-center gap-10 justify-center md:justify-start mb-12 md:mb-0 text-center text-white/40 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+            <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Nova360" class="h-8 opacity-40 brightness-0 invert pointer-events-none text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+            <span class="font-light tracking-[0.3em] text-[9px] uppercase text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">&copy; 2025 Nova360 Architectural Lab.</span>
         </div>
-        <div class="flex space-x-16 font-bold uppercase tracking-[0.4em] justify-center text-[9px] text-left text-left">
-          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40 text-left">Mentions</a>
-          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40 text-left text-left">Confidentialité</a>
+        <div class="flex space-x-16 font-bold uppercase tracking-[0.4em] justify-center text-[9px] text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
+          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40 text-left text-left text-left text-left text-left text-left">Mentions</a>
+          <a href="#" class="hover:text-[#278299] transition-colors underline decoration-[#278299]/30 underline-offset-8 text-white/40 text-left text-left text-left text-left text-left text-left text-left text-left text-left">Confidentialité</a>
         </div>
       </div>
     </footer>
