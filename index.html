@@ -10,6 +10,7 @@
        4. Démonstrations : Interface ultra-optimisée. Barre haute affinée (50px).
        5. Mode Immersion : Système de bascule plein écran avec bouton de sortie encadré et mis en évidence.
        6. UX Enhancement : Pop-up d'accueil en mode démo pour conseiller le plein écran.
+       7. Catégories : Ajout des panneaux Shopping, Professionnels et Tourisme pour compléter l'offre.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -93,6 +94,7 @@
       background: white;
       border: 1px solid rgba(0, 64, 71, 0.1);
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      height: 100%;
     }
 
     .feature-card:hover {
@@ -237,24 +239,24 @@
     }
     .expand-btn:hover { background: var(--primary); }
 
-    /* Bouton de sortie flottant ENCARRÉ ET MIS EN ÉVIDENCE */
+    /* Bouton de sortie flottant */
     .exit-immersion {
       position: fixed;
       top: 25px;
       right: 25px;
       z-index: 200;
-      background: var(--dark); /* Fond solide pour le cadre */
+      background: var(--dark);
       backdrop-filter: blur(10px);
       width: 50px;
       height: 50px;
-      border-radius: 12px; /* Style encadré plutôt que rond */
+      border-radius: 12px;
       color: white;
       display: none;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      border: 3px solid var(--primary); /* Bordure épaisse et colorée */
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Ombre portée */
+      border: 3px solid var(--primary);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
@@ -262,7 +264,6 @@
       transform: scale(1.1);
       background: var(--primary);
       border-color: white;
-      box-shadow: 0 0 20px rgba(39, 130, 153, 0.6);
     }
 
     .exit-immersion span {
@@ -270,7 +271,7 @@
         font-weight: bold;
     }
 
-    /* Styles de la Pop-up d'accueil Démo */
+    /* Pop-up d'accueil Démo */
     #demo-modal {
       display: none;
       position: fixed;
@@ -344,14 +345,11 @@
         overflow: hidden;
         position: relative;
         border: 6px solid #1a1a1a;
-        box-shadow: 
-            0 20px 60px -10px rgba(0, 0, 0, 0.7),
-            inset 0 1px 5px rgba(255, 255, 255, 0.05);
-        transition: all 0.5s ease;
+        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.7);
     }
 
     @media (max-width: 768px) {
-      .demo-topbar { padding: 0 10px; gap: 8px; }
+      .demo-topbar { padding: 0 10px; gap: 8px; height: 60px; }
       .back-btn span { display: none; }
       .frame-container { padding: 10px; }
       .virtual-frame { border-width: 3px; }
@@ -370,7 +368,7 @@
           <span class="text-white font-black tracking-tighter text-xl md:hidden uppercase tracking-widest italic text-center text-white">Nova360</span>
         </div>
 
-        <div class="hidden md:flex space-x-12">
+        <div class="hidden md:flex space-x-12 text-white">
           <a href="#home" class="nav-link active font-bold text-[10px] uppercase" data-page="home">Accueil</a>
           <a href="#categories" class="nav-link font-bold text-[10px] uppercase" data-page="categories">Expertises</a>
           <a href="#demo" class="nav-link font-bold text-[10px] uppercase" data-page="demo">Démonstrations</a>
@@ -409,10 +407,10 @@
           <button class="border-2 border-[#004047] hover:bg-[#004047] hover:text-white text-[#004047] px-14 py-6 rounded-full font-black text-[10px] transition-all uppercase tracking-[0.3em]" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
         
-        <!-- Cards -->
+        <!-- Cards Home -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-4 mb-32">
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#278299]">
-              <div class="text-xs font-black text-[#278299] uppercase tracking-widest mb-6 text-left">Technologie 01</div>
+              <div class="text-xs font-black text-[#278299] uppercase tracking-widest mb-6">Technologie 01</div>
               <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Immersion 360°</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une précision chirurgicale pour restituer l'âme de vos lieux avec une fidélité absolue.</p>
             </div>
@@ -445,7 +443,7 @@
         </div>
       </div>
 
-      <!-- PAGE CATÉGORIES -->
+      <!-- PAGE CATÉGORIES (EXPERTIISES COMPLETES) -->
       <div id="page-categories" class="page px-8 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-24">
             <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.6em] mb-4 block">Départements</span>
@@ -454,6 +452,7 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 text-left">
+            <!-- Restaurant -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#278299]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10 text-left">🍽️</div>
@@ -461,11 +460,12 @@
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Invitez vos clients à votre table avant même qu'ils ne passent la porte. Une mise en bouche digitale.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Réservation Directe</li>
-                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Menu PDF</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Menu Interactif</li>
               </ul>
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
             </div>
 
+            <!-- Activités -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#315a97]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10 text-left">🎯</div>
@@ -473,21 +473,61 @@
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Donnez le vertige. Capturez l'excitation de vos loisirs dans une expérience 360° immersive.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Sensations VR</li>
-                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Captation</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Captation Visuelle</li>
               </ul>
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
             </div>
 
+            <!-- Hébergement -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10 text-left">🏡</div>
               <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Hébergements</h3>
               <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur futur séjour.</p>
               <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
-                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Galerie HD</li>
+                <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Confiance Totale</li>
                 <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Booking Pro</li>
               </ul>
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
+            </div>
+
+            <!-- Shopping -->
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden text-left">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#278299]/5 rounded-bl-full"></div>
+                <div class="text-4xl mb-10 text-left">🛍️</div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Shopping</h3>
+                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Transformez votre point de vente en une destination digitale interactive accessible 24h/24.</p>
+                <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
+                  <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> Tags Produits</li>
+                  <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#278299]"></span> SEO Local</li>
+                </ul>
+                <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">VISITER</button>
+            </div>
+
+            <!-- Professionnels -->
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden text-left">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#315a97]/5 rounded-bl-full"></div>
+                <div class="text-4xl mb-10 text-left">💼</div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Professionnels</h3>
+                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Valorisez vos bureaux et infrastructures industrielles pour vos clients et futurs collaborateurs.</p>
+                <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
+                  <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Recrutement</li>
+                  <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#315a97]"></span> Immobilier Pro</li>
+                </ul>
+                <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">VISITER</button>
+            </div>
+
+            <!-- Tourisme -->
+            <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden text-left">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
+                <div class="text-4xl mb-10 text-left">🏖️</div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif uppercase tracking-widest italic text-left">Tourisme</h3>
+                <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light text-left">Sublimez le patrimoine et la culture de votre territoire grâce au storytelling immersif.</p>
+                <ul class="text-[10px] text-slate-400 space-y-4 mb-10 border-t border-slate-100 pt-8 font-black uppercase tracking-widest text-left">
+                  <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Territoires</li>
+                  <li class="flex items-center gap-4"><span class="w-2 h-2 bg-[#004047]"></span> Culture & Arts</li>
+                </ul>
+                <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">VISITER</button>
             </div>
         </div>
       </div>
@@ -495,7 +535,7 @@
       <!-- PAGE DÉMONSTRATIONS -->
       <div id="page-demo" class="page overflow-hidden">
         
-        <!-- POP-UP D'ACCUEIL DÉMO -->
+        <!-- Modal Fullscreen Advice -->
         <div id="demo-modal" onclick="closeDemoModal()">
           <div class="modal-content" onclick="event.stopPropagation()">
             <div class="text-5xl mb-6">⛶</div>
@@ -531,7 +571,6 @@
           </div>
         </div>
 
-        <!-- Bouton Sortie Immersion MIS EN ÉVIDENCE -->
         <div onclick="toggleImmersion(false)" class="exit-immersion" title="Quitter le plein écran">
           <span>✕</span>
         </div>
@@ -558,12 +597,12 @@
                 </p>
                 <div class="grid grid-cols-2 gap-8 pt-12">
                     <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
-                        <div class="text-4xl font-black text-[#278299] mb-4 font-serif">360°</div>
-                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em]">Présence</div>
+                        <div class="text-4xl font-black text-[#278299] mb-4 font-serif text-center">360°</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center">Présence</div>
                     </div>
-                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
-                        <div class="text-4xl font-black text-[#004047] mb-4 font-serif">MÉDIA</div>
-                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em]">Dynamique</div>
+                    <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none text-center">
+                        <div class="text-4xl font-black text-[#004047] mb-4 font-serif text-center">MÉDIA</div>
+                        <div class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.4em] text-center">Dynamique</div>
                     </div>
                 </div>
             </div>
@@ -607,7 +646,7 @@
                 <textarea rows="5" placeholder="DÉCRIVEZ VOTRE PROJET..." required class="flex-grow w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] text-slate-900 outline-none focus:border-[#278299] focus:bg-white transition-all text-sm uppercase tracking-widest font-bold text-left"></textarea>
               </div>
               <div class="md:col-span-2 pt-10 text-center">
-                <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all">Transmettre la demande</button>
+                <button type="submit" class="cta-button w-full py-8 rounded-full text-white font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl transition-all text-center">Transmettre la demande</button>
               </div>
             </form>
             
