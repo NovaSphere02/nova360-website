@@ -4,12 +4,10 @@
   <!-- Chosen Palette: Deep Duck Green & Petrol Glow on #D4D3DC -->
   <!-- Application Structure Plan: 
        L'architecture accentue les couleurs de marque pour une identité visuelle plus forte.
-       1. Arrière-plan : Fond #D4D3DC avec un léger halo "Bleu Pétrole" pour donner de la profondeur.
-       2. Navigation : Bloc massif en Vert Canard (#004047) pour ancrer le design.
-       3. Typographie : Contraste de caractère entre la noblesse de 'Playfair Display' et la force de 'Inter'.
-       4. Correction Logo Slider : Structure flex-row stricte pour un défilement horizontal garanti.
-       5. Mise en page Accueil : Contenu remonté sans logo central pour un impact immédiat et une élégance accrue.
-       6. Fenêtre Démo : Correction des permissions (allow) pour débloquer toutes les fonctionnalités des visites (VR, gyroscope, etc.).
+       1. Arrière-plan : Fond #D4D3DC avec un léger halo "Bleu Pétrole".
+       2. Navigation : Bloc massif en Vert Canard (#004047).
+       3. Typographie : Alliance Playfair Display (élégance) et Inter (force).
+       4. Démonstrations : Fenêtre agrandie et barre de catégories réduite pour un focus maximal sur l'immersion.
   -->
   <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
@@ -155,34 +153,35 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Démo - Fenêtre Agrandi */
+    /* Démo - Sidebar Réduite et Fenêtre Agrandie */
     .demo-sidebar {
-      width: 280px;
+      width: 210px; /* Réduit de 280px */
       background: var(--dark);
-      padding: 30px;
+      padding: 20px;
       overflow-y: auto;
       flex-shrink: 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .demo-item-btn {
       width: 100%;
       text-align: left;
-      padding: 16px;
-      margin-bottom: 10px;
-      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.03);
       color: rgba(255, 255, 255, 0.4);
-      font-size: 0.8rem;
+      font-size: 0.7rem; /* Légèrement réduit pour s'adapter */
       font-weight: 600;
       transition: all 0.3s ease;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.05em;
     }
 
     .demo-item-btn:hover, .demo-item-btn.active {
       background: var(--primary);
       color: white;
-      transform: translateX(8px);
+      transform: translateX(5px);
     }
 
     #page-demo.active {
@@ -197,7 +196,7 @@
         flex: 1;
         min-width: 0;
         height: 100%;
-        padding: 10px;
+        padding: 0; /* Suppression du padding pour maximiser la taille */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -207,17 +206,15 @@
         width: 100%;
         height: 100%;
         background: #000;
-        border-radius: 12px;
         overflow: hidden;
         position: relative;
-        box-shadow: 0 30px 100px -20px rgba(0, 0, 0, 0.5);
     }
 
     @media (max-width: 768px) {
       #page-demo.active { flex-direction: column; }
-      .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 15px; gap: 8px; }
+      .demo-sidebar { width: 100% !important; height: auto; display: flex; overflow-x: auto; padding: 10px; gap: 8px; }
       .demo-item-btn { margin-bottom: 0; white-space: nowrap; padding: 10px 15px; }
-      .frame-container { padding: 5px; }
+      .frame-container { height: 100%; }
     }
   </style>
 </head>
@@ -265,16 +262,15 @@
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-8 pt-12 pb-20 lg:pt-20 lg:pb-32 text-center bg-transparent">
         
-        <!-- TITRE BI-STYLE RAFFINÉ -->
         <div class="mb-16">
             <h1 class="text-3xl md:text-5xl lg:text-7xl font-light leading-tight tracking-tight text-slate-800">
-              <span class="font-serif italic text-slate-400 block mb-2">Un seul endroit</span>
-              <span class="font-serif italic text-[#278299] text-5xl md:text-8xl block my-4 underline decoration-[#004047]/10 underline-offset-8">pour explorer</span>
-              <span class="font-black text-xl md:text-3xl lg:text-4xl uppercase tracking-[0.5em] text-[#004047] mt-8 block">tous les autres</span>
+              <span class="font-serif italic text-slate-400 block mb-2 text-center">Un seul endroit</span>
+              <span class="font-serif italic text-[#278299] text-5xl md:text-8xl block my-4 underline decoration-[#004047]/10 underline-offset-8 text-center">pour explorer</span>
+              <span class="font-black text-xl md:text-3xl lg:text-4xl uppercase tracking-[0.5em] text-[#004047] mt-8 block text-center">tous les autres</span>
             </h1>
         </div>
         
-        <p class="text-lg text-slate-500 max-w-xl mx-auto mb-16 font-light leading-relaxed">
+        <p class="text-lg text-slate-500 max-w-xl mx-auto mb-16 font-light leading-relaxed text-center">
             L'excellence visuelle au service de votre établissement. Nova360 crée des passerelles immersives entre le monde réel et vos futurs clients.
         </p>
         
@@ -305,13 +301,11 @@
         <!-- Slider Partenaires -->
         <div class="logo-section">
           <div class="logo-slider">
-              <!-- Série 1 -->
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
-              <!-- Série 2 (Boucle) -->
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
@@ -330,7 +324,6 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- Restaurant -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#278299]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🍽️</div>
@@ -344,7 +337,6 @@
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
             </div>
 
-            <!-- Activités -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#315a97]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🎯</div>
@@ -358,7 +350,6 @@
               <button class="cta-button py-5 rounded-2xl mt-auto font-black text-[10px] tracking-[0.3em]" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
             </div>
 
-            <!-- Hébergement -->
             <div class="feature-card p-12 rounded-[2.5rem] flex flex-col group relative overflow-hidden">
               <div class="absolute top-0 right-0 w-24 h-24 bg-[#004047]/5 rounded-bl-full"></div>
               <div class="text-4xl mb-10">🏡</div>
@@ -374,14 +365,14 @@
         </div>
       </div>
 
-      <!-- PAGE DÉMONSTRATIONS -->
+      <!-- PAGE DÉMONSTRATIONS : FENÊTRE AGRANDIE -->
       <div id="page-demo" class="page overflow-hidden">
         <aside class="demo-sidebar shadow-2xl">
-          <div class="mb-12 text-left">
-            <h4 class="text-white font-black text-[10px] uppercase tracking-[0.5em] mb-4">La Galerie</h4>
-            <p class="text-[10px] text-white/30 italic font-serif leading-relaxed">Vivez l'expérience immersive en un clic.</p>
+          <div class="mb-10 text-left">
+            <h4 class="text-white font-black text-[9px] uppercase tracking-[0.5em] mb-4">Galerie 360°</h4>
+            <p class="text-[9px] text-white/30 italic font-serif leading-relaxed">Cliquez pour explorer.</p>
           </div>
-          <nav class="space-y-3">
+          <nav class="space-y-2">
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active">🍽️ &nbsp; Restaurants</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 &nbsp; Activités</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn">🏡 &nbsp; Hébergements</button>
@@ -391,8 +382,7 @@
           </nav>
         </aside>
         <div class="frame-container">
-          <div class="virtual-frame border-4 border-[#004047]">
-              <!-- Mise à jour des permissions allow pour activer toutes les options interactives des visites -->
+          <div class="virtual-frame">
               <iframe id="demo-frame" 
                       src="https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html" 
                       class="w-full h-full border-none" 
@@ -404,12 +394,12 @@
 
       <!-- PAGE VISION -->
       <div id="page-about" class="page px-8 py-24 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div class="space-y-10 text-left">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center text-left">
+            <div class="space-y-10">
                 <span class="text-[#278299] font-black text-[11px] uppercase tracking-[0.7em] block">Manifeste</span>
-                <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight tracking-tighter">L'Intelligence <br><span class="font-serif italic text-7xl text-[#004047]">de l'Image.</span></h2>
-                <p class="text-lg text-slate-500 leading-relaxed font-light italic border-l-2 border-[#278299] pl-10">
-                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur."
+                <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight tracking-tighter text-left">L'Intelligence <br><span class="font-serif italic text-7xl text-[#004047]">de l'Image.</span></h2>
+                <p class="text-lg text-slate-500 leading-relaxed font-light italic border-l-2 border-[#278299] pl-10 text-left">
+                    "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter votre visibilité."
                 </p>
                 <div class="grid grid-cols-2 gap-8 pt-12">
                     <div class="feature-card p-10 rounded-3xl text-center bg-white shadow-xl border-none">
