@@ -4,7 +4,7 @@
   <!-- 
        Architecture de Marque : Nova360 - Architectural Lab
        Palette harmonisée : 
-       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Slider logos et Footer
+       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Slider logos, Footer et Accents textuels
        - Accent Soft Teal (#278299) : Unification du titre (début et fin) et boutons
        - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion et survol cartes
        - Surface (#D4D3DC) : Gris Perle
@@ -101,7 +101,7 @@
       }
     }
 
-    /* Animation Robotique Douce au Survol (cumulable) */
+    /* Animation Robotique Douce au Survol */
     @keyframes robot-vibration {
       0% { transform: translateY(-2px) scale(1.1) rotate(0deg); }
       25% { transform: translateY(-2px) scale(1.1) rotate(0.5deg) translateX(1px); }
@@ -125,7 +125,6 @@
       min-width: 260px;
     }
 
-    /* Classe spécifique pour l'attention automatique dans la nav */
     .cta-attention {
       animation: cta-yoyo 3s ease-in-out infinite;
     }
@@ -148,10 +147,10 @@
       transform: translateY(-2px) scale(1.1);
       box-shadow: 0 25px 50px -12px rgba(0, 86, 94, 0.6);
       background-color: var(--hover-grad);
-      animation: robot-vibration 0.4s ease infinite; /* Reprise de l'effet robotique au hover */
+      animation: robot-vibration 0.4s ease infinite;
     }
 
-    /* Cartes de fonctionnalités */
+    /* Cartes */
     .feature-card {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       border: 1px solid rgba(0, 86, 94, 0.1);
@@ -245,7 +244,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Mode Immersion Spécifique */
+    /* Mode Immersion */
     #page-demo.active {
       display: flex;
       flex-direction: column;
@@ -331,7 +330,6 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <!-- BOUTON AVEC EFFET YO-YO AUTOMATIQUE ET EFFET ROBOTIQUE AU SURVOL -->
           <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
             Lancer l'App
           </button>
@@ -398,7 +396,6 @@
             </div>
           </div>
 
-          <!-- Section Confiance avec Slider Restructuré -->
           <div class="mt-40 w-full text-center">
             <h3 class="text-2xl font-serif italic text-[#00565e] mb-12">Ils nous font confiance</h3>
             <div class="logo-slider-container">
@@ -592,7 +589,7 @@
         <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center">
           <div class="text-center mb-16">
             <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block mb-4">Contact & Partenariat</span>
-            <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900">Dessinons votre <span class="font-sans font-black text-slate-200">Futur.</span></h2>
+            <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900 leading-tight">Soyez visibles grâce à <br><span class="font-sans font-black text-[#00565e] uppercase">L'immersion 360°.</span></h2>
           </div>
           <form class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left">
             <div class="space-y-8">
@@ -619,7 +616,7 @@
               <p class="text-xs text-slate-400 mt-2 uppercase tracking-widest">Activez l'expérience sur votre mobile.</p>
             </div>
             <div class="p-6 bg-white rounded-3xl shadow-xl border border-slate-100">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://nova360.app.codinsight.app/&color=00565e" alt="QR" class="w-24 h-24 opacity-80">
+              <img src="https://i.ibb.co/x8m2DyP9/Logo-Nova-360-V2-0.png" alt="Logo" class="w-24 h-24 opacity-80 filter brightness-0">
             </div>
           </div>
         </div>
