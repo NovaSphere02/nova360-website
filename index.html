@@ -5,16 +5,16 @@
   <!-- Application Structure Plan: 
        Restauration complète de l'architecture de l'information originale.
        1. Navigation : Menu fixe avec effet de flou et menu mobile réactif.
-       2. Accueil : Impact visuel massif avec une typographie "Hero" à fort contraste. Intégration du logo central (non cliquable).
+       2. Accueil : Impact visuel raffiné avec une typographie hybride (Serif/Sans) et logo central.
        3. Catégories : Descriptions riches et listes de bénéfices par secteur avec bordures harmonisées.
        4. Démonstrations : Espace immersif avec barre latérale et châssis sécurisé.
        5. Vision : 4 onglets thématiques expliquant la mission.
        6. Engagement : Formulaire de contact complet et section QR Code.
   -->
   <!-- Visualization & Content Choices: 
-       - Information Architect Strategy: Double CTA en accueil avec boutons harmonisés.
+       - Information Architect Strategy: Utilisation de contrastes typographiques pour une lecture plus "premium".
        - Interaction : JS Vanilla pour la navigation sans rafraîchissement.
-       - Correction Visuelle : Titre retravaillé pour une importance maximale (Hero Section).
+       - Correction Visuelle : Titre réduit et logo stabilisé.
        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. 
   -->
 
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nova360 - Visites Virtuelles 360°</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #278299;    /* Bleu pétrole */
@@ -39,6 +39,10 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', serif;
     }
 
     body {
@@ -258,7 +262,7 @@
     <nav class="glass-nav sticky top-0 z-50 border-b border-white/10">
       <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
         <div class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')">
-          <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
+          <img src="Logo_Nova_360_V2.0.jpg" alt="Nova360" class="h-10 w-auto" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'">
           <span id="logo-fallback" class="text-2xl font-black hidden text-white">Nova360</span>
         </div>
 
@@ -294,25 +298,25 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
-        <!-- Logo central non cliquable -->
-        <div class="flex justify-center mb-8">
-          <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-24 w-auto pointer-events-none select-none opacity-90 shadow-2xl rounded-xl">
+        <!-- Logo central non cliquable et visible -->
+        <div class="flex justify-center mb-10">
+          <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Logo Nova360" class="h-20 md:h-24 w-auto pointer-events-none select-none shadow-xl rounded-2xl">
         </div>
 
-        <!-- TITRE IMPACTANT RE-TRAVAILLÉ -->
-        <h1 class="text-6xl md:text-9xl font-black leading-[0.95] tracking-tighter text-white mb-10 uppercase italic">
-          Un seul endroit<br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#278299] to-[#315a97]">pour explorer</span><br>
-          <span class="text-white/40 not-italic font-normal text-3xl md:text-6xl normal-case tracking-normal">tous les autres</span>
+        <!-- TITRE IMPACTANT ET ÉLÉGANT -->
+        <h1 class="text-4xl md:text-6xl font-light leading-tight tracking-tight text-white mb-8">
+          Un seul endroit <br>
+          <span class="font-serif italic text-[#278299] text-5xl md:text-7xl">pour explorer</span><br>
+          <span class="font-black block text-2xl md:text-4xl uppercase tracking-[0.25em] text-white/50 mt-4">tous les autres</span>
         </h1>
         
-        <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-12">
-            Nova360 transforme votre façon de découvrir des lieux exceptionnels grâce à la visite virtuelle nouvelle génération. Accessible partout, tout le temps.
+        <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-12 font-medium">
+            Découvrez des lieux exceptionnels grâce à la visite virtuelle nouvelle génération. Accessible partout, tout le temps.
         </p>
         
         <div class="flex flex-col sm:flex-row justify-center gap-6 mb-24">
-          <button class="cta-button px-10 py-5 rounded-full text-white font-black text-lg shadow-xl uppercase tracking-wider" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
-          <button class="cta-button px-10 py-5 rounded-full text-white font-black text-lg shadow-xl uppercase tracking-wider" onclick="navigateToPage('demo')">Démonstrations</button>
+          <button class="cta-button px-10 py-5 rounded-full text-white font-black text-sm shadow-xl uppercase tracking-widest" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
+          <button class="cta-button px-10 py-5 rounded-full text-white font-black text-sm shadow-xl uppercase tracking-widest" onclick="navigateToPage('demo')">Démonstrations</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left max-w-7xl mx-auto px-4">
@@ -335,7 +339,7 @@
 
         <!-- Slider Partenaires -->
         <div class="py-24 overflow-hidden border-t border-white/5 mt-16">
-          <h3 class="text-2xl font-bold mb-12 text-white/50 uppercase tracking-widest text-xs">Ils nous font confiance</h3>
+          <h3 class="text-2xl font-bold mb-12 text-white/30 uppercase tracking-widest text-xs">Ils nous font confiance</h3>
           <div class="logo-slider">
               <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
               <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
@@ -454,28 +458,28 @@
       </div>
 
       <!-- PAGE VISION -->
-      <div id="page-about" class="page px-4 py-20 max-w-5xl mx-auto">
-        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden text-center">
-            <h2 class="text-4xl font-black mb-8 text-center text-white">À propos de Nova360</h2>
-            <div class="space-y-8 text-slate-300 text-lg leading-relaxed text-left">
+      <div id="page-about" class="page px-4 py-20 max-w-5xl mx-auto text-center">
+        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 relative overflow-hidden">
+            <h2 class="text-4xl font-black mb-8 text-white">À propos de Nova360</h2>
+            <div class="space-y-8 text-slate-300 text-lg leading-relaxed">
               <p><strong>Nova360</strong> est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité des <strong>entreprises</strong>, des <strong>particuliers</strong> et des <strong>professionnels</strong> à travers une expérience numérique d'exception.</p>
               
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 text-center">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12">
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2">360°</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Immersion</div>
+                    <div class="text-2xl font-black text-white mb-2 text-center">360°</div>
+                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Immersion</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2">MÉDIA</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Vidéo & PDF</div>
+                    <div class="text-2xl font-black text-white mb-2 text-center">MÉDIA</div>
+                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Vidéo & PDF</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2">HUMAIN</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Convivialité</div>
+                    <div class="text-2xl font-black text-white mb-2 text-center">HUMAIN</div>
+                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Convivialité</div>
                 </div>
                 <div class="about-tab p-8 rounded-3xl shadow-lg flex flex-col items-center">
-                    <div class="text-2xl font-black text-white mb-2">SIMPLE</div>
-                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest">Intuition</div>
+                    <div class="text-2xl font-black text-white mb-2 text-center">SIMPLE</div>
+                    <div class="text-[10px] uppercase font-bold text-slate-200 tracking-widest text-center">Intuition</div>
                 </div>
               </div>
             </div>
@@ -484,7 +488,7 @@
 
       <!-- PAGE CONTACT -->
       <div id="page-contact" class="page px-4 py-20 max-w-xl mx-auto text-center space-y-12 text-white">
-        <div class="space-y-4 text-center">
+        <div class="space-y-4">
             <h2 class="text-5xl font-black italic">Un projet ?</h2>
             <h3 class="text-2xl font-bold text-white mb-2">Vous voulez rejoindre Nova360 ?</h3>
             <p class="text-xl text-[#278299] font-bold">Augmentez votre visibilité grâce à la visite virtuelle interactive de Nova360.</p>
@@ -522,10 +526,10 @@
     </main>
 
     <!-- FOOTER -->
-    <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-xs">
-      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center">
+    <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-xs text-center">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <div class="flex items-center gap-4 justify-center md:justify-start">
-            <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-6 opacity-40">
+            <img src="https://i.ibb.co/XfXkY6f/Logo-Nova-360-V2-0.jpg" alt="Logo Nova360" class="h-6 opacity-40 grayscale pointer-events-none">
             <span>&copy; 2025 Nova360. Immersion garantie.</span>
         </div>
         <div class="flex space-x-8 mt-6 md:mt-0 font-bold uppercase tracking-widest justify-center">
