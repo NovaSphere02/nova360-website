@@ -1,688 +1,462 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!doctype html>
+<html lang="fr" class="h-full">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <!-- Chosen Palette: Nova Petrol & Deep Blue -->
+  <!-- Application Structure Plan: 
+       L'architecture est une Single Page Application (SPA) optimisée pour la clarté et l'immersion.
+       1. Navigation fixe (Glassmorphism) pour un accès rapide aux sections.
+       2. Accueil : Impact visuel fort avec CTA direct.
+       3. Catégories : Grille de services pointant vers des URLs de filtrage spécifiques.
+       4. Démo 360° : Interface showroom avec barre latérale fixe et châssis de visualisation sécurisé (Frame).
+       5. Gestion d'état : Vanilla JS pour le routage interne et la coupure sonore automatique de l'iframe lors du changement de section.
+  -->
+  <!-- Visualization & Content Choices: 
+       - Rapports vers Buts : Présentation des secteurs d'activité via des cartes interactives.
+       - Interaction : Changement dynamique de l'attribut 'src' de l'iframe pour une navigation fluide sans rechargement.
+       - Bibliothèque : Tailwind CSS pour le layout, Chart.js pour le tableau de bord de diagnostic (si inclus).
+  -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova360 - Visites Virtuelles 360°</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #278299;    /* Bleu pétrole */
+      --secondary: #315a97;  /* Bleu profond */
+      --bg: #00565e;         /* Vert canard profond */
+      --surface: #004047;    /* Surface sombre */
+      --text: #f8fafc;
+      --glass: rgba(0, 86, 94, 0.8);
+      --nav-height: 73px;    
+    }
+
+    * {
+      font-family: 'Inter', sans-serif;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background-color 0.3s ease;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(39, 130, 153, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(49, 90, 151, 0.15) 0%, transparent 40%);
+      overflow-x: hidden;
+    }
+
+    .page {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .page.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #page-demo.active {
+      display: flex;
+      flex-direction: row;
+      height: calc(100vh - var(--nav-height));
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      #page-demo.active { flex-direction: column; }
+    }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+      color: rgba(248, 250, 252, 0.7);
+    }
+
+    .nav-link:hover, .nav-link.active { color: var(--text); }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-action-button {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 700;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .card-action-button:hover {
+      background: var(--primary);
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(39, 130, 153, 0.5);
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.1);
+    }
+
+    .glass-nav {
+      backdrop-filter: blur(16px);
+      background-color: var(--glass);
+      height: var(--nav-height);
+    }
+
+    @keyframes scrollLogos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .logo-slider {
+      display: flex;
+      width: fit-content;
+      animation: scrollLogos 35s linear infinite;
+    }
+
+    .logo-item {
+      flex: 0 0 auto;
+      width: 140px;
+      height: 140px;
+      margin: 0 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .logo-item img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .demo-sidebar {
+      width: 240px;
+      background: rgba(0, 0, 0, 0.4);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      padding: 20px;
+      overflow-y: auto;
+      flex-shrink: 0;
+      z-index: 40;
+    }
+
+    .demo-item-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(248, 250, 252, 0.6);
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .demo-item-btn:hover, .demo-item-btn.active {
+      background: var(--primary);
+      border-color: transparent;
+      color: white;
+    }
+
+    .frame-container {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .virtual-frame {
+        width: 100%;
+        max-width: 1400px;
+        height: 100%;
+        background: #000;
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        border: 4px solid var(--surface);
+        box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9);
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!doctype html&gt;</p>
-<p class="p1">&lt;html lang="fr" class="h-full"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Nova360 - Visites Virtuelles 360°&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>/* Palette fournie par l'utilisateur */</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--primary: #278299;<span class="Apple-converted-space">    </span>/* Bleu pétrole */</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--secondary: #315a97;<span class="Apple-converted-space">  </span>/* Bleu profond */</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg: #00565e; <span class="Apple-converted-space">        </span>/* Vert canard profond */</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>/* Couleurs dérivées pour le design */</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--surface: #004047;<span class="Apple-converted-space">    </span>/* Version plus sombre du fond */</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text: #f8fafc;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--glass: rgba(0, 86, 94, 0.8);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--nav-height: 73px;<span class="Apple-converted-space">    </span>/* Hauteur fixe de la barre de navigation */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Inter', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: var(--bg);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: background-color 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-image:<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at 10% 20%, rgba(39, 130, 153, 0.15) 0%, transparent 40%),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at 90% 80%, rgba(49, 90, 151, 0.15) 0%, transparent 40%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Pages standard */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(15px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page.active {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(0);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Page Démo Spécifique : Fixe et Centrée */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#page-demo.active {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: row;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: calc(100vh - var(--nav-height));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100vw;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>#page-demo.active {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-link {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(248, 250, 252, 0.7);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-link:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-link::after {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>bottom: -4px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(to right, var(--primary), var(--secondary));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: width 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-link:hover::after,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-link.active::after {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-link.active {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feature-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--surface);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255, 255, 255, 0.05);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feature-card:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-8px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card-action-button {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255, 255, 255, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.05em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card-action-button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 20px rgba(39, 130, 153, 0.5);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: scale(1.02);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cta-button {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, var(--primary), var(--secondary));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cta-button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-2px) scale(1.02);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 20px rgba(39, 130, 153, 0.6), 0 0 40px rgba(49, 90, 151, 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>filter: brightness(1.1);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.glass-nav {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(16px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: var(--glass);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: var(--nav-height);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.logo-img {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: auto;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.about-tab {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255, 255, 255, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.about-tab:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-10px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: var(--secondary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@keyframes scrollLogos {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>0% { transform: translateX(0); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>100% { transform: translateX(-50%); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.logo-slider {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: fit-content;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation: scrollLogos 35s linear infinite;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.logo-slider:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation-play-state: paused;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.logo-item {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex: 0 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 140px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 140px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.05);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255, 255, 255, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.logo-item img {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>object-fit: contain;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Sidebar fixe et compacte */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.demo-sidebar {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 240px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(0, 0, 0, 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-right: 1px solid rgba(255, 255, 255, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(20px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow-y: auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-shrink: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 40;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.demo-item-btn {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: left;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.03);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255, 255, 255, 0.06);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(248, 250, 252, 0.6);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.demo-item-btn:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(39, 130, 153, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.demo-item-btn.active {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 4px 12px rgba(39, 130, 153, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Conteneur du cadre pour donner des limites visuelles */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.frame-container {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>min-width: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: rgba(0,0,0,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* Le cadre visuel de la démo */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.virtual-frame {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>max-width: 1400px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>background: #000;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border: 4px solid var(--surface);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.demo-sidebar {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 100% !important;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>height: auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-right: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>border-bottom: 1px solid rgba(255, 255, 255, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex-direction: row;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gap: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>overflow-x: auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.demo-item-btn {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>margin-bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.frame-container {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="h-full w-full overflow-x-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="app" class="flex flex-col min-h-screen"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Navigation --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;nav class="glass-nav sticky top-0 z-50 border-b border-white/10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="logo" class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="logo-img" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block'"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span id="logo-fallback" class="text-2xl font-bold hidden"&gt;Nova360&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="nav-links" class="hidden md:flex space-x-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#home" class="nav-link active font-medium" data-page="home"&gt;Accueil&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#categories" class="nav-link font-medium" data-page="categories"&gt;Catégories&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#demo" class="nav-link font-medium" data-page="demo"&gt;Démo 360°&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#about" class="nav-link font-medium" data-page="about"&gt;À propos&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#contact" class="nav-link font-medium" data-page="contact"&gt;Contact&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hidden md:block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;button onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')" class="cta-button text-sm font-semibold px-6 py-2.5 rounded-full border border-white/10 text-white"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>Lancer Nova 360</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="md:hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;button id="mobile-menu-btn" class="p-2 text-white"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="flex-grow"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Page Accueil --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="page-home" class="page active px-4 sm:px-6 py-12 lg:py-24"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="max-w-5xl mx-auto text-center space-y-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h1 class="text-5xl md:text-7xl font-black leading-tight tracking-tight"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-white"&gt;Un seul endroit pour explorer&lt;/span&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-white/80"&gt;tous les autres&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>Nova360 transforme votre façon de découvrir des lieux exceptionnels grâce à la visite virtuelle nouvelle génération.</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="flex flex-col sm:flex-row justify-center gap-5 pt-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Bouton mis à jour avec le lien Restaurants --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="main-cta" class="cta-button px-10 py-4 rounded-full text-white font-bold text-lg shadow-xl" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>Lancer Nova 360</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="navigateToPage('demo')" class="cta-button px-10 py-4 rounded-full text-white font-bold text-lg shadow-xl flex items-center justify-center gap-3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"&gt;&lt;/path&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>Voir la démo</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">          </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-10 rounded-3xl text-left cursor-pointer transition-all hover:border-[#278299]" onclick="navigateToPage('categories')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/10"&gt;🌍&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-xl font-bold mb-3"&gt;Visites 360°&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm leading-relaxed"&gt;Une immersion fluide et interactive pour un réalisme saisissant dans chaque détail.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-10 rounded-3xl text-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/10"&gt;👥&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-xl font-bold mb-3"&gt;Multi-secteurs&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm leading-relaxed"&gt;Restaurants, Immobilier, Tourisme ou Commerces : une solution pour chaque besoin.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-10 rounded-3xl text-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/10"&gt;✨&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-xl font-bold mb-3"&gt;Ultra Rapide&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm leading-relaxed"&gt;Chargement instantané sur mobile et desktop pour ne jamais perdre l'attention.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="pt-32 pb-12 space-y-12 overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-2xl md:text-3xl font-bold text-white"&gt;Ils nous ont rejoint dernièrement&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="relative w-full overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="logo-slider"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Doublon --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="logo-item"&gt;&lt;img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Page Catégories --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="page-categories" class="page px-4 sm:px-6 py-16"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="max-w-6xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-center mb-16 space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-4xl md:text-5xl font-bold"&gt;Nos Catégories&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-slate-300 max-w-2xl mx-auto"&gt;Découvrez ici les différentes catégories et les professionnels. Explorez les lieux d'une manière immersive grâce à nos visites virtuelles 360°.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Restaurant --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-8 rounded-2xl border-t-4 border-[#278299] group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center mb-6"&gt;&lt;span class="text-4xl group-hover:scale-110 transition-transform"&gt;🍽️&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold mb-3"&gt;Restaurants&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm mb-6"&gt;faites découvrir l'ambiance de votre établissement en facilitant la découverte, grâce à la visite virtuelle 360° interactive.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;ul class="text-xs text-slate-400 space-y-2 mb-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Coordonnées pour appeler&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Lien vers les réseaux sociaux&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Fichier, PDF et vidéo&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-auto"&gt;&lt;button class="card-action-button py-4 rounded-xl text-sm" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')"&gt;CLIQUEZ ICI POUR VISITER&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Activités --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-8 rounded-2xl border-t-4 border-[#315a97] group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center mb-6"&gt;&lt;span class="text-4xl group-hover:scale-110 transition-transform"&gt;🎯&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold mb-3"&gt;Activités&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm mb-6"&gt;Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs et captiver votre audience.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;ul class="text-xs text-slate-400 space-y-2 mb-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#315a97] rounded-full mr-2"&gt;&lt;/span&gt; Vivez l'expérience comme si vous y étiez&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#315a97] rounded-full mr-2"&gt;&lt;/span&gt; Valorisation de vos espaces de divertissement&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#315a97] rounded-full mr-2"&gt;&lt;/span&gt; Une immersion totale pour captiver vos futurs clients&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-auto"&gt;&lt;button class="card-action-button py-4 rounded-xl text-sm" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')"&gt;CLIQUEZ ICI POUR VISITER&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Hébergement --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-8 rounded-2xl border-t-4 border-[#278299] group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center mb-6"&gt;&lt;span class="text-4xl group-hover:scale-110 transition-transform"&gt;🏡&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold mb-3"&gt;Hébergements&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm mb-6"&gt;Explorez des lieux d'exception pour vos séjours et rassurez vos voyageurs sur le confort et la disposition des lieux.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;ul class="text-xs text-slate-400 space-y-2 mb-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Visite "comme à la maison"&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Lien de réservation&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-auto"&gt;&lt;button class="card-action-button py-4 rounded-xl text-sm" onclick="window.open('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', '_blank')"&gt;CLIQUEZ ICI POUR VISITER&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Shopping --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-8 rounded-2xl border-t-4 border-[#315a97] group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center mb-6"&gt;&lt;span class="text-4xl group-hover:scale-110 transition-transform"&gt;🛍️&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold mb-3"&gt;Shopping&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm mb-6"&gt;Transformez votre boutique physique en un showroom digital accessible 24h/24 et 7j/7.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;ul class="text-xs text-slate-500 space-y-2 mb-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#315a97] rounded-full mr-2"&gt;&lt;/span&gt; Tags produits&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#315a97] rounded-full mr-2"&gt;&lt;/span&gt; Visibilité SEO&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-auto"&gt;&lt;button class="card-action-button py-4 rounded-xl text-sm" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')"&gt;CLIQUEZ ICI POUR VISITER&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Professionnel --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-8 rounded-2xl border-t-4 border-[#278299] group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center mb-6"&gt;&lt;span class="text-4xl group-hover:scale-110 transition-transform"&gt;💼&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold mb-3"&gt;Professionnels&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm mb-6"&gt;Valorisez vos bureaux, showrooms et espaces industriels pour vos clients et futurs collaborateurs.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;ul class="text-xs text-slate-400 space-y-2 mb-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Espaces de travail&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-[#278299] rounded-full mr-2"&gt;&lt;/span&gt; Branding immersif&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-auto"&gt;&lt;button class="card-action-button py-4 rounded-xl text-sm" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')"&gt;CLIQUEZ ICI POUR VISITER&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Tourisme --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="feature-card p-8 rounded-2xl border-t-4 border-[#f8fafc] group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center mb-6"&gt;&lt;span class="text-4xl group-hover:scale-110 transition-transform"&gt;🗺️&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold mb-3"&gt;Tourisme&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-slate-300 text-sm mb-6"&gt;Valorisez le patrimoine culturel et les sites naturels pour attirer les visiteurs du monde entier.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;ul class="text-xs text-slate-400 space-y-2 mb-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-white rounded-full mr-2"&gt;&lt;/span&gt; Valorisation patrimoine&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li class="flex items-center"&gt;&lt;span class="w-1.5 h-1.5 bg-white rounded-full mr-2"&gt;&lt;/span&gt; Exploration libre&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-auto"&gt;&lt;button class="card-action-button py-4 rounded-xl text-sm" onclick="window.open('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', '_blank')"&gt;CLIQUEZ ICI POUR VISITER&lt;/button&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Page Démo Live : Sidebar Permanente et Cadre Sécurisé --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="page-demo" class="page overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;aside class="demo-sidebar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h4 class="text-white font-bold text-xs uppercase tracking-widest mb-6 opacity-60"&gt;Secteurs&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;🍽️&lt;/span&gt; Restaurants</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;🎯&lt;/span&gt; Activités</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;🏡&lt;/span&gt; Hébergements</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Le%20Petit%20Bouchon/output/index.html', this)" class="demo-item-btn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;🛍️&lt;/span&gt; Shopping</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Coworking%20les%20barques/output/index.html', this)" class="demo-item-btn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;💼&lt;/span&gt; Professionnels</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;🏖️&lt;/span&gt; Tourisme</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/nav&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/aside&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="frame-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="virtual-frame shadow-2xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;iframe id="demo-frame" src="https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html" class="w-full h-full border-none" allowfullscreen allow="gyroscope; accelerometer; fullscreen"&gt;&lt;/iframe&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Page À propos --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="page-about" class="page px-4 sm:px-6 py-16"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="max-w-4xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="bg-white/5 p-12 rounded-[2rem] border border-white/10 relative overflow-hidden"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-4xl font-bold mb-8 text-center"&gt;À propos de Nova360&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="space-y-8 text-slate-300 text-lg leading-relaxed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p&gt;&lt;strong&gt;Nova360&lt;/strong&gt; est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité des &lt;strong&gt;entreprises&lt;/strong&gt;, des &lt;strong&gt;particuliers&lt;/strong&gt; et des &lt;strong&gt;professionnels&lt;/strong&gt; à travers une expérience numérique d'exception.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="about-tab text-center p-6 rounded-2xl shadow-lg"&gt;&lt;div class="text-xl font-bold text-white mb-1"&gt;360°&lt;/div&gt;&lt;div class="text-[10px] uppercase text-slate-200"&gt;Immersion&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="about-tab text-center p-6 rounded-2xl shadow-lg"&gt;&lt;div class="text-xl font-bold text-white mb-1"&gt;MÉDIA&lt;/div&gt;&lt;div class="text-[10px] uppercase text-slate-200"&gt;Vidéo &amp; PDF&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="about-tab text-center p-6 rounded-2xl shadow-lg"&gt;&lt;div class="text-xl font-bold text-white mb-1"&gt;HUMAIN&lt;/div&gt;&lt;div class="text-[10px] uppercase text-slate-200"&gt;Convivialité&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="about-tab text-center p-6 rounded-2xl shadow-lg"&gt;&lt;div class="text-xl font-bold text-white mb-1"&gt;SIMPLE&lt;/div&gt;&lt;div class="text-[10px] uppercase text-slate-200"&gt;Intuition&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Page Contact --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="page-contact" class="page px-4 sm:px-6 py-16"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="max-w-xl mx-auto"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-center mb-12"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="text-4xl font-bold mb-4"&gt;Un projet ?&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="mt-10 pt-10 border-t border-white/10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-2xl font-bold text-white mb-2"&gt;Vous voulez rejoindre Nova360 ?&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-[#278299] font-medium"&gt;Augmentez votre visibilité, grâce à la visite virtuelle interactive de Nova360.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;form id="contact-form" class="space-y-5 bg-white/5 p-10 rounded-3xl border border-white/10 shadow-2xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2"&gt;Votre Nom&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;input type="text" required class="w-full px-5 py-4 bg-[#004047] border border-white/10 rounded-2xl focus:border-[#278299] focus:outline-none transition-all text-white placeholder-slate-500" placeholder="Jean Dupont"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2"&gt;Email Professionnel&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;input type="email" required class="w-full px-5 py-4 bg-[#004047] border border-white/10 rounded-2xl focus:border-[#278299] focus:outline-none transition-all text-white placeholder-slate-500" placeholder="jean@entreprise.fr"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;label class="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2"&gt;Votre Message&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;textarea rows="4" required class="w-full px-5 py-4 bg-[#004047] border border-white/10 rounded-2xl focus:border-[#278299] focus:outline-none transition-all text-white resize-none placeholder-slate-500" placeholder="Décrivez votre besoin..."&gt;&lt;/textarea&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button type="submit" class="cta-button w-full py-5 rounded-2xl text-white font-black text-lg uppercase tracking-widest"&gt;Envoyer la demande&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="form-feedback" class="hidden text-center text-[#278299] font-bold bg-[#278299]/10 py-3 rounded-xl border border-[#278299]/20"&gt;✓ Message transmis avec succès !&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/form&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Section QR Code --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;section id="qr-section" class="max-w-7xl mx-auto px-4 py-16 border-t border-white/10 text-center"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white/5 p-10 rounded-[2.5rem] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-10"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-left max-w-lg space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-3xl font-bold"&gt;Emportez l'expérience partout&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-slate-300"&gt;Scannez ce QR Code avec votre smartphone pour ouvrir l'application Nova360.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="qr-container shadow-2xl bg-white p-3 rounded-2xl"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=https://nova360.app.codinsight.app/&amp;color=00565e" alt="QR Code Nova360" class="w-40 h-40"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-slate-400 text-sm"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center space-x-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-6 opacity-60"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;&amp;copy; 2024 Nova360. Immersion garantie.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex space-x-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#" class="hover:text-[#278299] transition-colors"&gt;Mentions légales&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="#" class="hover:text-[#278299] transition-colors"&gt;Confidentialité&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let currentDemoUrl = 'https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function changeDemo(url, btnElement) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const frame = document.getElementById('demo-frame');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const allBtns = document.querySelectorAll('.demo-item-btn');</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>currentDemoUrl = url;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>frame.src = url;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>allBtns.forEach(btn =&gt; btn.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>btnElement.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function navigateToPage(pageId) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const allPages = document.querySelectorAll('.page');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const footer = document.getElementById('main-footer');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const qrSection = document.getElementById('qr-section');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const frame = document.getElementById('demo-frame');</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>allPages.forEach(page =&gt; page.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const targetPage = document.getElementById(`page-${pageId}`);</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (targetPage) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>targetPage.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.scrollTo({ top: 0, behavior: 'smooth' });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (pageId === 'demo') {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>footer.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>qrSection.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.body.style.overflow = 'hidden';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (frame.src === "about:blank" || frame.src === "" || frame.src.includes('about:blank')) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>frame.src = currentDemoUrl;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>footer.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>qrSection.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>document.body.style.overflow = 'auto';</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (frame) frame.src = "about:blank";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const allLinks = document.querySelectorAll('.nav-link');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>allLinks.forEach(link =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>link.classList.remove('active');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (link.dataset.page === pageId) link.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>history.pushState(null, null, `#${pageId}`);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.addEventListener('DOMContentLoaded', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelectorAll('.nav-link').forEach(link =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>link.addEventListener('click', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>e.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">          </span>navigateToPage(link.dataset.page);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const contactForm = document.getElementById('contact-form');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>contactForm.addEventListener('submit', (e) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>e.preventDefault();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const feedback = document.getElementById('form-feedback');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>feedback.classList.remove('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>contactForm.reset();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>setTimeout(() =&gt; feedback.classList.add('hidden'), 5000);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const hash = window.location.hash.substring(1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (['home', 'categories', 'about', 'contact', 'demo'].includes(hash)) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>navigateToPage(hash);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('mobile-menu-btn').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const navLinks = document.getElementById('nav-links');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const isHidden = navLinks.classList.contains('hidden');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (isHidden) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>navLinks.className = 'flex flex-col absolute top-full left-0 w-full bg-[#004047] p-6 space-y-4 border-b border-white/10 z-50';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>navLinks.className = 'hidden md:flex space-x-8';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <div id="app" class="flex flex-col min-h-screen">
+    
+    <!-- Barre de Navigation -->
+    <nav class="glass-nav sticky top-0 z-50 border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-full">
+        <div class="cursor-pointer flex items-center space-x-3" onclick="navigateToPage('home')">
+          <span class="text-2xl font-bold tracking-tighter">Nova360</span>
+        </div>
+
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="nav-link active font-medium" data-page="home">Accueil</a>
+          <a href="#categories" class="nav-link font-medium" data-page="categories">Catégories</a>
+          <a href="#demo" class="nav-link font-medium" data-page="demo">Démo 360°</a>
+          <a href="#about" class="nav-link font-medium" data-page="about">À propos</a>
+          <a href="#contact" class="nav-link font-medium" data-page="contact">Contact</a>
+        </div>
+
+        <button onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')" class="cta-button hidden md:block text-sm font-semibold px-6 py-2.5 rounded-full text-white">
+          Lancer Nova 360
+        </button>
+      </div>
+    </nav>
+
+    <main class="flex-grow">
+      
+      <!-- PAGE ACCUEIL -->
+      <div id="page-home" class="page active px-4 py-16 lg:py-24 text-center">
+        <h1 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+          Un seul endroit pour explorer<br><span class="opacity-60 text-3xl md:text-5xl font-light">tous les autres</span>
+        </h1>
+        <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-12">
+          Découvrez la puissance de la visite virtuelle interactive pour valoriser vos espaces et captiver vos clients.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-5 mb-24">
+          <button class="cta-button px-10 py-4 rounded-full text-white font-bold text-lg" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
+          <button class="cta-button px-10 py-4 rounded-full text-white font-bold text-lg" onclick="navigateToPage('demo')">Voir la démo</button>
+        </div>
+
+        <!-- Partenaires Slider -->
+        <h3 class="text-2xl font-bold mb-12 text-white/80 uppercase tracking-widest text-sm">Ils nous font confiance</h3>
+        <div class="relative w-full overflow-hidden mb-16">
+          <div class="logo-slider">
+              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Logo Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Logo Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Logo Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Logo Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Logo Partenaire"></div>
+              <!-- Loop Duplicates -->
+              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Logo Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Logo Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Logo Partenaire"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE CATÉGORIES -->
+      <div id="page-categories" class="page px-4 py-16 max-w-6xl mx-auto">
+        <div class="text-center mb-16 space-y-4">
+            <h2 class="text-4xl md:text-5xl font-bold text-white">Nos Secteurs d'Expertise</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto italic">Explorez nos plateformes dédiées par catégorie d'activité.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="feature-card p-8 rounded-2xl border-t-4 border-[#278299]">
+            <span class="text-4xl mb-4">🍽️</span>
+            <h3 class="text-2xl font-bold mb-4">Restaurants</h3>
+            <button class="card-action-button py-4 rounded-xl mt-auto" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Accéder</button>
+          </div>
+          <div class="feature-card p-8 rounded-2xl border-t-4 border-[#315a97]">
+            <span class="text-4xl mb-4">🎯</span>
+            <h3 class="text-2xl font-bold mb-4">Activités</h3>
+            <button class="card-action-button py-4 rounded-xl mt-auto" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">Accéder</button>
+          </div>
+          <div class="feature-card p-8 rounded-2xl border-t-4 border-[#278299]">
+            <span class="text-4xl mb-4">🏡</span>
+            <h3 class="text-2xl font-bold mb-4">Hébergements</h3>
+            <button class="card-action-button py-4 rounded-xl mt-auto" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">Accéder</button>
+          </div>
+          <div class="feature-card p-8 rounded-2xl border-t-4 border-[#315a97]">
+            <span class="text-4xl mb-4">🛍️</span>
+            <h3 class="text-2xl font-bold mb-4">Shopping</h3>
+            <button class="card-action-button py-4 rounded-xl mt-auto" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">Accéder</button>
+          </div>
+          <div class="feature-card p-8 rounded-2xl border-t-4 border-[#278299]">
+            <span class="text-4xl mb-4">💼</span>
+            <h3 class="text-2xl font-bold mb-4">Professionnels</h3>
+            <button class="card-action-button py-4 rounded-xl mt-auto" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">Accéder</button>
+          </div>
+          <div class="feature-card p-8 rounded-2xl border-t-4 border-white/20">
+            <span class="text-4xl mb-4">🗺️</span>
+            <h3 class="text-2xl font-bold mb-4">Tourisme</h3>
+            <button class="card-action-button py-4 rounded-xl mt-auto" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">Accéder</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE DÉMO 360 -->
+      <div id="page-demo" class="page overflow-hidden">
+        <aside class="demo-sidebar">
+          <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-6 opacity-60">Showroom Virtuel</h4>
+          <nav>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html', this)" class="demo-item-btn active"><span>🍽️</span> Restaurants</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn"><span>🎯</span> Activités</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Air%20B%27n%27B/11130%20-%20Sigean%20-%20Les%203%20Anges%20de%20Sigean/output/index.html', this)" class="demo-item-btn"><span>🏡</span> Hébergements</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Le%20Petit%20Bouchon/output/index.html', this)" class="demo-item-btn"><span>🛍️</span> Shopping</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Coworking%20les%20barques/output/index.html', this)" class="demo-item-btn"><span>💼</span> Professionnels</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn"><span>🏖️</span> Tourisme</button>
+          </nav>
+        </aside>
+        <div class="frame-container">
+          <div class="virtual-frame">
+              <iframe id="demo-frame" src="https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html" class="w-full h-full border-none" allowfullscreen allow="gyroscope; accelerometer; fullscreen"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE À PROPOS -->
+      <div id="page-about" class="page px-4 py-16 max-w-4xl mx-auto">
+        <div class="bg-white/5 p-12 rounded-[3rem] border border-white/10 text-center shadow-2xl">
+          <h2 class="text-4xl font-bold mb-8">À propos de Nova360</h2>
+          <p class="text-slate-300 text-lg leading-relaxed mb-12 italic">
+            "Redonner de l'humain au cœur du digital par l'immersion technologique."
+          </p>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/5"><div class="text-xl font-bold">360°</div><div class="text-[10px] uppercase text-slate-400">Immersion</div></div>
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/5"><div class="text-xl font-bold">MÉDIA</div><div class="text-[10px] uppercase text-slate-400">Interactif</div></div>
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/5"><div class="text-xl font-bold">HUMAIN</div><div class="text-[10px] uppercase text-slate-400">Connecté</div></div>
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/5"><div class="text-xl font-bold">SIMPLE</div><div class="text-[10px] uppercase text-slate-400">Accessible</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION CONTACT -->
+      <div id="page-contact" class="page px-4 py-16 max-w-xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4 text-[#278299]">Rejoindre Nova360</h2>
+            <p class="text-slate-300">Boostez votre visibilité digitale avec nos outils immersifs.</p>
+        </div>
+        <form id="contact-form" class="space-y-5 bg-white/5 p-10 rounded-3xl border border-white/10 shadow-2xl">
+          <input type="text" placeholder="Votre Nom" required class="w-full px-5 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white focus:border-[#278299] outline-none">
+          <input type="email" placeholder="Votre Email" required class="w-full px-5 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white focus:border-[#278299] outline-none">
+          <textarea rows="4" placeholder="Votre Message" required class="w-full px-5 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white focus:border-[#278299] outline-none"></textarea>
+          <button type="submit" class="cta-button w-full py-5 rounded-2xl text-white font-bold uppercase tracking-widest">Envoyer</button>
+          <div id="form-feedback" class="hidden text-center text-[#278299] font-bold py-3 bg-white/10 rounded-xl">✓ Message transmis !</div>
+        </form>
+      </div>
+
+    </main>
+
+    <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-sm">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+        <span>&copy; 2025 Nova360. Site Statique Haute Performance.</span>
+        <div class="flex space-x-8 mt-4 md:mt-0">
+          <a href="#" class="hover:text-white transition-colors font-medium underline">Mentions légales</a>
+          <a href="#" class="hover:text-white transition-colors font-medium underline">Confidentialité</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    let currentDemoUrl = 'https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Restaurants/11100%20-%20Narbonne%20-%20Samigiri/index.html';
+
+    function changeDemo(url, btnElement) {
+      const frame = document.getElementById('demo-frame');
+      currentDemoUrl = url;
+      frame.src = url;
+      document.querySelectorAll('.demo-item-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+    }
+
+    function navigateToPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      const targetPage = document.getElementById(`page-${pageId}`);
+      
+      if (targetPage) {
+        targetPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        const frame = document.getElementById('demo-frame');
+        if (pageId === 'demo') {
+          document.getElementById('main-footer').style.display = 'none';
+          document.body.style.overflow = 'hidden';
+          if (frame.src === "about:blank" || frame.src === "" || frame.src.includes('about:blank')) {
+            frame.src = currentDemoUrl;
+          }
+        } else {
+          document.getElementById('main-footer').style.display = 'block';
+          document.body.style.overflow = 'auto';
+          if (frame) frame.src = "about:blank"; // Coupe le son instantanément
+        }
+      }
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.page === pageId) link.classList.add('active');
+      });
+      history.pushState(null, null, `#${pageId}`);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          navigateToPage(link.dataset.page);
+        });
+      });
+      
+      const form = document.getElementById('contact-form');
+      if (form) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('form-feedback').classList.remove('hidden');
+            form.reset();
+          });
+      }
+
+      const hash = window.location.hash.substring(1);
+      if (['home', 'categories', 'about', 'contact', 'demo'].includes(hash)) {
+        navigateToPage(hash);
+      }
+    });
+  </script>
 </body>
 </html>
