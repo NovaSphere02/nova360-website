@@ -114,6 +114,41 @@
       box-shadow: 0 15px 30px -5px rgba(39, 130, 153, 0.4);
     }
 
+    /* Slider Partenaires */
+    .logo-section {
+      width: 100%;
+      overflow: hidden;
+      background: rgba(0, 64, 71, 0.03);
+      padding: 60px 0;
+      border-top: 1px solid rgba(0, 64, 71, 0.05);
+      border-bottom: 1px solid rgba(0, 64, 71, 0.05);
+    }
+
+    .logo-slider {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: max-content;
+      animation: scrollLogos 45s linear infinite;
+      align-items: center;
+    }
+
+    .logo-item {
+      flex: 0 0 auto;
+      padding: 0 50px;
+    }
+
+    .logo-item img {
+      height: 40px;
+      width: auto;
+      filter: grayscale(1) opacity(0.5);
+    }
+
+    @keyframes scrollLogos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     /* --- SECTION DÉMONSTRATIONS --- */
     
     .demo-topbar {
@@ -344,7 +379,7 @@
       
       <!-- PAGE ACCUEIL -->
       <div id="page-home" class="page active px-8 pt-12 pb-20 lg:pt-20 lg:pb-32 text-center bg-transparent">
-        <div class="mb-16">
+        <div class="mb-16 text-center">
             <h1 class="text-3xl md:text-5xl lg:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-slate-400 block mb-2 text-center">Un seul endroit</span>
               <span class="font-serif italic text-[#278299] text-5xl md:text-8xl block my-4 underline decoration-[#004047]/10 underline-offset-8 text-center">pour explorer</span>
@@ -362,20 +397,36 @@
         <!-- Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto px-4 mb-32">
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#278299]">
-              <div class="text-xs font-black text-[#278299] uppercase tracking-widest mb-6">Technologie 01</div>
+              <div class="text-xs font-black text-[#278299] uppercase tracking-widest mb-6 text-left">Technologie 01</div>
               <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Immersion 360°</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une précision chirurgicale pour restituer l'âme de vos lieux avec une fidélité absolue.</p>
             </div>
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#004047]">
-              <div class="text-xs font-black text-[#004047] uppercase tracking-widest mb-6">Usage 02</div>
+              <div class="text-xs font-black text-[#004047] uppercase tracking-widest mb-6 text-left">Usage 02</div>
               <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Multi-supports</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Une expérience optimisée pour mobile et desktop. Sans téléchargement.</p>
             </div>
             <div class="feature-card p-12 rounded-[2rem] border-t-8 border-[#315a97]">
-              <div class="text-xs font-black text-[#315a97] uppercase tracking-widest mb-6">Vision 03</div>
+              <div class="text-xs font-black text-[#315a97] uppercase tracking-widest mb-6 text-left">Vision 03</div>
               <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic text-left">Conversion</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light text-left">Transformez la curiosité en acte d'achat grâce à nos outils interactifs intégrés.</p>
             </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="logo-section">
+          <div class="logo-slider">
+              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
+              <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
+          </div>
         </div>
       </div>
 
@@ -386,8 +437,8 @@
         <div id="demo-modal" onclick="closeDemoModal()">
           <div class="modal-content" onclick="event.stopPropagation()">
             <div class="text-5xl mb-6">⛶</div>
-            <h2 class="text-3xl font-serif italic text-[#004047] mb-4">Optimisez votre vision</h2>
-            <p class="text-slate-600 mb-8 leading-relaxed font-light">
+            <h2 class="text-3xl font-serif italic text-[#004047] mb-4 text-center">Optimisez votre vision</h2>
+            <p class="text-slate-600 mb-8 leading-relaxed font-light text-center">
               Pour une immersion totale et une expérience sans frontières, nous vous conseillons d'utiliser le bouton <strong>Plein Écran</strong> situé en haut à droite.
             </p>
             <button onclick="closeDemoModal()" class="cta-button px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest shadow-xl">
@@ -406,7 +457,7 @@
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Gym%20City/output/index.html', this)" class="demo-item-btn">🎯 Activités</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Domaines%20%26%20Ch%C3%A2teaux/11100%20-%20Narbonne%20-%20Ch%C3%A2teau%20Jonqui%C3%A8res/output/index.html', this)" class="demo-item-btn">🏡 Hébergements</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Le%20Petit%20Bouchon/output/index.html', this)" class="demo-item-btn">🛍️ Shopping</button>
-            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20-%20Coworking%20les%20barques/output/index.html', this)" class="demo-item-btn">💼 Pros</button>
+            <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Professionnels/11100%20Narbonne%20-%20WAW%21/output/index.html', this)" class="demo-item-btn">💼 Pros</button>
             <button onclick="changeDemo('https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/Tourisme/C%C3%B4te%20du%20Midi/OdT%20-%20Port-La-Nouvelle/output/index.html', this)" class="demo-item-btn">🏖️ Tourisme</button>
           </nav>
 
