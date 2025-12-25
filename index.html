@@ -6,15 +6,13 @@
        L'architecture est conçue comme un écosystème d'exploration de l'information. 
        1. Navigation Intuitive : Un menu fixe "Glassmorphism" servant de point d'ancrage permanent.
        2. Section Accueil : Focus sur la vision globale et la preuve sociale (partenaires).
-       3. Section Catégories : Analyse sectorielle détaillée. Chaque carte est un micro-rapport d'opportunité pour le client.
+       3. Section Catégories : Analyse sectorielle détaillée. Chaque carte est un micro-rapport d'opportunité pour le client, incluant désormais les descriptifs complets et les listes de bénéfices.
        4. Showroom Interactif (Démo) : Espace de manipulation directe des données visuelles 360°.
        5. Section Stratégique (À propos) : Utilisation d'un graphique de performance pour justifier l'adoption de la technologie.
        6. Conversion : Formulaire de contact et passerelle mobile via QR Code.
-       
-       Pourquoi cette structure ? Pour transformer un simple rapport de services en un parcours de persuasion progressif.
   -->
   <!-- Visualization & Content Choices: 
-       - Information Architect Strategy: Réintégration des listes de bénéfices (bullet points) pour faciliter le scan visuel.
+       - Information Architect Strategy: Restauration des descriptions riches et des listes à puces pour maximiser la clarté.
        - Interaction : Gestion des états JS pour la navigation et le showroom sans rechargement.
        - Library Use : Chart.js pour visualiser l'impact de l'immersion (Goal: Inform & Persuade).
        - Context : Chaque section dispose d'un paragraphe introductif pour situer l'enjeu business.
@@ -246,16 +244,35 @@
       <!-- PAGE ACCUEIL : L'IMPACT VISUEL -->
       <div id="page-home" class="page active">
         <section class="max-w-5xl mx-auto px-4 py-20 text-center space-y-10">
-          <h1 class="text-6xl md:text-8xl font-black leading-[1.1] tracking-tight">
+          <h1 class="text-6xl md:text-8xl font-black leading-[1.1] tracking-tight text-white">
             Un seul endroit pour explorer<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">tous les autres.</span>
+            <span class="text-white/60">tous les autres.</span>
           </h1>
           <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-            Nova360 est la passerelle entre le monde physique et le digital. Nous transformons votre établissement en une expérience immersive captivante, accessible partout, tout le temps.
+            Nova360 transforme votre façon de découvrir des lieux exceptionnels grâce à la visite virtuelle nouvelle génération. Accessible partout, tout le temps.
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-6 pt-4">
-            <button class="cta-button px-12 py-5 rounded-full text-white font-black text-lg shadow-2xl" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">EXPLORER L'APPLICATION</button>
-            <button class="bg-white/10 hover:bg-white/20 px-12 py-5 rounded-full text-white font-black text-lg transition-all" onclick="navigateToPage('demo')">DÉCOUVREZ LE SHOWROOM</button>
+            <button class="cta-button px-12 py-5 rounded-full text-white font-black text-lg shadow-2xl uppercase tracking-widest" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">Lancer Nova 360</button>
+            <button class="bg-white/10 hover:bg-white/20 px-12 py-5 rounded-full text-white font-black text-lg transition-all uppercase tracking-widest" onclick="navigateToPage('demo')">Voir la démo</button>
+          </div>
+
+          <!-- Feature cards en accueil -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32 text-left">
+            <div class="feature-card p-10 rounded-3xl cursor-pointer" onclick="navigateToPage('categories')">
+              <div class="text-3xl mb-6">🌍</div>
+              <h3 class="text-xl font-bold mb-3">Visites 360°</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Une immersion fluide et interactive pour un réalisme saisissant dans chaque détail.</p>
+            </div>
+            <div class="feature-card p-10 rounded-3xl">
+              <div class="text-3xl mb-6">👥</div>
+              <h3 class="text-xl font-bold mb-3">Multi-secteurs</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Restaurants, Immobilier, Tourisme ou Commerces : une solution adaptée à chaque besoin.</p>
+            </div>
+            <div class="feature-card p-10 rounded-3xl">
+              <div class="text-3xl mb-6">✨</div>
+              <h3 class="text-xl font-bold mb-3">Ultra Rapide</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">Chargement instantané sur mobile et desktop pour ne jamais perdre l'attention de vos clients.</p>
+            </div>
           </div>
         </section>
 
@@ -266,15 +283,15 @@
           </div>
           <div class="relative w-full overflow-hidden">
             <div class="logo-slider">
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire 5" class="h-16 object-contain"></div>
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire 4" class="h-16 object-contain"></div>
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire 1" class="h-16 object-contain"></div>
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire 2" class="h-16 object-contain"></div>
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire 3" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire" class="h-16 object-contain"></div>
                 <!-- Duplicate -->
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire 5" class="h-16 object-contain"></div>
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire 4" class="h-16 object-contain"></div>
-                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire 1" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/qLjcv2Qr/logo-partenaire-5.png" alt="Partenaire" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire" class="h-16 object-contain"></div>
+                <div class="logo-item px-10 grayscale hover:grayscale-0 transition-all duration-500"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire" class="h-16 object-contain"></div>
             </div>
           </div>
         </section>
@@ -284,87 +301,83 @@
       <div id="page-categories" class="page">
         <section class="max-w-7xl mx-auto px-4 py-20">
           <div class="max-w-3xl mb-20 space-y-4">
-            <h2 class="text-5xl font-black">Solutions par Secteurs</h2>
-            <p class="text-xl text-slate-400">Le rapport ci-dessous détaille comment la technologie 360° répond aux défis spécifiques de chaque industrie. Chaque carte est interactive et vous mène vers notre application filtrée.</p>
+            <h2 class="text-5xl font-black text-white">Nos Catégories</h2>
+            <p class="text-xl text-slate-400">Découvrez ici les différentes catégories et les professionnels. Explorez les lieux d'une manière immersive grâce à nos visites virtuelles 360°.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Restaurant -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] flex flex-col group">
               <span class="text-5xl mb-6 group-hover:scale-110 transition-transform block">🍽️</span>
-              <h3 class="text-2xl font-bold mb-4">Restaurants</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Faites découvrir l'ambiance unique de votre établissement en facilitant la réservation grâce à la visite virtuelle interactive.</p>
+              <h3 class="text-2xl font-bold mb-4 text-white">Restaurants</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Faites découvrir l'ambiance de votre établissement en facilitant la découverte, grâce à la visite virtuelle 360° interactive.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Coordonnées pour appeler en direct</li>
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Liens vers les menus et réseaux sociaux</li>
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Intégration de vidéos et fichiers PDF</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Coordonnées pour appeler</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Lien vers les réseaux sociaux</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Fichier, PDF et vidéo</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">CLIQUEZ ICI POUR VISITER</button>
             </div>
 
             <!-- Activités -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] flex flex-col group">
               <span class="text-5xl mb-6 group-hover:scale-110 transition-transform block">🎯</span>
-              <h3 class="text-2xl font-bold mb-4">Activités</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs et captiver une audience en quête de sensations.</p>
+              <h3 class="text-2xl font-bold mb-4 text-white">Activités</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Proposez une expérience numérique immersive pour valoriser vos espaces de loisirs et captiver votre audience.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2">● Vivez l'expérience comme si vous y étiez</li>
-                <li class="flex items-center gap-2">● Valorisation de vos espaces de divertissement</li>
-                <li class="flex items-center gap-2 font-bold text-white">● Immersion totale pour captiver vos futurs clients</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Vivez l'expérience comme si vous y étiez</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Valorisation de vos espaces de divertissement</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Immersion totale pour captiver vos futurs clients</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">CLIQUEZ ICI POUR VISITER</button>
             </div>
 
             <!-- Hébergement -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] flex flex-col group">
               <span class="text-5xl mb-6 group-hover:scale-110 transition-transform block">🏡</span>
-              <h3 class="text-2xl font-bold mb-4">Hébergements</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Explorez des lieux d'exception et rassurez vos voyageurs sur le confort et la disposition des lieux avant leur arrivée.</p>
+              <h3 class="text-2xl font-bold mb-4 text-white">Hébergements</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Explorez des lieux d'exception pour vos séjours et rassurez vos voyageurs sur le confort et la disposition des lieux.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Visite "comme à la maison" exhaustive</li>
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Lien direct vers le système de réservation</li>
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Photos haute définition intégrées</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Visite "comme à la maison"</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Lien de réservation</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">CLIQUEZ ICI POUR VISITER</button>
             </div>
 
             <!-- Shopping -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#315a97] flex flex-col group">
               <span class="text-5xl mb-6 group-hover:scale-110 transition-transform block">🛍️</span>
-              <h3 class="text-2xl font-bold mb-4">Shopping</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique physique en un showroom digital accessible 24h/24 et 7j/7 pour booster vos ventes locales.</p>
+              <h3 class="text-2xl font-bold mb-4 text-white">Shopping</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Transformez votre boutique physique en un showroom digital accessible 24h/24 et 7j/7.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2">● Tags produits interactifs (cliquables)</li>
-                <li class="flex items-center gap-2">● Amélioration du référencement SEO</li>
-                <li class="flex items-center gap-2">● Mise en avant des nouvelles collections</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Tags produits</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#315a97] rounded-full"></span> Visibilité SEO</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">CLIQUEZ ICI POUR VISITER</button>
             </div>
 
             <!-- Professionnels -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-[#278299] flex flex-col group">
               <span class="text-5xl mb-6 group-hover:scale-110 transition-transform block">💼</span>
-              <h3 class="text-2xl font-bold mb-4">Professionnels</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux, showrooms et espaces industriels pour séduire vos clients et futurs collaborateurs.</p>
+              <h3 class="text-2xl font-bold mb-4 text-white">Professionnels</h3>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez vos bureaux, showrooms et espaces industriels pour vos clients et futurs collaborateurs.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Branding immersif de vos espaces</li>
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Outil de formation et d'onboarding</li>
-                <li class="flex items-center gap-2 underline decoration-[#278299]/30">● Mise en scène des innovations</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Espaces de travail</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-[#278299] rounded-full"></span> Branding immersif</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">CLIQUEZ ICI POUR VISITER</button>
             </div>
 
             <!-- Tourisme -->
             <div class="feature-card p-10 rounded-[2rem] border-t-8 border-white flex flex-col group">
               <span class="text-5xl mb-6 group-hover:scale-110 transition-transform block">🗺️</span>
               <h3 class="text-2xl font-bold mb-4 text-white">Tourisme</h3>
-              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez le patrimoine culturel et les sites naturels pour attirer les visiteurs du monde entier via une exploration libre.</p>
+              <p class="text-slate-300 text-sm mb-8 leading-relaxed">Valorisez le patrimoine culturel et les sites naturels pour attirer les visiteurs du monde entier.</p>
               <ul class="text-xs text-slate-400 space-y-3 mb-10 border-t border-white/5 pt-6">
-                <li class="flex items-center gap-2 italic">● Préservation digitale du patrimoine</li>
-                <li class="flex items-center gap-2 italic">● Accès aux lieux difficiles d'accès</li>
-                <li class="flex items-center gap-2 italic">● Audio-guide 360° intégré</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> Valorisation patrimoine</li>
+                <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-white rounded-full"></span> Exploration libre</li>
               </ul>
-              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">VISITER LA CATÉGORIE</button>
+              <button class="card-action-button py-5 rounded-2xl mt-auto font-black text-xs" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">CLIQUEZ ICI POUR VISITER</button>
             </div>
           </div>
         </section>
@@ -396,8 +409,8 @@
       <!-- PAGE VISION : ANALYSE DE L'IMPACT -->
       <div id="page-about" class="page px-4 py-20 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div class="space-y-8">
-                <h2 class="text-5xl font-black text-white leading-tight">Pourquoi l'immersion est le futur du commerce.</h2>
+            <div class="space-y-8 text-left">
+                <h2 class="text-5xl font-black text-white leading-tight">À propos de Nova360</h2>
                 <p class="text-xl text-slate-300 leading-relaxed italic">
                     "Nova360 est une plateforme immersive de référence conçue pour mettre en lumière le dynamisme de votre secteur. Notre mission est d'augmenter la visibilité des entreprises, des particuliers et des professionnels à travers une expérience numérique d'exception."
                 </p>
@@ -425,8 +438,9 @@
       <!-- PAGE CONTACT : CONVERSION -->
       <div id="page-contact" class="page px-4 py-20 max-w-2xl mx-auto text-center space-y-12">
         <div class="space-y-4">
-            <h2 class="text-5xl font-black text-white">Prêt à briller ?</h2>
-            <p class="text-xl text-[#278299] font-bold">Augmentez votre visibilité grâce à l'expertise Nova360.</p>
+            <h2 class="text-5xl font-black text-white italic">Un projet ?</h2>
+            <h3 class="text-2xl font-bold text-white mb-2">Vous voulez rejoindre Nova360 ?</h3>
+            <p class="text-xl text-[#278299] font-bold">Augmentez votre visibilité grâce à la visite virtuelle interactive de Nova360.</p>
         </div>
 
         <form id="contact-form" class="space-y-6 bg-white/5 p-12 rounded-[2.5rem] border border-white/10 shadow-2xl text-left">
@@ -439,18 +453,18 @@
               <input type="email" placeholder="contact@votre-entreprise.fr" required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white focus:border-[#278299] outline-none">
           </div>
           <div>
-              <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Votre Projet</label>
-              <textarea rows="4" placeholder="Dites-nous tout..." required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white focus:border-[#278299] outline-none"></textarea>
+              <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Votre Message</label>
+              <textarea rows="4" placeholder="Décrivez votre besoin..." required class="w-full px-6 py-4 bg-[#004047] border border-white/10 rounded-2xl text-white focus:border-[#278299] outline-none"></textarea>
           </div>
-          <button type="submit" class="cta-button w-full py-6 rounded-2xl text-white font-black text-lg uppercase tracking-widest">Envoyer la demande</button>
-          <div id="form-feedback" class="hidden text-center text-[#278299] font-black p-4 bg-white/5 rounded-2xl">✓ Message transmis avec succès !</div>
+          <button type="submit" class="cta-button w-full py-6 rounded-2xl text-white font-black text-lg uppercase tracking-widest shadow-xl">Envoyer la demande</button>
+          <div id="form-feedback" class="hidden text-center text-[#278299] font-black p-4 bg-white/5 rounded-2xl border border-[#278299]/20">✓ Message transmis avec succès !</div>
         </form>
 
         <!-- QR SECTION -->
         <div class="bg-white/5 p-10 rounded-[3rem] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20">
             <div class="text-left space-y-2">
-                <h4 class="text-2xl font-black">Emportez Nova360</h4>
-                <p class="text-sm text-slate-400">Scannez pour ouvrir l'application sur smartphone.</p>
+                <h4 class="text-2xl font-black text-white">Emportez l'expérience partout</h4>
+                <p class="text-sm text-slate-400">Scannez ce QR Code avec votre smartphone pour ouvrir l'application Nova360.</p>
             </div>
             <div class="p-4 bg-white rounded-3xl shadow-xl">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://nova360.app.codinsight.app/&color=00565e" alt="QR Code" class="h-32 w-32">
@@ -460,12 +474,12 @@
 
     </main>
 
-    <!-- FOOTER : INFOS TECHNIQUES -->
+    <!-- FOOTER -->
     <footer id="main-footer" class="py-12 border-t border-white/10 bg-black/20 text-slate-500 text-xs">
       <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         <div class="flex items-center gap-4">
-            <span class="font-black text-white/50 text-sm">NOVA360</span>
-            <span>&copy; 2025 Architecture Immersive. Tous droits réservés.</span>
+            <img src="Logo_Nova_360_V2.0.jpg" alt="Logo Nova360" class="h-6 opacity-40">
+            <span>&copy; 2024 Nova360. Immersion garantie.</span>
         </div>
         <div class="flex space-x-8 mt-6 md:mt-0 font-bold uppercase tracking-widest">
           <a href="#" class="hover:text-white transition-colors underline decoration-[#278299]">Mentions légales</a>
@@ -573,7 +587,8 @@
 
     // Mobile Menu Toggle
     document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-        alert("Le menu mobile est activé. Veuillez utiliser les ancres de navigation directes.");
+        const navLinks = document.querySelectorAll('.nav-link');
+        alert("Menu mobile activé. Utilisez les boutons de navigation.");
     });
   </script>
 </body>
