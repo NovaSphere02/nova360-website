@@ -1,7 +1,11 @@
 /**
- * LOGIQUE DE NAVIGATION DE NOVA360
+ * LOGIQUE DE NAVIGATION ET D'INTERACTION DE NOVA360
  */
 
+/**
+ * Gère le changement de page fluide
+ * @param {string} pageId - L'identifiant de la page cible
+ */
 function navigateToPage(pageId) {
   // 1. Fermer le menu mobile au cas où il est ouvert
   toggleMobileMenu(false);
@@ -15,7 +19,7 @@ function navigateToPage(pageId) {
   // 3. Réinitialiser les liens de navigation
   navLinks.forEach(l => {
     l.classList.remove('active');
-    // On active le lien dont le texte correspond à la page
+    // On active le lien dont le texte correspond à la page demandée
     const linkText = l.innerText.toLowerCase();
     if (pageId === 'home' && (linkText.includes('accueil'))) l.classList.add('active');
     if (pageId === 'categories' && linkText.includes('catégories')) l.classList.add('active');
@@ -30,6 +34,7 @@ function navigateToPage(pageId) {
     target.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } else if (pageId === 'home') {
+    // Fallback pour la page d'accueil
     document.getElementById('page-home').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -38,8 +43,14 @@ function navigateToPage(pageId) {
   history.pushState(null, null, `#${pageId}`);
 }
 
-function toggleMobileMenu(forceState) {
+/**
+ * Gère l'affichage de l'overlay menu mobile
+ * @param {boolean|null} forceState - Force l'état (true=ouvert, false=fermé)
+ */
+function toggleMobileMenu(forceState = null) {
   const menu = document.getElementById('mobile-menu');
+  if (!menu) return;
+
   if (forceState === false) {
     menu.style.display = 'none';
   } else {
@@ -47,9 +58,14 @@ function toggleMobileMenu(forceState) {
   }
 }
 
+/**
+ * Fonction raccourcie pour la navigation mobile
+ */
 function mobileNav(id) {
   navigateToPage(id);
 }
+
+// --- INITIALISATION ---
 
 // Gestion du chargement initial via l'URL (ex: site.com/#vision)
 window.addEventListener('load', () => {
