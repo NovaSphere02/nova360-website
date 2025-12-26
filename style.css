@@ -1,15 +1,15 @@
 /* -----------------------------------------------------------
-   VARIABLES & DESIGN TOKENS
+   VARIABLES DE COULEURS ET DESIGN
    ----------------------------------------------------------- */
 :root {
-  --primary: #00565e;    /* Deep Petrol */
-  --accent: #2BA7C2;     /* Accent Azure */
-  --hover-grad: #278299; /* Accent principal titre */
-  --secondary: #315a97;  /* Deep Blue */
-  --dark: #00565e;       
-  --bg-custom: #D4D3DC;  
-  --text-main: #1F2937;  
-  --nav-height: 80px;    
+  --primary: #00565e;
+  --accent: #2BA7C2;
+  --hover-grad: #278299;
+  --secondary: #315a97;
+  --dark: #00565e;
+  --bg-custom: #D4D3DC;
+  --text-main: #1F2937;
+  --nav-height: 80px;
 }
 
 body {
@@ -20,7 +20,7 @@ body {
   scroll-behavior: smooth;
 }
 
-/* TRANSITIONS */
+/* PAGES ET TRANSITIONS */
 .page {
   display: none;
   opacity: 0;
@@ -35,12 +35,11 @@ body {
 }
 
 /* NAVIGATION */
+#main-nav { background-color: var(--dark); height: var(--nav-height); box-shadow: 0 10px 30px -10px rgba(0, 86, 94, 0.4); }
+
 .nav-link {
-  position: relative;
-  transition: all 0.3s ease;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.1em;
-  cursor: pointer;
+  position: relative; transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7); letter-spacing: 0.1em; cursor: pointer;
 }
 .nav-link:hover, .nav-link.active { color: white; }
 .nav-link::after {
@@ -49,85 +48,59 @@ body {
 }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* LOGO CARD - PASSAGE EN FORMAT CARRÉ IMPOSANT */
+/* LE BLOC LOGO CARRÉ IMPOSANT ET MÉTALLIQUE */
 .integrated-logo-card {
   background: var(--dark); 
-  width: 130px; /* Format carré sur mobile */
-  height: 130px;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
-  padding: 15px; 
-  border-radius: 0 0 1.5rem 1.5rem;
+  width: 130px; height: 130px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; 
+  padding: 15px; border-radius: 0 0 1.5rem 1.5rem;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden; 
-  position: relative;
+  overflow: hidden; position: relative;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-left: 1rem; 
-  z-index: 40;
+  margin-left: 1rem; z-index: 40;
 }
 
 @media (min-width: 768px) {
   .integrated-logo-card { 
-    width: 200px; /* Carré imposant sur Desktop */
+    width: 200px; /* Taille imposante sur desktop */
     height: 200px; 
     margin-left: 2.5rem; 
     padding: 25px; 
-    border-radius: 0 0 2rem 2rem;
+    border-radius: 0 0 2rem 2rem; 
   }
 }
 
-.integrated-logo-card:hover { 
-  transform: translateY(10px) scale(1.02); 
+.integrated-logo-card:hover {
+  transform: translateY(8px) scale(1.02);
   box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.45);
 }
 
-/* Effet métallique brillant au survol */
+/* EFFET MÉTALLIQUE AU SURVOL */
 .integrated-logo-card::after {
-  content: ''; 
-  position: absolute; 
-  top: 0; 
-  left: -150%; 
-  width: 100%; 
-  height: 100%;
-  background: linear-gradient(
-    to right, 
-    rgba(255,255,255,0) 0%, 
-    rgba(255,255,255,0.2) 50%, 
-    rgba(255,255,255,0) 100%
-  );
-  transform: skewX(-25deg); 
-  z-index: 2;
+  content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-25deg); z-index: 2;
 }
 
-.integrated-logo-card:hover::after { 
-  animation: shine-metallic 1.2s ease-in-out forwards; 
-}
+.integrated-logo-card:hover::after { animation: shine-metallic 1.2s ease-in-out forwards; }
 
-@keyframes shine-metallic { 
-  from { left: -150%; } 
-  to { left: 150%; } 
-}
+@keyframes shine-metallic { from { left: -150%; } to { left: 150%; } }
 
-/* BOUTONS */
+/* BOUTONS ET CARTES */
 .cta-button {
   position: relative; background-color: var(--dark); color: white;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex; align-items: center; justify-content: center;
-  border: 2px solid transparent; min-width: 220px; cursor: pointer; overflow: hidden; 
+  border: 2px solid transparent; cursor: pointer; overflow: hidden; 
 }
-.cta-button:hover { transform: scale(1.08); background-color: var(--hover-grad); }
+.cta-button:hover { background-color: var(--hover-grad); transform: scale(1.05); }
 
-@keyframes cta-yoyo {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+.feature-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(0, 86, 94, 0.1);
+  transition: all 0.5s ease;
 }
-.cta-attention { animation: cta-yoyo 3s ease-in-out infinite; }
-
-/* CARTES */
-.feature-card { background: white; border: 1px solid rgba(0,0,0,0.05); transition: all 0.5s ease; }
 .feature-card:hover { transform: translateY(-10px); }
 
 /* MOBILE MENU */
