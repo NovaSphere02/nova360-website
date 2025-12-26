@@ -1,1 +1,105 @@
 
+/* -----------------------------------------------------------
+   VARIABLES & DESIGN TOKENS
+   ----------------------------------------------------------- */
+:root {
+  --primary: #00565e;    /* Deep Petrol */
+  --accent: #2BA7C2;     /* Accent Azure */
+  --hover-grad: #278299; /* Accent principal titre */
+  --secondary: #315a97;  /* Deep Blue */
+  --dark: #00565e;       
+  --bg-custom: #D4D3DC;  
+  --text-main: #1F2937;  
+  --nav-height: 80px;    
+}
+
+body {
+  background-color: var(--bg-custom);
+  color: var(--text-main);
+  overflow-x: hidden;
+  background-image: radial-gradient(circle at 50% 20%, rgba(0, 86, 94, 0.1) 0%, transparent 70%);
+  scroll-behavior: smooth;
+}
+
+/* TRANSITIONS */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* NAVIGATION */
+.nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+.nav-link:hover, .nav-link.active { color: white; }
+.nav-link::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+  background: var(--accent); transition: width 0.3s ease;
+}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* LOGO CARD */
+.integrated-logo-card {
+  background: var(--dark); 
+  width: 110px; height: 95px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; 
+  padding: 10px; border-radius: 0 0 1.2rem 1.2rem;
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden; position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-left: 1rem; z-index: 40;
+}
+
+@media (min-width: 768px) {
+  .integrated-logo-card { width: 160px; height: 125px; margin-left: 2.5rem; padding: 15px; border-radius: 0 0 1.5rem 1.5rem; }
+}
+
+.integrated-logo-card:hover { transform: translateY(5px) scale(1.03); }
+
+.integrated-logo-card::after {
+  content: ''; position: absolute; top: 0; left: -120%; width: 80%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.4), rgba(255,255,255,0));
+  transform: skewX(-25deg); z-index: 2;
+}
+
+.integrated-logo-card:hover::after { animation: shine-metallic 1s ease-in-out forwards; }
+
+@keyframes shine-metallic { from { left: -120%; } to { left: 160%; } }
+
+/* BOUTONS */
+.cta-button {
+  position: relative; background-color: var(--dark); color: white;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid transparent; min-width: 220px; cursor: pointer; overflow: hidden; 
+}
+.cta-button:hover { transform: scale(1.08); background-color: var(--hover-grad); }
+
+@keyframes cta-yoyo {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.cta-attention { animation: cta-yoyo 3s ease-in-out infinite; }
+
+/* CARTES */
+.feature-card { background: white; border: 1px solid rgba(0,0,0,0.05); transition: all 0.5s ease; }
+.feature-card:hover { transform: translateY(-10px); }
+
+/* MOBILE MENU */
+#mobile-menu {
+  position: fixed; inset: 0; background: var(--dark); z-index: 1000;
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+}
