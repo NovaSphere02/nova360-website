@@ -88,35 +88,62 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* LE BADGE LOGO EN RELIEF (MACARON SUSPENDU) */
+    /* LE BLOC LOGO RECTANGLE EN RELIEF AVEC EFFET MÉTALLIQUE */
     #logo-card {
-      position: fixed; /* Changement en fixed pour rester visible au scroll */
-      top: 0;
+      position: fixed;
+      top: 80px; /* Positionné pile sous la barre horizontale */
       left: 2.5rem;
       background: white;
-      width: 150px;
-      height: 180px; 
-      z-index: 100;
+      width: 160px;
+      height: 100px; 
+      z-index: 90;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end; 
-      padding: 20px 20px 30px 20px; 
-      border-radius: 0 0 2.5rem 2.5rem;
-      box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(0,0,0,0.03);
-      pointer-events: none;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateY(0);
+      justify-content: center; 
+      padding: 15px; 
+      border-radius: 0 0 1.5rem 1.5rem;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(0,0,0,0.05);
+      cursor: default;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* EFFET DE RETRAIT AU SCROLL : La pancarte se relève */
-    #logo-card.scrolled {
-      transform: translateY(-85px); /* Se relève pour ne pas toucher le contenu remontant */
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+    /* Effet de survol sur le logo : léger scale */
+    #logo-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
     }
 
-    /* Animation du reflet métallique au survol */
+    /* Reflet métallique pour le logo */
+    #logo-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      z-index: 2;
+    }
+
+    #logo-card:hover::after {
+      animation: shine-logo 0.8s ease-in-out;
+    }
+
+    @keyframes shine-logo {
+      from { left: -110%; }
+      to { left: 110%; }
+    }
+
+    /* Animation du reflet métallique pour les boutons */
     @keyframes shine {
       from { left: -100%; }
       to { left: 100%; }
@@ -297,15 +324,19 @@
 
   <div id="app" class="flex flex-col min-h-screen">
     
-    <!-- LOGO BADGE EN RELIEF (GAUCHE) -->
+    <!-- LE BLOC LOGO RECTANGLE FIXE -->
     <div id="logo-card">
-       <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain">
-       <span class="text-[#00565e] font-black tracking-widest text-[11px] uppercase italic mt-4">Nova360</span>
+       <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain relative z-10">
+       <span class="text-[#00565e] font-black tracking-widest text-[10px] uppercase italic mt-2 relative z-10">Nova360</span>
     </div>
 
     <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 flex items-center h-full relative">
+        
+        <!-- Espace vide pour compenser le logo à gauche -->
+        <div class="hidden lg:block w-[180px]"></div>
+
         <!-- ONGLETS ET BOUTON DÉCALÉS À DROITE -->
         <div class="ml-auto flex items-center gap-10">
           <div class="hidden md:flex space-x-10 text-white">
@@ -341,8 +372,8 @@
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-6 pt-0 pb-24 lg:pb-40 bg-transparent">
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <!-- ESPACEMENT DRASTIQUEMENT RÉDUIT (mt-6 md:mt-10) -->
-          <div class="mb-10 mt-6 md:mt-10"> 
+          <!-- ESPACEMENT AJUSTÉ POUR LA COHÉRENCE AVEC LE BLOC LOGO -->
+          <div class="mb-10 mt-12 md:mt-16"> 
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-1 text-center w-full">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-2 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
@@ -588,16 +619,6 @@
       toggleMobileMenu(false);
       navigateToPage(id);
     }
-
-    // GESTION DU LOGO AU SCROLL
-    window.addEventListener('scroll', () => {
-      const logoCard = document.getElementById('logo-card');
-      if (window.scrollY > 20) {
-        logoCard.classList.add('scrolled');
-      } else {
-        logoCard.classList.remove('scrolled');
-      }
-    });
 
     window.addEventListener('popstate', () => {
       const hash = window.location.hash.substring(1) || 'home';
