@@ -1,4 +1,3 @@
-
 /* -----------------------------------------------------------
    VARIABLES & DESIGN TOKENS
    ----------------------------------------------------------- */
@@ -50,34 +49,67 @@ body {
 }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* LOGO CARD */
+/* LOGO CARD - PASSAGE EN FORMAT CARRÉ IMPOSANT */
 .integrated-logo-card {
   background: var(--dark); 
-  width: 110px; height: 95px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; 
-  padding: 10px; border-radius: 0 0 1.2rem 1.2rem;
-  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  width: 130px; /* Format carré sur mobile */
+  height: 130px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 15px; 
+  border-radius: 0 0 1.5rem 1.5rem;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden; position: relative;
+  overflow: hidden; 
+  position: relative;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-left: 1rem; z-index: 40;
+  margin-left: 1rem; 
+  z-index: 40;
 }
 
 @media (min-width: 768px) {
-  .integrated-logo-card { width: 160px; height: 125px; margin-left: 2.5rem; padding: 15px; border-radius: 0 0 1.5rem 1.5rem; }
+  .integrated-logo-card { 
+    width: 200px; /* Carré imposant sur Desktop */
+    height: 200px; 
+    margin-left: 2.5rem; 
+    padding: 25px; 
+    border-radius: 0 0 2rem 2rem;
+  }
 }
 
-.integrated-logo-card:hover { transform: translateY(5px) scale(1.03); }
+.integrated-logo-card:hover { 
+  transform: translateY(10px) scale(1.02); 
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.45);
+}
 
+/* Effet métallique brillant au survol */
 .integrated-logo-card::after {
-  content: ''; position: absolute; top: 0; left: -120%; width: 80%; height: 100%;
-  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.4), rgba(255,255,255,0));
-  transform: skewX(-25deg); z-index: 2;
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: -150%; 
+  width: 100%; 
+  height: 100%;
+  background: linear-gradient(
+    to right, 
+    rgba(255,255,255,0) 0%, 
+    rgba(255,255,255,0.2) 50%, 
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-25deg); 
+  z-index: 2;
 }
 
-.integrated-logo-card:hover::after { animation: shine-metallic 1s ease-in-out forwards; }
+.integrated-logo-card:hover::after { 
+  animation: shine-metallic 1.2s ease-in-out forwards; 
+}
 
-@keyframes shine-metallic { from { left: -120%; } to { left: 160%; } }
+@keyframes shine-metallic { 
+  from { left: -150%; } 
+  to { left: 150%; } 
+}
 
 /* BOUTONS */
 .cta-button {
