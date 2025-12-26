@@ -40,7 +40,6 @@
       scroll-behavior: smooth;
     }
 
-    /* Pages */
     .page {
       display: none;
       opacity: 0;
@@ -49,7 +48,6 @@
     }
     .page.active { display: block; opacity: 1; transform: translateY(0); }
 
-    /* Navigation */
     #main-nav {
       background-color: var(--dark);
       height: var(--nav-height);
@@ -92,6 +90,7 @@
       justify-content: center;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       width: 260px;
+      overflow: hidden;
     }
     .hero-logo-card:hover {
       box-shadow:
@@ -101,7 +100,18 @@
       transform: translateY(-2px);
     }
 
-    /* CTA */
+    .hero-brand {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 6px;
+      line-height: 1.05;
+      letter-spacing: 0.34em;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .cta-button {
       position: relative;
       background-color: var(--dark);
@@ -139,7 +149,6 @@
     .cta-button:hover::after { animation: shine 0.8s ease-in-out forwards; }
     @keyframes shine { from { left: -100%; } to { left: 150%; } }
 
-    /* Cards */
     .feature-card {
       background: white;
       border: 2px solid rgba(0, 86, 94, 0.05);
@@ -162,7 +171,6 @@
       opacity: 0.9;
     }
 
-    /* QR Panel (Accueil uniquement) */
     .qr-panel {
       background: linear-gradient(135deg, #00565e 0%, #003a40 100%);
       border-radius: 3.5rem;
@@ -182,19 +190,12 @@
       pointer-events: none;
     }
 
-    /* Anim */
     @keyframes bounce-x-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
     .animate-bounce-x-right { animation: bounce-x-right 1.2s ease-in-out infinite; }
 
-    .cta-breathe {
-      display: inline-flex;
-      transform-origin: center;
-      animation: ctaBreathe 3.8s ease-in-out infinite;
-      will-change: transform;
-    }
+    .cta-breathe { display: inline-flex; transform-origin: center; animation: ctaBreathe 3.8s ease-in-out infinite; will-change: transform; }
     @keyframes ctaBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
 
-    /* Réduire animations */
     html.reduced-motion .cta-breathe,
     html.reduced-motion .animate-bounce-x-right { animation: none !important; }
     html.reduced-motion .page { transition: none !important; }
@@ -202,7 +203,6 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Démos */
     .demo-topbar { background: var(--dark); z-index: 110; height: 70px; }
     .demo-item-btn {
       padding: 10px 24px;
@@ -223,7 +223,6 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
-    /* ✅ Mode Démo : vrai plein écran */
     #page-demo.active {
       display: flex;
       flex-direction: column;
@@ -253,7 +252,7 @@
       overflow: hidden;
       position: relative;
     }
-    .immersion-mode .tour-frame-architectural { border: 0px solid transparent; border-radius: 0; }
+    .immersion-mode .tour-frame-architectural { border: 0; border-radius: 0; }
     .immersion-mode .demo-topbar { height: 0; overflow: hidden; opacity: 0; }
     .immersion-mode .demo-frame-container { padding: 0; height: 100dvh; }
 
@@ -276,7 +275,6 @@
     }
     .immersion-mode .exit-immersion { display: flex; }
 
-    /* Menu mobile (drawer à droite) */
     .mobile-overlay {
       position: fixed;
       inset: 0;
@@ -341,12 +339,7 @@
     }
     .mobile-menu-close:hover { background: rgba(255,255,255,0.16); }
 
-    .mobile-menu-links {
-      padding-top: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .mobile-menu-links { padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
     .mobile-link-btn {
       width: 100%;
       text-align: left;
@@ -365,11 +358,7 @@
     .mobile-link-btn:hover { background: rgba(255,255,255,0.12); }
     .mobile-link-btn.active { background: white; color: var(--dark); border-color: transparent; }
 
-    .mobile-settings {
-      margin-top: auto;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255,255,255,0.10);
-    }
+    .mobile-settings { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.10); }
     .mobile-settings-title {
       color: rgba(255,255,255,0.65);
       font-weight: 900;
@@ -393,92 +382,82 @@
     }
     .toggle-row input { width: 44px; height: 24px; accent-color: var(--accent); }
 
-    /* =========================================================
-       ✅ AJUSTEMENT HOME MOBILE : remonte le texte vers le logo
-       (pour que le titre soit “dans l’écran” sur Pixel Fold)
-       ========================================================= */
+    .home-stack {
+      display: inline-block;
+      max-width: 26ch;
+      text-wrap: balance;
+    }
+    .home-stack .l1,
+    .home-stack .l2,
+    .home-stack .l3 { display: block; text-align: center; }
+    .home-stack .l1,
+    .home-stack .l2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .home-stack .l3 {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+    }
+
+    /* ✅✅ TON AJUSTEMENT : MOBILE = cadre logo + textes plus grands */
     @media (max-width: 640px) {
-      /* Section : moins d’air en haut/bas */
-      #page-home {
-        padding-top: 10px !important;
-        padding-bottom: 88px !important;
-      }
+      #page-home { padding-top: 10px !important; padding-bottom: 88px !important; }
+      #home-hero-row { padding-top: 14px !important; gap: 18px !important; }
 
-      /* Ligne logo + texte : moins de marge et moins d’écart */
-      #home-hero-row {
-        padding-top: 14px !important;
-        gap: 22px !important;
-      }
-
-      /* Logo card plus compacte */
+      /* ✅ Cadre logo plus grand */
       .hero-logo-card {
-        width: 220px;
-        padding: 2rem 1.4rem;
-        border-radius: 2.2rem;
+        width: 270px !important;
+        padding: 2.2rem 1.6rem !important;
+        border-radius: 2.6rem !important;
+      }
+      /* ✅ Logo image un peu plus grand */
+      .hero-logo-card img {
+        width: 170px !important; /* augmente l’image */
+        max-width: 100%;
+        height: auto;
+      }
+      /* ✅ Texte “Nova360” un peu plus grand, sans dépasser */
+      .hero-brand {
+        font-size: 2.1rem !important;   /* ~text-4xl */
+        letter-spacing: 0.30em !important;
+        padding: 0 8px !important;
       }
 
-      /* Remonte le bloc texte */
-      #home-copy {
-        padding-top: 6px !important;
-      }
-
-      /* Titre : un poil plus compact pour tenir “au-dessus du fold” */
+      /* ✅ Textes (titre) plus grands */
       #home-title {
-        font-size: 2.25rem !important; /* ~text-4xl */
-        line-height: 1.05 !important;
+        font-size: 2.65rem !important;
+        line-height: 1.06 !important;
         margin-bottom: 14px !important;
       }
-
-      /* “tous les autres” : moins de marge haute */
-      #home-title .home-sub {
-        margin-top: 10px !important;
-        letter-spacing: 0.35em !important;
-        font-size: 1.15rem !important;
+      .home-stack { max-width: 30ch !important; }
+      .home-stack .l1 { font-size: 2.2rem !important; }
+      .home-stack .l2 { font-size: 2.25rem !important; }
+      .home-stack .l3 {
+        font-size: 1.35rem !important;
+        margin-top: 12px !important;
+        letter-spacing: 0.20em !important;
       }
 
-      /* Paragraphe et boutons : plus rapprochés */
-      #home-desc {
-        margin-bottom: 18px !important;
-        font-size: 1rem !important;
-      }
+      /* Description un peu plus grande aussi */
+      #home-desc { margin-bottom: 18px !important; font-size: 1.08rem !important; }
 
-      #home-cta {
-        margin-bottom: 26px !important;
-        gap: 12px !important;
-      }
-
-      /* boutons : un peu moins hauts sur mobile */
-      #home-cta .cta-button {
-        padding-top: 18px !important;
-        padding-bottom: 18px !important;
-      }
+      /* CTA */
+      #home-cta { margin-bottom: 26px !important; gap: 12px !important; }
+      #home-cta .cta-button { padding-top: 18px !important; padding-bottom: 18px !important; }
     }
 
-    /* Confort mobile général */
     @media (max-width: 640px) {
-      #page-home, #page-categories, #page-about, #page-contact {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
-      }
+      #page-home, #page-categories, #page-about, #page-contact { padding-left: 18px !important; padding-right: 18px !important; }
     }
 
-    /* =========================================================
-       ✅ FIX MOBILE — MODE DÉMOS (catégories + iframe)
-       ========================================================= */
     @media (max-width: 640px) {
-      #page-demo .demo-topbar {
-        height: auto !important;
-        padding: 10px 12px !important;
-        align-items: flex-start !important;
-      }
-      #page-demo .demo-topbar > div:first-child {
-        flex-wrap: wrap !important;
-        gap: 10px !important;
-        overflow: visible !important;
-      }
-      #page-demo .demo-topbar > div:first-child .h-8.w-px {
-        display: none !important;
-      }
+      #page-demo .demo-topbar { height: auto !important; padding: 10px 12px !important; align-items: flex-start !important; }
+      #page-demo .demo-topbar > div:first-child { flex-wrap: wrap !important; gap: 10px !important; overflow: visible !important; }
+      #page-demo .demo-topbar > div:first-child .h-8.w-px { display: none !important; }
       #page-demo .demo-topbar > div:first-child nav {
         width: 100% !important;
         padding-top: 6px !important;
@@ -492,20 +471,9 @@
         font-size: 0.65rem !important;
         border-radius: 14px !important;
       }
-      #page-demo .demo-frame-container {
-        padding: 0 !important;
-      }
-      #page-demo .tour-frame-architectural {
-        border: 0 !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-      }
-      #demo-frame {
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
-        background: #000 !important;
-      }
+      #page-demo .demo-frame-container { padding: 0 !important; }
+      #page-demo .tour-frame-architectural { border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+      #demo-frame { width: 100% !important; height: 100% !important; display: block !important; background: #000 !important; }
       #page-demo .exit-immersion {
         top: auto !important;
         bottom: calc(18px + env(safe-area-inset-bottom)) !important;
@@ -522,7 +490,6 @@
 <body class="h-full w-full">
   <div id="app" class="flex flex-col min-h-screen">
 
-    <!-- NAV -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto flex justify-center items-center h-full relative px-6 gap-12">
         <div class="hidden md:flex space-x-12 text-white items-center">
@@ -550,7 +517,6 @@
       </div>
     </nav>
 
-    <!-- overlay + drawer -->
     <div id="mobile-overlay" class="mobile-overlay" onclick="toggleMobileMenu(false)"></div>
 
     <aside id="mobile-menu" aria-hidden="true">
@@ -582,29 +548,31 @@
 
     <main class="flex-grow">
 
-      <!-- HOME -->
       <section id="page-home" class="page active px-10 pt-4 pb-32">
         <div id="home-hero-row" class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center lg:items-start pt-12">
+
           <div class="flex-shrink-0">
             <div class="hero-logo-card">
               <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-36 sm:w-40 h-auto object-contain">
-              <h2 class="text-3xl font-black text-[#00565e] uppercase tracking-[0.4em] text-center mt-5 sm:mt-6">Nova360</h2>
+              <h2 class="hero-brand text-3xl font-black text-[#00565e] uppercase text-center mt-5 sm:mt-6">Nova360</h2>
             </div>
           </div>
 
           <div id="home-copy" class="flex-grow text-center lg:text-left flex flex-col justify-center pt-8">
             <div class="mb-10">
               <h1 id="home-title" class="text-5xl md:text-7xl font-light leading-[1.1] tracking-tight text-slate-800">
-                <span class="font-serif italic text-[#278299] block mb-3 sm:mb-4">Un seul endroit</span>
-                <span class="font-serif italic text-[#00565e] block relative inline-block">
-                  pour explorer
-                  <span class="absolute -bottom-2 left-0 w-full h-1 bg-[#00565e]/10"></span>
+                <span class="home-stack">
+                  <span class="l1 text-[#278299] mb-3">Un seul endroit</span>
+                  <span class="l2 text-[#00565e] relative inline-block">
+                    pour explorer
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-[#00565e]/10"></span>
+                  </span>
+                  <span class="l3 text-[#278299] mt-6">tous les autres</span>
                 </span>
-                <span class="home-sub font-black text-2xl md:text-5xl uppercase tracking-[0.5em] text-[#278299] mt-6 block">tous les autres</span>
               </h1>
             </div>
 
-            <p id="home-desc" class="text-lg md:text-xl text-slate-500 max-w-2xl mb-12 font-light leading-relaxed">
+            <p id="home-desc" class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto lg:mx-0 mb-12 font-light leading-relaxed">
               Découvrez les lieux autrement grâce à la visite virtuelle 360° de Nova360.
               Plus qu'une visite, une expérience interactive innovante.
             </p>
@@ -619,7 +587,6 @@
           </div>
         </div>
 
-        <!-- QR -->
         <div class="max-w-7xl mx-auto mt-14 qr-panel p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
           <div class="flex-grow text-center md:text-left relative z-10 text-white">
             <span class="text-[#2BA7C2] font-black text-[10px] uppercase tracking-[0.4em] block mb-4">Expérience Mobile</span>
@@ -630,14 +597,6 @@
               Scannez ce QR Code pour ouvrir Nova360 sur mobile et tester la navigation gyroscopique.
               Idéal en rendez-vous ou en démonstration.
             </p>
-
-            <div class="mt-10 flex items-center justify-center md:justify-start gap-6">
-              <div class="flex -space-x-3">
-                <div class="w-12 h-12 rounded-full border-2 border-[#00565e] bg-slate-200 flex items-center justify-center text-xl">🍏</div>
-                <div class="w-12 h-12 rounded-full border-2 border-[#00565e] bg-slate-200 flex items-center justify-center text-xl">🤖</div>
-              </div>
-              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-white/50">Optimisé iOS & Android</span>
-            </div>
           </div>
 
           <div class="flex-shrink-0 relative z-10">
@@ -655,7 +614,6 @@
         </div>
       </section>
 
-      <!-- CATEGORIES -->
       <section id="page-categories" class="page px-10 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-5xl md:text-6xl font-light text-slate-800 uppercase tracking-tighter">
@@ -721,7 +679,6 @@
         </div>
       </section>
 
-      <!-- DEMO -->
       <section id="page-demo" class="page overflow-hidden">
         <div id="demo-modal" class="fixed inset-0 bg-black/95 z-[500] hidden items-center justify-center p-6 backdrop-blur-xl">
           <div class="bg-white max-w-md w-full p-12 rounded-[3rem] text-center shadow-2xl scale-95 opacity-0 transition-all duration-700" id="modal-content">
@@ -734,20 +691,11 @@
 
         <div class="demo-topbar flex items-center justify-between px-8 py-3 shadow-2xl border-b border-white/5 flex-shrink-0">
           <div class="flex items-center gap-6 flex-grow min-w-0 overflow-hidden">
-            <button
-              type="button"
-              onclick="navigateToPage('home')"
-              class="ml-[1mm] group flex items-center gap-3 flex-shrink-0
-                     px-4 py-2 rounded-full
-                     bg-white/10 border border-white/20 shadow-lg backdrop-blur
-                     text-white text-[10px] font-black uppercase tracking-[0.22em]
-                     hover:bg-white/16 hover:border-white/35 hover:shadow-xl
-                     transition-all duration-300
-                     active:scale-[0.98] hover:scale-[1.03]
-                     focus:outline-none focus:ring-2 focus:ring-white/25"
-            >
-              <span class="w-7 h-7 rounded-full bg-white/10 border border-white/15 flex items-center justify-center
-                           group-hover:bg-white/15 group-hover:border-white/25 transition-all">
+            <button type="button" onclick="navigateToPage('home')"
+              class="ml-[1mm] group flex items-center gap-3 flex-shrink-0 px-4 py-2 rounded-full bg-white/10 border border-white/20 shadow-lg backdrop-blur
+                     text-white text-[10px] font-black uppercase tracking-[0.22em] hover:bg-white/16 hover:border-white/35 hover:shadow-xl
+                     transition-all duration-300 active:scale-[0.98] hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-white/25">
+              <span class="w-7 h-7 rounded-full bg-white/10 border border-white/15 flex items-center justify-center group-hover:bg-white/15 group-hover:border-white/25 transition-all">
                 <svg class="w-4 h-4 opacity-90 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none">
                   <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -768,19 +716,9 @@
           </div>
 
           <div class="flex items-center gap-4 flex-shrink-0">
-            <div class="px-5 py-2.5 bg-white border border-white/20 rounded-full animate-bounce-x-right hidden sm:flex items-center gap-3 shadow-lg">
-              <span class="text-[10px] font-black uppercase tracking-[0.25em] text-[#00565e]">Immersion Totale</span>
-              <svg class="w-6 h-4" viewBox="0 0 40 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 8H38M38 8L31 1M38 8L31 15" stroke="#00565e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            <button
-              type="button"
-              onclick="toggleImmersion(true); syncDemoTopbarHeight();"
+            <button type="button" onclick="toggleImmersion(true); syncDemoTopbarHeight();"
               class="w-14 h-14 flex items-center justify-center bg-white/10 rounded-2xl text-white hover:bg-white/20 transition-all border border-white/10 hover:border-accent shadow-xl group"
-              aria-label="Activer l’immersion"
-            >
+              aria-label="Activer l’immersion">
               <span class="text-xl group-hover:scale-125 transition-transform">⛶</span>
             </button>
           </div>
@@ -789,18 +727,13 @@
         <div class="demo-frame-container">
           <button onclick="toggleImmersion(false); syncDemoTopbarHeight();" class="exit-immersion">⛶</button>
           <div class="tour-frame-architectural">
-            <iframe
-              id="demo-frame"
-              src="about:blank"
-              class="w-full h-full border-none"
+            <iframe id="demo-frame" src="about:blank" class="w-full h-full border-none"
               allow="fullscreen; autoplay; gyroscope; accelerometer; xr-spatial-tracking"
-              allowfullscreen
-            ></iframe>
+              allowfullscreen></iframe>
           </div>
         </div>
       </section>
 
-      <!-- ABOUT -->
       <section id="page-about" class="page px-10 py-24 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mt-6">
           <div class="space-y-10 text-left">
@@ -825,7 +758,6 @@
         </div>
       </section>
 
-      <!-- CONTACT -->
       <section id="page-contact" class="page px-10 py-24 max-w-5xl mx-auto">
         <div class="bg-white p-16 rounded-[4rem] shadow-3xl text-center border border-slate-200/70">
           <span class="text-[#278299] font-black text-[12px] uppercase tracking-[0.4em] block mb-6">Contactez-nous</span>
@@ -843,7 +775,6 @@
                   <input required class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none" placeholder="Votre nom">
                 </div>
               </div>
-
               <div>
                 <label class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Prénom</label>
                 <div class="rounded-3xl p-[1px] bg-slate-200/90 transition-all hover:bg-slate-300/80 focus-within:bg-[#278299]/60 focus-within:shadow-[0_0_0_6px_rgba(39,130,153,0.12)]">
@@ -898,7 +829,6 @@
     function toggleMobileMenu(show = null) {
       const menu = document.getElementById('mobile-menu');
       const overlay = document.getElementById('mobile-overlay');
-
       const isOpen = menu.classList.contains('show');
       const shouldOpen = (typeof show === 'boolean') ? show : !isOpen;
 
