@@ -26,7 +26,7 @@
       --bg-custom: #D4D3DC;
       --text-main: #1F2937;
       --nav-height: 70px;
-      --demoTopbarH: 70px; /* ✅ hauteur topbar démo calculée en JS */
+      --demoTopbarH: 70px;
     }
 
     * { font-family: 'Inter', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,6 +61,7 @@
       transition: all 0.3s ease;
       color: rgba(255, 255, 255, 0.6);
       letter-spacing: 0.15em;
+      cursor: pointer;
     }
     .nav-link:hover, .nav-link.active { color: white; }
     .nav-link::after {
@@ -213,6 +214,7 @@
       white-space: nowrap;
       border: 1px solid rgba(255,255,255,0.1);
       color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
     }
     .demo-item-btn.active {
       background: white;
@@ -230,7 +232,7 @@
       position: fixed;
       inset: 0;
       z-index: 1000;
-      height: 100dvh; /* ✅ au lieu de 100vh */
+      height: 100dvh;
     }
     .demo-frame-container {
       flex-grow: 1;
@@ -239,7 +241,7 @@
       align-items: center;
       justify-content: center;
       background: #002c31;
-      height: calc(100dvh - var(--demoTopbarH, 70px)); /* ✅ espace restant sous la topbar */
+      height: calc(100dvh - var(--demoTopbarH, 70px));
     }
     .tour-frame-architectural {
       width: 100%;
@@ -391,6 +393,67 @@
     }
     .toggle-row input { width: 44px; height: 24px; accent-color: var(--accent); }
 
+    /* =========================================================
+       ✅ AJUSTEMENT HOME MOBILE : remonte le texte vers le logo
+       (pour que le titre soit “dans l’écran” sur Pixel Fold)
+       ========================================================= */
+    @media (max-width: 640px) {
+      /* Section : moins d’air en haut/bas */
+      #page-home {
+        padding-top: 10px !important;
+        padding-bottom: 88px !important;
+      }
+
+      /* Ligne logo + texte : moins de marge et moins d’écart */
+      #home-hero-row {
+        padding-top: 14px !important;
+        gap: 22px !important;
+      }
+
+      /* Logo card plus compacte */
+      .hero-logo-card {
+        width: 220px;
+        padding: 2rem 1.4rem;
+        border-radius: 2.2rem;
+      }
+
+      /* Remonte le bloc texte */
+      #home-copy {
+        padding-top: 6px !important;
+      }
+
+      /* Titre : un poil plus compact pour tenir “au-dessus du fold” */
+      #home-title {
+        font-size: 2.25rem !important; /* ~text-4xl */
+        line-height: 1.05 !important;
+        margin-bottom: 14px !important;
+      }
+
+      /* “tous les autres” : moins de marge haute */
+      #home-title .home-sub {
+        margin-top: 10px !important;
+        letter-spacing: 0.35em !important;
+        font-size: 1.15rem !important;
+      }
+
+      /* Paragraphe et boutons : plus rapprochés */
+      #home-desc {
+        margin-bottom: 18px !important;
+        font-size: 1rem !important;
+      }
+
+      #home-cta {
+        margin-bottom: 26px !important;
+        gap: 12px !important;
+      }
+
+      /* boutons : un peu moins hauts sur mobile */
+      #home-cta .cta-button {
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+      }
+    }
+
     /* Confort mobile général */
     @media (max-width: 640px) {
       #page-home, #page-categories, #page-about, #page-contact {
@@ -403,26 +466,19 @@
        ✅ FIX MOBILE — MODE DÉMOS (catégories + iframe)
        ========================================================= */
     @media (max-width: 640px) {
-      /* topbar sur 2 lignes, plus compacte */
       #page-demo .demo-topbar {
         height: auto !important;
         padding: 10px 12px !important;
         align-items: flex-start !important;
       }
-
-      /* zone gauche (Quitter + nav) : wrap */
       #page-demo .demo-topbar > div:first-child {
         flex-wrap: wrap !important;
         gap: 10px !important;
         overflow: visible !important;
       }
-
-      /* enlève le séparateur */
       #page-demo .demo-topbar > div:first-child .h-8.w-px {
         display: none !important;
       }
-
-      /* nav catégories : pleine largeur, scroll fluide */
       #page-demo .demo-topbar > div:first-child nav {
         width: 100% !important;
         padding-top: 6px !important;
@@ -430,33 +486,26 @@
         -webkit-overflow-scrolling: touch !important;
         scroll-snap-type: x mandatory;
       }
-
       #page-demo .demo-topbar > div:first-child nav .demo-item-btn {
         scroll-snap-align: start;
         padding: 10px 14px !important;
         font-size: 0.65rem !important;
         border-radius: 14px !important;
       }
-
-      /* donne tout l'écran à l'iframe */
       #page-demo .demo-frame-container {
         padding: 0 !important;
       }
-
       #page-demo .tour-frame-architectural {
         border: 0 !important;
         border-radius: 0 !important;
         box-shadow: none !important;
       }
-
       #demo-frame {
         width: 100% !important;
         height: 100% !important;
         display: block !important;
         background: #000 !important;
       }
-
-      /* bouton exit au pouce */
       #page-demo .exit-immersion {
         top: auto !important;
         bottom: calc(18px + env(safe-area-inset-bottom)) !important;
@@ -535,32 +584,32 @@
 
       <!-- HOME -->
       <section id="page-home" class="page active px-10 pt-4 pb-32">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center lg:items-start pt-12">
+        <div id="home-hero-row" class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center lg:items-start pt-12">
           <div class="flex-shrink-0">
             <div class="hero-logo-card">
-              <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-40 h-auto object-contain">
-              <h2 class="text-3xl font-black text-[#00565e] uppercase tracking-[0.4em] text-center mt-6">Nova360</h2>
+              <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-36 sm:w-40 h-auto object-contain">
+              <h2 class="text-3xl font-black text-[#00565e] uppercase tracking-[0.4em] text-center mt-5 sm:mt-6">Nova360</h2>
             </div>
           </div>
 
-          <div class="flex-grow text-center lg:text-left flex flex-col justify-center pt-8">
+          <div id="home-copy" class="flex-grow text-center lg:text-left flex flex-col justify-center pt-8">
             <div class="mb-10">
-              <h1 class="text-5xl md:text-7xl font-light leading-[1.1] tracking-tight text-slate-800">
-                <span class="font-serif italic text-[#278299] block mb-4">Un seul endroit</span>
+              <h1 id="home-title" class="text-5xl md:text-7xl font-light leading-[1.1] tracking-tight text-slate-800">
+                <span class="font-serif italic text-[#278299] block mb-3 sm:mb-4">Un seul endroit</span>
                 <span class="font-serif italic text-[#00565e] block relative inline-block">
                   pour explorer
                   <span class="absolute -bottom-2 left-0 w-full h-1 bg-[#00565e]/10"></span>
                 </span>
-                <span class="font-black text-2xl md:text-5xl uppercase tracking-[0.5em] text-[#278299] mt-6 block">tous les autres</span>
+                <span class="home-sub font-black text-2xl md:text-5xl uppercase tracking-[0.5em] text-[#278299] mt-6 block">tous les autres</span>
               </h1>
             </div>
 
-            <p class="text-lg md:text-xl text-slate-500 max-w-2xl mb-12 font-light leading-relaxed">
+            <p id="home-desc" class="text-lg md:text-xl text-slate-500 max-w-2xl mb-12 font-light leading-relaxed">
               Découvrez les lieux autrement grâce à la visite virtuelle 360° de Nova360.
               Plus qu'une visite, une expérience interactive innovante.
             </p>
 
-            <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-6 mb-12">
+            <div id="home-cta" class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-6 mb-12">
               <button class="cta-button min-w-[280px] px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl"
                 onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Lancer Nova360</button>
 
@@ -571,7 +620,7 @@
         </div>
 
         <!-- QR -->
-        <div class="max-w-7xl mx-auto mt-16 qr-panel p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
+        <div class="max-w-7xl mx-auto mt-14 qr-panel p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
           <div class="flex-grow text-center md:text-left relative z-10 text-white">
             <span class="text-[#2BA7C2] font-black text-[10px] uppercase tracking-[0.4em] block mb-4">Expérience Mobile</span>
             <h3 class="text-4xl md:text-5xl font-serif italic mb-6 leading-tight">
@@ -685,7 +734,6 @@
 
         <div class="demo-topbar flex items-center justify-between px-8 py-3 shadow-2xl border-b border-white/5 flex-shrink-0">
           <div class="flex items-center gap-6 flex-grow min-w-0 overflow-hidden">
-
             <button
               type="button"
               onclick="navigateToPage('home')"
@@ -867,7 +915,6 @@
       navigateToPage(id);
     }
 
-    /* ✅ calcule hauteur topbar démos pour laisser l'iframe respirer */
     function syncDemoTopbarHeight() {
       const topbar = document.querySelector('#page-demo .demo-topbar');
       if (!topbar) return;
@@ -914,7 +961,6 @@
 
           if (frame && frame.src === "about:blank") frame.src = currentDemoUrl;
 
-          // ✅ recalcul topbar (mobile wrap / fold / rotation)
           setTimeout(syncDemoTopbarHeight, 50);
           setTimeout(syncDemoTopbarHeight, 250);
         } else {
@@ -936,7 +982,6 @@
       document.querySelectorAll('.demo-item-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // ✅ sur mobile certains sites recalculent après chargement
       setTimeout(syncDemoTopbarHeight, 120);
     }
 
@@ -973,18 +1018,17 @@
       navigateToPage(hash);
     });
 
-    // ✅ recalcul sur rotation / fold / resize (important Pixel Fold)
     window.addEventListener('resize', () => {
       const demoActive = document.getElementById('page-demo')?.classList.contains('active');
       if (demoActive) syncDemoTopbarHeight();
     });
+
     window.addEventListener('orientationchange', () => {
       const demoActive = document.getElementById('page-demo')?.classList.contains('active');
       if (demoActive) setTimeout(syncDemoTopbarHeight, 250);
     });
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Desktop nav : pilotage interne
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
