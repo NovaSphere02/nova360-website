@@ -1,14 +1,6 @@
 <!doctype html>
 <html lang="fr" class="h-full">
 <head>
-  <!-- 
-       Architecture de Marque : Nova360 - Architectural Lab
-       Palette harmonisée : 
-       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Slider logos, Footer et Accents textuels
-       - Accent Soft Teal (#278299) : Unification du titre (début et fin) et boutons
-       - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion et survol cartes
-       - Surface (#D4D3DC) : Gris Perle
-  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nova360 - Visites Virtuelles 360°</title>
@@ -19,7 +11,7 @@
     :root {
       --primary: #00565e;    /* Deep Petrol */
       --accent: #2BA7C2;     /* Accent Azure */
-      --hover-grad: #278299; /* Couleur de dégradé au survol et accent principal titre */
+      --hover-grad: #278299; /* Couleur de dégradé au survol */
       --secondary: #315a97;  /* Bleu profond secondaire */
       --dark: #00565e;
       --bg-custom: #D4D3DC;
@@ -44,14 +36,13 @@
       scroll-behavior: smooth;
     }
 
-    /* Transitions de page */
+    /* Pages */
     .page {
       display: none;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .page.active {
       display: block;
       opacity: 1;
@@ -72,7 +63,6 @@
       color: rgba(255, 255, 255, 0.7);
       letter-spacing: 0.1em;
     }
-
     .nav-link:hover, .nav-link.active { color: white; }
 
     .nav-link::after {
@@ -85,43 +75,15 @@
       background: var(--accent);
       transition: width 0.3s ease;
     }
-
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* LE BADGE LOGO EN RELIEF - AJUSTÉ POUR ÊTRE EN DESSOUS DE LA BARRE */
-    .logo-relief-card {
-      position: absolute;
-      top: 0;
-      left: 2.5rem;
-      background: white;
-      width: 140px;
-      height: 170px;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 15px 15px 25px 15px;
-      border-radius: 0 0 2rem 2rem;
-      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(0,0,0,0.05);
-      pointer-events: none;
-      transition: transform 0.3s ease;
+    /* Reflet métallique */
+    @keyframes shine {
+      from { left: -120%; }
+      to { left: 120%; }
     }
 
-    /* EFFET YO-YO AUTOMATIQUE (gardé si tu veux le réutiliser ailleurs) */
-    @keyframes cta-yoyo {
-      0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-      }
-      50% {
-        transform: scale(1.05);
-        box-shadow: 0 20px 25px -5px rgba(0, 86, 94, 0.3);
-      }
-    }
-
-    /* ✅ Va-et-vient HORIZONTAL pour le bouton "Lancer l'App" */
+    /* ✅ Va-et-vient HORIZONTAL (bouton Lancer l'app) */
     @keyframes cta-sway-x {
       0%   { transform: translateX(0); }
       25%  { transform: translateX(10px); }
@@ -129,17 +91,10 @@
       80%  { transform: translateX(4px); }
       100% { transform: translateX(0); }
     }
-
     .nav-cta-sway {
       display: inline-flex;
       animation: cta-sway-x 2.8s ease-in-out infinite;
       will-change: transform;
-    }
-
-    /* Animation du reflet métallique au survol */
-    @keyframes shine {
-      from { left: -100%; }
-      to { left: 100%; }
     }
 
     /* Boutons CTA */
@@ -158,13 +113,12 @@
       overflow: hidden;
     }
 
-    /* Le reflet métallique */
     .cta-button::after {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 50%;
+      left: -120%;
+      width: 55%;
       height: 100%;
       background: linear-gradient(
         to right,
@@ -175,10 +129,7 @@
       transform: skewX(-25deg);
       transition: none;
       z-index: 2;
-    }
-
-    .cta-attention {
-      animation: cta-yoyo 3s ease-in-out infinite;
+      pointer-events: none;
     }
 
     .cta-button:hover {
@@ -186,39 +137,32 @@
       border-color: var(--accent);
       background-color: var(--hover-grad);
       box-shadow: 0 20px 40px -10px rgba(0, 86, 94, 0.4);
-      animation: none;
     }
+    .cta-button:hover::after { animation: shine 0.7s ease-in-out; }
 
-    .cta-button:hover::after {
-      animation: shine 0.7s ease-in-out;
-    }
-
-    /* Liseré spécifique pour le bouton Lancer l'app dans la nav */
     .nav-cta-highlight {
       border: 2px solid rgba(255, 255, 255, 0.4) !important;
       box-shadow: 0 0 15px rgba(43, 167, 194, 0.3);
     }
 
-    /* ✅ Logo "Accueil" intégré dans un rectangle + effet métallique */
+    /* ✅ Logo rectangle (style premium) */
     .hero-logo-card {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 14px;
-
       padding: 18px 22px;
       border-radius: 18px;
-
       background: rgba(255, 255, 255, 0.92);
       border: 2px solid rgba(0, 86, 94, 0.18);
       box-shadow: 0 18px 40px -18px rgba(0,0,0,0.35);
-
       overflow: hidden;
       user-select: none;
       cursor: default;
-
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.35s ease,
+                  border-color 0.35s ease;
     }
 
     .hero-logo-card::after {
@@ -245,14 +189,9 @@
       box-shadow: 0 28px 70px -24px rgba(0, 86, 94, 0.35);
     }
 
-    .hero-logo-card:hover::after {
-      animation: shine 0.8s ease-in-out;
-    }
+    .hero-logo-card:hover::after { animation: shine 0.8s ease-in-out; }
 
-    .hero-logo-card img {
-      height: 46px;
-      width: auto;
-    }
+    .hero-logo-card img { height: 46px; width: auto; }
 
     .hero-logo-tag {
       color: var(--dark);
@@ -263,6 +202,23 @@
       opacity: 0.9;
       position: relative;
       z-index: 3;
+    }
+
+    /* ✅ Position en haut à gauche (UNIQUEMENT page Accueil car l’élément est dans page-home) */
+    .hero-top-left {
+      position: fixed;
+      top: calc(var(--nav-height) + 18px);
+      left: 24px;
+      z-index: 120;
+    }
+
+    @media (max-width: 640px) {
+      .hero-top-left {
+        top: calc(var(--nav-height) + 12px);
+        left: 14px;
+        transform: scale(0.92);
+        transform-origin: top left;
+      }
     }
 
     /* Cartes */
@@ -327,11 +283,7 @@
     }
 
     .logo-item:hover { transform: translateY(-5px); }
-
-    .logo-item img {
-      max-width: 160px;
-      max-height: 60px;
-    }
+    .logo-item img { max-width: 160px; max-height: 60px; }
 
     /* Demo Interface */
     .demo-topbar {
@@ -356,7 +308,6 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Mode Immersion Spécifique */
     #page-demo.active {
       display: flex;
       flex-direction: column;
@@ -429,14 +380,8 @@
     <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-full relative">
-        <!-- LOGO DÉPLACÉ DANS UN BADGE EN RELIEF - DESCENDU EN DESSOUS DE LA BARRE -->
-        <div class="logo-relief-card">
-          <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain">
-          <span class="text-[#00565e] font-black tracking-widest text-[10px] uppercase italic mt-3">Nova360</span>
-        </div>
 
-        <!-- Espace vide pour compenser le logo à gauche -->
-        <div class="hidden lg:block w-[160px]"></div>
+        <!-- ✅ SUPPRIMÉ : le badge logo en relief (comme demandé) -->
 
         <div class="hidden md:flex space-x-10 text-white">
           <a href="#home" class="nav-link active font-bold text-[10px] uppercase" data-page="home">Accueil</a>
@@ -447,7 +392,6 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <!-- ✅ Wrapper animé HORIZONTAL -->
           <div class="nav-cta-sway">
             <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')"
               class="cta-button nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
@@ -474,17 +418,15 @@
 
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
+
+        <!-- ✅ Rectangle logo déplacé EN HAUT À GAUCHE -->
+        <div class="hero-logo-card hero-top-left">
+          <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360">
+          <span class="hero-logo-tag">Nova360</span>
+        </div>
+
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-
-          <!-- ✅ Logo intégré dans un rectangle (main) + shine métallique -->
-          <div class="mt-24 md:mt-32 mb-10 flex justify-center">
-            <div class="hero-logo-card">
-              <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360">
-              <span class="hero-logo-tag">Nova360</span>
-            </div>
-          </div>
-
-          <div class="mb-12">
+          <div class="mb-12 mt-24 md:mt-32">
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-2 text-center w-full">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
@@ -784,7 +726,7 @@
 
     </main>
 
-    <!-- FOOTER HARMONISÉ -->
+    <!-- FOOTER -->
     <footer id="main-footer" class="py-12 bg-[#00565e] border-t border-white/10 shadow-[0_-10px_30px_-10px_rgba(0,86,94,0.4)]">
       <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-widest text-white/50">
         <div class="flex items-center gap-6 mb-6 md:mb-0">
@@ -800,7 +742,6 @@
 
   </div>
 
-  <!-- ✅ SCRIPT : navigation hash fiable + back/forward OK -->
   <script>
     let currentDemoUrl =
       "https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html";
@@ -862,25 +803,16 @@
     function navigateToPage(pageId) {
       if (!pageId) return;
       const newHash = `#${pageId}`;
-
-      if (window.location.hash !== newHash) {
-        window.location.hash = newHash;
-      } else {
-        showPage(pageId, { openModalOnDemo: false });
-      }
+      if (window.location.hash !== newHash) window.location.hash = newHash;
+      else showPage(pageId, { openModalOnDemo: false });
     }
 
     function toggleMobileMenu(forceClose = null) {
       const menu = document.getElementById("mobile-menu");
       if (!menu) return;
-
       const isOpen = menu.style.display === "flex";
-
-      if (forceClose === false || isOpen) {
-        menu.style.display = "none";
-      } else {
-        menu.style.display = "flex";
-      }
+      if (forceClose === false || isOpen) menu.style.display = "none";
+      else menu.style.display = "flex";
     }
 
     function mobileNav(id) {
@@ -892,9 +824,7 @@
       currentDemoUrl = url;
       if (frame) frame.src = url;
 
-      document
-        .querySelectorAll(".demo-item-btn")
-        .forEach((b) => b.classList.remove("active"));
+      document.querySelectorAll(".demo-item-btn").forEach((b) => b.classList.remove("active"));
       if (btn) btn.classList.add("active");
     }
 
@@ -954,7 +884,6 @@
       showPage(initial, { openModalOnDemo: initial === "demo" });
     });
 
-    // expose global (compat onclick)
     window.navigateToPage = navigateToPage;
     window.toggleMobileMenu = toggleMobileMenu;
     window.mobileNav = mobileNav;
