@@ -95,19 +95,17 @@
       left: 2.5rem;
       background: white;
       width: 150px;
-      /* Hauteur augmentée pour que le logo descende largement sous les 80px de la nav */
       height: 180px; 
       z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* On pousse le contenu vers le bas pour qu'il soit visible sous la barre nav */
       justify-content: flex-end; 
       padding: 20px 20px 30px 20px; 
       border-radius: 0 0 2.5rem 2.5rem;
       box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.35);
       border: 1px solid rgba(0,0,0,0.03);
-      pointer-events: none; /* Non cliquable */
+      pointer-events: none;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -294,39 +292,6 @@
       width: 100%;
     }
 
-    .immersion-mode .demo-topbar { 
-      height: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .exit-immersion {
-      display: none;
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1100;
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid var(--secondary);
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    .exit-immersion:hover {
-      background: var(--secondary);
-      transform: scale(1.1);
-    }
-
-    .immersion-mode .exit-immersion { display: flex; }
-
     /* Menu Mobile */
     #mobile-menu {
       position: fixed;
@@ -347,29 +312,29 @@
     
     <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-full relative">
-        <!-- LOGO DÉPLACÉ DANS UN BADGE EN RELIEF (MACARON) -->
+      <div class="max-w-7xl mx-auto px-6 flex items-center h-full relative">
+        <!-- LOGO BADGE EN RELIEF (GAUCHE) -->
         <div class="logo-relief-card">
            <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain">
            <span class="text-[#00565e] font-black tracking-widest text-[11px] uppercase italic mt-4">Nova360</span>
         </div>
 
-        <!-- Espace vide pour compenser le logo à gauche -->
-        <div class="hidden lg:block w-[170px]"></div>
+        <!-- ONGLETS ET BOUTON DÉCALÉS À DROITE (ml-auto) -->
+        <div class="ml-auto flex items-center gap-10">
+          <div class="hidden md:flex space-x-10 text-white">
+            <a href="#home" class="nav-link active font-bold text-[10px] uppercase" data-page="home">Accueil</a>
+            <a href="#categories" class="nav-link font-bold text-[10px] uppercase" data-page="categories">Catégories</a>
+            <a href="#demo" class="nav-link font-bold text-[10px] uppercase" data-page="demo">Démonstrations</a>
+            <a href="#about" class="nav-link font-bold text-[10px] uppercase" data-page="about">Vision</a>
+            <a href="#contact" class="nav-link font-bold text-[10px] uppercase" data-page="contact">Contact</a>
+          </div>
 
-        <div class="hidden md:flex space-x-10 text-white">
-          <a href="#home" class="nav-link active font-bold text-[10px] uppercase" data-page="home">Accueil</a>
-          <a href="#categories" class="nav-link font-bold text-[10px] uppercase" data-page="categories">Catégories</a>
-          <a href="#demo" class="nav-link font-bold text-[10px] uppercase" data-page="demo">Démonstrations</a>
-          <a href="#about" class="nav-link font-bold text-[10px] uppercase" data-page="about">Vision</a>
-          <a href="#contact" class="nav-link font-bold text-[10px] uppercase" data-page="contact">Contact</a>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
-            Lancer l'App
-          </button>
-          <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
+          <div class="flex items-center gap-4">
+            <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
+              Lancer l'App
+            </button>
+            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -387,10 +352,10 @@
     <main class="flex-grow">
       
       <!-- PAGE ACCUEIL -->
-      <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
+      <section id="page-home" class="page active px-6 pt-2 pb-24 lg:pt-4 lg:pb-40 bg-transparent">
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <!-- Marge supérieure augmentée pour laisser le macaron respirer -->
-          <div class="mb-12 mt-32 md:mt-48"> 
+          <!-- ESPACEMENT RÉDUIT (mt-12 md:mt-16) POUR REMONTER L'ÉCRITURE -->
+          <div class="mb-12 mt-12 md:mt-16"> 
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-2 text-center w-full">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
@@ -468,15 +433,16 @@
       </section>
 
       <!-- PAGE CATÉGORIES -->
-      <section id="page-categories" class="page px-6 py-24 max-w-7xl mx-auto">
-        <div class="text-center mb-20 mt-32 md:mt-40"> 
+      <section id="page-categories" class="page px-6 pt-2 py-24 max-w-7xl mx-auto">
+        <!-- ESPACEMENT RÉDUIT (mt-12 md:mt-16) -->
+        <div class="text-center mb-20 mt-12 md:mt-16"> 
           <h2 class="text-4xl md:text-5xl font-light text-slate-800 uppercase tracking-tighter">Nos <span class="font-serif italic text-[#00565e]">Univers</span></h2>
           <p class="text-lg text-slate-500 max-w-3xl mx-auto mt-6 font-light leading-relaxed">Découvrez la valeur ajoutée des différentes catégories grâce à la visite virtuelle 360 interactive.</p>
           <div class="w-12 h-1 bg-[#00565e] mx-auto mt-8"></div>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-          <!-- Items Catégories inchangés -->
+          <!-- Items Catégories -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🍽️</div>
@@ -517,8 +483,9 @@
       </section>
 
       <!-- PAGE VISION -->
-      <section id="page-about" class="page px-6 py-24 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mt-32 md:mt-40"> 
+      <section id="page-about" class="page px-6 pt-2 py-24 max-w-6xl mx-auto">
+        <!-- ESPACEMENT RÉDUIT (mt-12 md:mt-16) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mt-12 md:mt-16"> 
           <div class="space-y-8 text-left">
             <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'excellence <br><span class="font-serif italic text-[#00565e]">de la visibilité.</span></h2>
             <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive.</p>
@@ -550,8 +517,9 @@
       </section>
 
       <!-- PAGE CONTACT -->
-      <section id="page-contact" class="page px-6 py-24 max-w-5xl mx-auto">
-        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center mt-32 md:mt-40"> 
+      <section id="page-contact" class="page px-6 pt-2 py-24 max-w-5xl mx-auto">
+        <!-- ESPACEMENT RÉDUIT (mt-12 md:mt-16) -->
+        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center mt-12 md:mt-16"> 
           <div class="text-center mb-16">
             <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block mb-4">Contact & Partenariat</span>
             <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900 leading-tight">Soyez visibles grâce à <br><span class="font-sans font-black text-[#00565e] uppercase">L'immersion 360°.</span></h2>
