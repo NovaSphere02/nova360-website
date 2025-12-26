@@ -4,8 +4,8 @@
   <!-- 
        Architecture de Marque : Nova360 - Architectural Lab
        Palette harmonisée : 
-       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Slider logos, Footer et Accents textuels
-       - Accent Soft Teal (#278299) : Unification du titre (début et fin) et boutons
+       - Deep Petrol (#00565e) : Structure, navigation, bloc logo, panneau Vision, Slider logos, Footer
+       - Accent Soft Teal (#278299) : Unification du titre et boutons
        - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion et survol cartes
        - Surface (#D4D3DC) : Gris Perle
   -->
@@ -88,65 +88,58 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* LE BLOC LOGO RECTANGLE EN RELIEF AVEC EFFET MÉTALLIQUE */
-    #logo-card {
-      position: fixed;
-      top: 80px; /* Positionné pile sous la barre horizontale */
-      left: 2.5rem;
-      background: white;
-      width: 160px;
-      height: 100px; 
-      z-index: 90;
+    /* LE BLOC LOGO RECTANGLE INTÉGRÉ (AVEC COULEURS RÉELLES) */
+    .integrated-logo-card {
+      background: var(--dark); 
+      width: 150px;
+      height: 120px; 
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; 
-      padding: 15px; 
+      justify-content: flex-end; 
+      padding: 15px 12px 18px 12px; 
       border-radius: 0 0 1.5rem 1.5rem;
-      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       cursor: default;
       overflow: hidden;
+      position: relative;
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-left: 2.5rem;
+      z-index: 40;
     }
 
-    /* Effet de survol sur le logo : léger scale */
-    #logo-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+    /* Effet de survol sur le logo intégré */
+    .integrated-logo-card:hover {
+      transform: translateY(8px) scale(1.03);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
     }
 
-    /* Reflet métallique pour le logo */
-    #logo-card::after {
+    /* Reflet métallique pour le logo au survol */
+    .integrated-logo-card::after {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 60%;
+      left: -120%;
+      width: 80%;
       height: 100%;
       background: linear-gradient(
         to right,
         rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.6) 50%,
+        rgba(255, 255, 255, 0.3) 50%,
         rgba(255, 255, 255, 0) 100%
       );
       transform: skewX(-25deg);
       z-index: 2;
     }
 
-    #logo-card:hover::after {
-      animation: shine-logo 0.8s ease-in-out;
+    .integrated-logo-card:hover::after {
+      animation: shine-metallic 1s ease-in-out forwards;
     }
 
-    @keyframes shine-logo {
-      from { left: -110%; }
-      to { left: 110%; }
-    }
-
-    /* Animation du reflet métallique pour les boutons */
-    @keyframes shine {
-      from { left: -100%; }
-      to { left: 100%; }
+    @keyframes shine-metallic {
+      from { left: -120%; }
+      to { left: 160%; }
     }
 
     /* Boutons CTA */
@@ -217,7 +210,7 @@
       box-shadow: 0 0 15px rgba(43, 167, 194, 0.3);
     }
 
-    /* Cartes */
+    /* Cartes de fonctionnalités */
     .feature-card {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       border: 1px solid rgba(0, 86, 94, 0.1);
@@ -324,17 +317,11 @@
 
   <div id="app" class="flex flex-col min-h-screen">
     
-    <!-- LE BLOC LOGO RECTANGLE FIXE -->
-    <div id="logo-card">
-       <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain relative z-10">
-       <span class="text-[#00565e] font-black tracking-widest text-[10px] uppercase italic mt-2 relative z-10">Nova360</span>
-    </div>
-
     <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 flex items-center h-full relative">
         
-        <!-- Espace vide pour compenser le logo à gauche -->
+        <!-- ESPACE RÉSERVÉ AU LOGO INTÉGRÉ -->
         <div class="hidden lg:block w-[180px]"></div>
 
         <!-- ONGLETS ET BOUTON DÉCALÉS À DROITE -->
@@ -370,10 +357,15 @@
     <main class="flex-grow">
       
       <!-- PAGE ACCUEIL -->
-      <section id="page-home" class="page active px-6 pt-0 pb-24 lg:pb-40 bg-transparent">
-        <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <!-- ESPACEMENT AJUSTÉ POUR LA COHÉRENCE AVEC LE BLOC LOGO -->
-          <div class="mb-10 mt-12 md:mt-16"> 
+      <section id="page-home" class="page active">
+        <!-- LOGO INTÉGRÉ : COULEURS ORIGINALES RESTAURÉES -->
+        <div class="integrated-logo-card">
+           <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain relative z-10">
+           <span class="text-white font-black tracking-widest text-[10px] uppercase italic mt-2 relative z-10">Nova360</span>
+        </div>
+
+        <div class="max-w-6xl mx-auto flex flex-col items-center text-center px-6">
+          <div class="mb-10 mt-2 md:mt-4"> 
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-1 text-center w-full">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-2 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
@@ -416,15 +408,18 @@
             </div>
           </div>
 
+          <!-- Section Partenaires -->
           <div class="mt-40 w-full text-center">
             <h3 class="text-2xl font-serif italic text-[#00565e] mb-12">Ils nous font confiance</h3>
             <div class="logo-slider-container">
               <div class="logo-slider-track">
+                <!-- Logos Originaux -->
                 <div class="logo-item"><img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/ycP1NWTk/logo-partenaire-2.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/KYPqm04/logo-partenaire-3.png" alt="Partenaire"></div>
+                <!-- Doublons -->
                 <div class="logo-item"><img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/VYgr7xvs/logo-partenaire-4.png" alt="Partenaire"></div>
                 <div class="logo-item"><img src="https://i.ibb.co/ZR442Ym5/logo-partenaire-png.png" alt="Partenaire"></div>
@@ -434,6 +429,7 @@
             </div>
           </div>
 
+          <!-- Section QR -->
           <div class="mt-40 w-full max-w-4xl mx-auto">
             <div class="bg-white/40 p-12 md:p-16 rounded-[3rem] shadow-xl border-2 border-[#00565e]/10 flex flex-col md:flex-row items-center justify-center gap-12 text-center md:text-left transition-all hover:bg-white/60">
               <div class="flex-1 space-y-4">
@@ -451,80 +447,76 @@
       </section>
 
       <!-- PAGE CATÉGORIES -->
-      <section id="page-categories" class="page px-6 pt-6 py-24 max-w-7xl mx-auto">
-        <div class="text-center mb-16 mt-4 md:mt-6"> 
-          <h2 class="text-4xl md:text-5xl font-light text-slate-800 uppercase tracking-tighter">Nos <span class="font-serif italic text-[#00565e]">Univers</span></h2>
-          <p class="text-lg text-slate-500 max-w-3xl mx-auto mt-6 font-light leading-relaxed">Découvrez la valeur ajoutée des différentes catégories grâce à la visite virtuelle 360 interactive.</p>
-          <div class="w-12 h-1 bg-[#00565e] mx-auto mt-8"></div>
+      <section id="page-categories" class="page">
+        <div class="integrated-logo-card">
+           <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain relative z-10">
+           <span class="text-white font-black tracking-widest text-[10px] uppercase italic mt-2 relative z-10">Nova360</span>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-          <div class="feature-card p-10 rounded-3xl flex flex-col group">
-            <div class="status-half-circle"></div>
-            <div class="text-5xl mb-8">🍽️</div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Restaurants</h3>
-            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Invitez vos clients à votre table avant même qu'ils ne passent la porte et faites découvrir votre établissement d'une façon différente avec toutes les informations nécessaires.</p>
-            <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Horaire accessible</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Lien réseaux sociaux</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Plan</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
+        <div class="max-w-7xl mx-auto px-6 pt-6 py-24">
+          <div class="text-center mb-16 mt-2 md:mt-4"> 
+            <h2 class="text-4xl md:text-5xl font-light text-slate-800 uppercase tracking-tighter">Nos <span class="font-serif italic text-[#00565e]">Univers</span></h2>
+            <p class="text-lg text-slate-500 max-w-3xl mx-auto mt-6 font-light leading-relaxed">Découvrez la valeur ajoutée des différentes catégories grâce à la visite virtuelle 360 interactive.</p>
+            <div class="w-12 h-1 bg-[#00565e] mx-auto mt-8"></div>
           </div>
-          <div class="feature-card p-10 rounded-3xl flex flex-col group">
-            <div class="status-half-circle"></div>
-            <div class="text-5xl mb-8">🎯</div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Activités</h3>
-            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Découvrez le lieu d'une autre façon, faites monter l'adrénaline à distance, avec notre innovation immersive. Grâce à la visite virtuelle, réservez vos places.</p>
-            <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Nombre de participants</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Lien réseaux sociaux</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#315a97]"></span> Immersion assurée</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
-          </div>
-          <div class="feature-card p-10 rounded-3xl flex flex-col group">
-            <div class="status-half-circle"></div>
-            <div class="text-5xl mb-8">🏡</div>
-            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Hébergements</h3>
-            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur séjour. Tous les détails seront dans la visite virtuelle Immersive pour vous faire gagner du temps.</p>
-            <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Accès aux réservations</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Airbnb, Booking</li>
-              <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Fichiers PDF</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+            <div class="feature-card p-10 rounded-3xl flex flex-col group">
+              <div class="status-half-circle"></div>
+              <div class="text-5xl mb-8">🍽️</div>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Restaurants</h3>
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Invitez vos clients à votre table avant même qu'ils ne passent la porte.</p>
+              <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
+            </div>
+            <div class="feature-card p-10 rounded-3xl flex flex-col group">
+              <div class="status-half-circle"></div>
+              <div class="text-5xl mb-8">🎯</div>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Activités</h3>
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Faites monter l'adrénaline à distance avec notre innovation immersive.</p>
+              <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
+            </div>
+            <div class="feature-card p-10 rounded-3xl flex flex-col group">
+              <div class="status-half-circle"></div>
+              <div class="text-5xl mb-8">🏡</div>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Hébergements</h3>
+              <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque détail.</p>
+              <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- PAGE VISION -->
-      <section id="page-about" class="page px-6 pt-6 py-24 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mt-4 md:mt-6"> 
-          <div class="space-y-8 text-left">
-            <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'excellence <br><span class="font-serif italic text-[#00565e]">de la visibilité.</span></h2>
-            <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">Nova 360 redéfinit la visibilité grâce à l'innovation de notre visite virtuelle 360° interactive.</p>
-            <div class="grid grid-cols-2 gap-6 pt-10">
-              <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-2 border-transparent border-t-4 border-t-[#00565e]">
-                <div class="text-3xl font-serif italic text-[#00565e] mb-2">360°</div>
-                <div class="text-[9px] uppercase font-bold text-slate-400 tracking-widest">Vision Totale</div>
-              </div>
-              <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-2 border-transparent border-t-4 border-t-[#00565e]">
-                <div class="text-3xl font-serif italic text-[#00565e] mb-2">PRO</div>
-                <div class="text-[9px] uppercase font-bold text-slate-400 tracking-widest">Haute Fidélité</div>
+      <section id="page-about" class="page">
+        <div class="integrated-logo-card">
+           <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain relative z-10">
+           <span class="text-white font-black tracking-widest text-[10px] uppercase italic mt-2 relative z-10">Nova360</span>
+        </div>
+        <div class="max-w-6xl mx-auto px-6 pt-6 py-24">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mt-2 md:mt-4"> 
+            <div class="space-y-8 text-left">
+              <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'excellence <br><span class="font-serif italic text-[#00565e]">de la visibilité.</span></h2>
+              <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">Nova 360 redéfinit la visibilité grâce à l'innovation immersive.</p>
+              <div class="grid grid-cols-2 gap-6 pt-10">
+                <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-2 border-transparent border-t-4 border-t-[#00565e]">
+                  <div class="text-3xl font-serif italic text-[#00565e] mb-2">360°</div>
+                  <div class="text-[9px] uppercase font-bold text-slate-400 tracking-widest">Vision Totale</div>
+                </div>
+                <div class="feature-card p-8 rounded-3xl text-center shadow-lg border-2 border-transparent border-t-4 border-t-[#00565e]">
+                  <div class="text-3xl font-serif italic text-[#00565e] mb-2">PRO</div>
+                  <div class="text-[9px] uppercase font-bold text-slate-400 tracking-widest">Haute Fidélité</div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white text-left">
-            <h3 class="font-serif italic text-3xl md:text-4xl mb-12 text-center relative pb-6 border-b border-white/10">Nos Valeurs Fondatrices</h3>
-            <div class="space-y-6">
-              <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
-                <div class="text-2xl font-serif italic mb-2 text-white">Humain</div>
-                <p class="text-sm text-white/60 font-light">Une technologie invisible pour une expérience organique.</p>
-              </div>
-              <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
-                <div class="text-2xl font-serif italic mb-2 text-white">Simplicité</div>
-                <p class="text-sm text-white/60 font-light">Accès universel et immédiat.</p>
+            <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white text-left">
+              <h3 class="font-serif italic text-3xl md:text-4xl mb-12 text-center relative pb-6 border-b border-white/10">Nos Valeurs</h3>
+              <div class="space-y-6">
+                <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
+                  <div class="text-2xl font-serif italic mb-2 text-white">Humain</div>
+                  <p class="text-sm text-white/60 font-light">Une technologie invisible pour une expérience organique.</p>
+                </div>
+                <div class="p-8 bg-[#D4D3DC]/10 border border-white/10 rounded-3xl">
+                  <div class="text-2xl font-serif italic mb-2 text-white">Simplicité</div>
+                  <p class="text-sm text-white/60 font-light">Accès universel et immédiat.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -532,42 +524,27 @@
       </section>
 
       <!-- PAGE CONTACT -->
-      <section id="page-contact" class="page px-6 pt-6 py-24 max-w-5xl mx-auto">
-        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center mt-4 md:mt-6"> 
-          <div class="text-center mb-16">
-            <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block mb-4">Contact & Partenariat</span>
-            <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900 leading-tight">Soyez visibles grâce à <br><span class="font-sans font-black text-[#00565e] uppercase">L'immersion 360°.</span></h2>
-          </div>
-          <form class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left mb-24">
-            <div class="space-y-8">
-              <div>
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">Votre Nom</label>
-                <input type="text" placeholder="JEAN DUPONT" class="w-full py-4 border-b-2 border-slate-100 outline-none focus:border-[#00565e] transition-colors bg-transparent uppercase text-sm font-bold tracking-widest">
-              </div>
-              <div>
-                <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">Votre Email</label>
-                <input type="email" placeholder="CONTACT@EMAIL.FR" class="w-full py-4 border-b-2 border-slate-100 outline-none focus:border-[#00565e] transition-colors bg-transparent uppercase text-sm font-bold tracking-widest">
-              </div>
+      <section id="page-contact" class="page">
+        <div class="integrated-logo-card">
+           <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain relative z-10">
+           <span class="text-white font-black tracking-widest text-[10px] uppercase italic mt-2 relative z-10">Nova360</span>
+        </div>
+        <div class="max-w-5xl mx-auto px-6 pt-6 py-24">
+          <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center mt-2 md:mt-4"> 
+            <div class="text-center mb-16">
+              <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block mb-4">Contact & Partenariat</span>
+              <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900 leading-tight">Soyez visibles grâce à <br><span class="font-sans font-black text-[#00565e] uppercase">L'immersion 360°.</span></h2>
             </div>
-            <div>
-              <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">Votre Projet</label>
-              <textarea rows="5" placeholder="DÉTAILLEZ VOTRE VISION ICI..." class="w-full p-6 bg-slate-50 rounded-2xl border border-slate-100 outline-none focus:border-[#00565e] focus:bg-white transition-all text-sm font-bold tracking-wider"></textarea>
-            </div>
-            <div class="md:col-span-2">
-              <button type="submit" class="cta-button w-full py-7 rounded-full font-black text-xs uppercase tracking-[0.4em] text-white">Transmettre la Demande</button>
-            </div>
-          </form>
-
-          <div class="mt-20 w-full max-w-4xl mx-auto">
-            <div class="bg-slate-50/50 p-12 md:p-16 rounded-[3rem] shadow-xl border-2 border-[#00565e]/10 flex flex-col md:flex-row items-center justify-center gap-12 text-center md:text-left transition-all hover:bg-slate-100/80">
-              <div class="flex-1 space-y-4">
-                <h4 class="text-2xl font-black text-[#00565e] uppercase tracking-tighter">Nova360 <span class="font-serif italic font-light text-[#278299]">Nomade</span></h4>
-                <p class="text-sm text-slate-600 font-medium leading-relaxed uppercase tracking-widest">Démarrer l'expérience Nova 360 en flashant ce code.</p>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left mb-24">
+              <div class="space-y-8">
+                <input type="text" placeholder="VOTRE NOM" class="w-full py-4 border-b-2 border-slate-100 outline-none focus:border-[#00565e] bg-transparent uppercase text-sm font-bold tracking-widest">
+                <input type="email" placeholder="VOTRE EMAIL" class="w-full py-4 border-b-2 border-slate-100 outline-none focus:border-[#00565e] bg-transparent uppercase text-sm font-bold tracking-widest">
               </div>
-              <div class="p-6 bg-white rounded-3xl shadow-2xl border border-[#00565e]/5">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://nova360.app.codinsight.app/&color=00565e" alt="QR Code Nova360" class="h-32 w-32">
+              <textarea rows="5" placeholder="VOTRE PROJET..." class="w-full p-6 bg-slate-50 rounded-2xl border border-slate-100 outline-none focus:border-[#00565e] text-sm font-bold tracking-wider"></textarea>
+              <div class="md:col-span-2">
+                <button type="submit" class="cta-button w-full py-7 rounded-full font-black text-xs uppercase tracking-[0.4em] text-white">Transmettre la Demande</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -577,6 +554,7 @@
     <footer id="main-footer" class="py-12 bg-[#00565e] border-t border-white/10 shadow-[0_-10px_30px_-10px_rgba(0,86,94,0.4)]">
       <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-[9px] uppercase tracking-widest text-white/50">
         <div class="flex items-center gap-6 mb-6 md:mb-0">
+          <!-- Logo Footer Original -->
           <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="h-14 w-auto select-none">
           <span class="text-white">&copy; 2025 Nova360 Architectural Lab.</span>
         </div>
