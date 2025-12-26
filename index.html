@@ -14,17 +14,17 @@
   <title>Nova360 - Visites Virtuelles 360°</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
       --primary: #00565e;    /* Deep Petrol */
       --accent: #2BA7C2;     /* Accent Azure */
       --hover-grad: #278299; /* Couleur de dégradé au survol et accent principal titre */
       --secondary: #315a97;  /* Bleu profond secondaire */
-      --dark: #00565e;       
-      --bg-custom: #D4D3DC;  
-      --text-main: #1F2937;  
-      --nav-height: 80px;    
+      --dark: #00565e;
+      --bg-custom: #D4D3DC;
+      --text-main: #1F2937;
+      --nav-height: 80px;
     }
 
     * {
@@ -96,14 +96,14 @@
       background: white;
       width: 140px;
       /* Hauteur augmentée pour que le logo descende sous les 80px de la nav */
-      height: 170px; 
+      height: 170px;
       z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
       /* Le logo est poussé vers le bas pour apparaître sous la barre petrol */
-      justify-content: flex-end; 
-      padding: 15px 15px 25px 15px; 
+      justify-content: flex-end;
+      padding: 15px 15px 25px 15px;
       border-radius: 0 0 2rem 2rem;
       box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(0,0,0,0.05);
@@ -113,12 +113,12 @@
 
     /* EFFET YO-YO AUTOMATIQUE */
     @keyframes cta-yoyo {
-      0%, 100% { 
-        transform: scale(1); 
+      0%, 100% {
+        transform: scale(1);
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
       }
-      50% { 
-        transform: scale(1.05); 
+      50% {
+        transform: scale(1.05);
         box-shadow: 0 20px 25px -5px rgba(0, 86, 94, 0.3);
       }
     }
@@ -139,10 +139,10 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid transparent; 
+      border: 2px solid transparent;
       min-width: 260px;
       cursor: pointer;
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     /* Le reflet métallique */
@@ -174,7 +174,7 @@
       border-color: var(--accent);
       background-color: var(--hover-grad);
       box-shadow: 0 20px 40px -10px rgba(0, 86, 94, 0.4);
-      animation: none; 
+      animation: none;
     }
 
     .cta-button:hover::after {
@@ -193,7 +193,7 @@
       border: 1px solid rgba(0, 86, 94, 0.1);
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     .feature-card:hover {
@@ -296,7 +296,7 @@
       width: 100%;
     }
 
-    .immersion-mode .demo-topbar { 
+    .immersion-mode .demo-topbar {
       height: 0;
       overflow: hidden;
       opacity: 0;
@@ -334,7 +334,7 @@
       position: fixed;
       inset: 0;
       background: var(--dark);
-      z-index: 100;
+      z-index: 2000; /* ✅ au-dessus du badge logo + nav */
       display: none;
       flex-direction: column;
       align-items: center;
@@ -343,17 +343,18 @@
     }
   </style>
 </head>
+
 <body class="h-full w-full">
 
   <div id="app" class="flex flex-col min-h-screen">
-    
+
     <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-full relative">
         <!-- LOGO DÉPLACÉ DANS UN BADGE EN RELIEF - DESCENDU EN DESSOUS DE LA BARRE -->
         <div class="logo-relief-card">
-           <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain">
-           <span class="text-[#00565e] font-black tracking-widest text-[10px] uppercase italic mt-3">Nova360</span>
+          <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain">
+          <span class="text-[#00565e] font-black tracking-widest text-[10px] uppercase italic mt-3">Nova360</span>
         </div>
 
         <!-- Espace vide pour compenser le logo à gauche (ajusté pour le badge plus large) -->
@@ -387,47 +388,58 @@
     </div>
 
     <main class="flex-grow">
-      
+
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <div class="mb-12 mt-24 md:mt-32"> <!-- Marge augmentée pour laisser place au badge logo -->
+          <div class="mb-12 mt-24 md:mt-32">
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-2 text-center w-full">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
               <span class="font-black text-xl md:text-4xl uppercase tracking-[0.4em] text-[#278299] mt-8 block text-center w-full">tous les autres</span>
             </h1>
           </div>
+
           <p class="text-lg md:text-xl text-slate-500 max-w-4xl mx-auto mb-16 font-light leading-relaxed">
             La première plateforme immersive qui vous permet de découvrir des lieux autrement grâce à la visite virtuelle 360 interactive de Nova 360.
           </p>
-          
+
           <div class="flex flex-col sm:flex-row justify-center items-center gap-8 mb-32">
             <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Explorer Nova 360</button>
             <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="navigateToPage('demo')">Voir les Démos</button>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
             <div class="feature-card p-10 rounded-3xl border-t-4 border-[#00565e]">
               <div class="status-half-circle"></div>
               <div class="mb-6 text-[#00565e]">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic">Immersion 360°</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light">Visibilité augmentée grâce à des parcours virtuels interactifs haute définition.</p>
             </div>
+
             <div class="feature-card p-10 rounded-3xl border-t-4 border-[#00565e]">
               <div class="status-half-circle"></div>
               <div class="mb-6 text-[#00565e]">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic">Multi-supports</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light">Expérience optimisée pour mobile, tablette et desktop. Instantané et sans téléchargement.</p>
             </div>
+
             <div class="feature-card p-10 rounded-3xl border-t-4 border-[#00565e]">
               <div class="status-half-circle"></div>
               <div class="mb-6 text-[#00565e]">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
               </div>
               <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic">Conversion</h3>
               <p class="text-slate-600 text-sm leading-relaxed font-light">Transformez la curiosité en acte d'achat grâce à des outils transactionnels intégrés.</p>
@@ -465,17 +477,18 @@
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
       <!-- PAGE CATÉGORIES -->
       <section id="page-categories" class="page px-6 py-24 max-w-7xl mx-auto">
-        <div class="text-center mb-20 mt-16 md:mt-24"> <!-- Marge pour le logo relief -->
+        <div class="text-center mb-20 mt-16 md:mt-24">
           <h2 class="text-4xl md:text-5xl font-light text-slate-800 uppercase tracking-tighter">Nos <span class="font-serif italic text-[#00565e]">Univers</span></h2>
           <p class="text-lg text-slate-500 max-w-3xl mx-auto mt-6 font-light leading-relaxed">Découvrez la valeur ajoutée des différentes catégories grâce à la visite virtuelle 360 interactive.</p>
           <div class="w-12 h-1 bg-[#00565e] mx-auto mt-8"></div>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
@@ -489,6 +502,7 @@
             </ul>
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">VISITER</button>
           </div>
+
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🎯</div>
@@ -501,6 +515,7 @@
             </ul>
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">VISITER</button>
           </div>
+
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🏡</div>
@@ -513,6 +528,7 @@
             </ul>
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">VISITER</button>
           </div>
+
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🛍️</div>
@@ -525,6 +541,7 @@
             </ul>
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">VISITER</button>
           </div>
+
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">💼</div>
@@ -537,6 +554,7 @@
             </ul>
             <button class="cta-button py-4 rounded-xl mt-auto font-black text-[15px] tracking-widest text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">VISITER</button>
           </div>
+
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🏖️</div>
@@ -589,7 +607,7 @@
 
       <!-- PAGE VISION -->
       <section id="page-about" class="page px-6 py-24 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mt-16 md:mt-24"> <!-- Marge pour le logo relief -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mt-16 md:mt-24">
           <div class="space-y-8 text-left">
             <h2 class="text-4xl md:text-6xl font-light text-slate-800 leading-tight">L'excellence <br><span class="font-serif italic text-[#00565e]">de la visibilité.</span></h2>
             <p class="text-lg text-slate-500 font-light border-l-4 border-[#00565e] pl-8 py-2">
@@ -606,6 +624,7 @@
               </div>
             </div>
           </div>
+
           <div class="bg-[#00565e] p-12 rounded-[3rem] shadow-2xl text-white text-left">
             <h3 class="font-serif italic text-3xl md:text-4xl mb-12 text-center relative pb-6 border-b border-white/10">Nos Valeurs Fondatrices</h3>
             <div class="space-y-6">
@@ -624,11 +643,12 @@
 
       <!-- PAGE CONTACT -->
       <section id="page-contact" class="page px-6 py-24 max-w-5xl mx-auto">
-        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center mt-16 md:mt-24"> <!-- Marge pour le logo relief -->
+        <div class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden text-center mt-16 md:mt-24">
           <div class="text-center mb-16">
             <span class="text-[#00565e] font-black text-[11px] uppercase tracking-widest block mb-4">Contact & Partenariat</span>
             <h2 class="text-4xl md:text-5xl font-serif italic text-slate-900 leading-tight">Soyez visibles grâce à <br><span class="font-sans font-black text-[#00565e] uppercase">L'immersion 360°.</span></h2>
           </div>
+
           <form class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left mb-24">
             <div class="space-y-8">
               <div>
@@ -640,10 +660,12 @@
                 <input type="email" placeholder="CONTACT@EMAIL.FR" class="w-full py-4 border-b-2 border-slate-100 outline-none focus:border-[#00565e] transition-colors bg-transparent uppercase text-sm font-bold tracking-widest">
               </div>
             </div>
+
             <div>
               <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest">Votre Projet</label>
               <textarea rows="5" placeholder="DÉTAILLEZ VOTRE VISION ICI..." class="w-full p-6 bg-slate-50 rounded-2xl border border-slate-100 outline-none focus:border-[#00565e] focus:bg-white transition-all text-sm font-bold tracking-wider"></textarea>
             </div>
+
             <div class="md:col-span-2">
               <button type="submit" class="cta-button w-full py-7 rounded-full font-black text-xs uppercase tracking-[0.4em] text-white">Transmettre la Demande</button>
             </div>
@@ -662,8 +684,10 @@
               </div>
             </div>
           </div>
+
         </div>
       </section>
+
     </main>
 
     <!-- FOOTER HARMONISÉ -->
@@ -679,101 +703,172 @@
         </div>
       </div>
     </footer>
+
   </div>
 
+  <!-- ✅ SCRIPT CORRIGÉ : navigation hash fiable + back/forward OK -->
   <script>
-    let currentDemoUrl = 'https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html';
+    let currentDemoUrl =
+      "https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html";
+
+    const DEFAULT_PAGE = "home";
+
+    function getPageFromHash() {
+      const h = (window.location.hash || "").replace("#", "").trim();
+      return h || DEFAULT_PAGE;
+    }
+
+    function setBodyScrollFor(pageId) {
+      document.body.style.overflowY = pageId === "demo" ? "hidden" : "auto";
+      document.body.style.overflowX = "hidden";
+    }
+
+    function showPage(pageId, { openModalOnDemo = true } = {}) {
+      toggleMobileMenu(false);
+
+      const pages = document.querySelectorAll(".page");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const mainNav = document.getElementById("main-nav");
+      const footer = document.getElementById("main-footer");
+      const frame = document.getElementById("demo-frame");
+
+      if (!document.getElementById(`page-${pageId}`)) pageId = DEFAULT_PAGE;
+
+      toggleImmersion(false);
+
+      pages.forEach((p) => p.classList.remove("active"));
+      navLinks.forEach((l) =>
+        l.classList.toggle("active", l.dataset.page === pageId)
+      );
+
+      const target = document.getElementById(`page-${pageId}`);
+      target.classList.add("active");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      setBodyScrollFor(pageId);
+
+      if (pageId === "demo") {
+        if (mainNav) mainNav.style.display = "none";
+        if (footer) footer.style.display = "none";
+
+        if (frame && frame.src === "about:blank") frame.src = currentDemoUrl;
+
+        if (openModalOnDemo) openDemoModal();
+      } else {
+        if (mainNav) mainNav.style.display = "";
+        if (footer) footer.style.display = "";
+
+        if (frame) frame.src = "about:blank";
+
+        closeDemoModal();
+      }
+    }
 
     function navigateToPage(pageId) {
-      toggleMobileMenu(false);
-      const pages = document.querySelectorAll('.page');
-      const navLinks = document.querySelectorAll('.nav-link');
-      const mainNav = document.getElementById('main-nav');
-      const footer = document.getElementById('main-footer');
-      const frame = document.getElementById('demo-frame');
-      toggleImmersion(false);
-      pages.forEach(p => p.classList.remove('active'));
-      navLinks.forEach(l => {
-        l.classList.remove('active');
-        if(l.dataset.page === pageId) l.classList.add('active');
-      });
-      const target = document.getElementById(`page-${pageId}`);
-      if (target) {
-        target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (pageId === 'demo') {
-          mainNav.style.display = 'none';
-          footer.style.display = 'none';
-          document.body.style.overflow = 'hidden';
-          openDemoModal();
-          if (frame.src === "about:blank") frame.src = currentDemoUrl;
-        } else {
-          mainNav.style.display = 'block';
-          footer.style.display = 'block';
-          document.body.style.overflow = 'auto';
-          if (frame) frame.src = "about:blank";
-        }
+      if (!pageId) return;
+      const newHash = `#${pageId}`;
+
+      if (window.location.hash !== newHash) {
+        window.location.hash = newHash;
+      } else {
+        showPage(pageId, { openModalOnDemo: false });
       }
-      history.pushState(null, null, `#${pageId}`);
     }
 
     function toggleMobileMenu(forceClose = null) {
-      const menu = document.getElementById('mobile-menu');
-      if (forceClose === false || menu.style.display === 'flex') {
-        menu.style.display = 'none';
+      const menu = document.getElementById("mobile-menu");
+      if (!menu) return;
+
+      const isOpen = menu.style.display === "flex";
+
+      if (forceClose === false || isOpen) {
+        menu.style.display = "none";
       } else {
-        menu.style.display = 'flex';
+        menu.style.display = "flex";
       }
     }
 
     function mobileNav(id) {
-      toggleMobileMenu(false);
       navigateToPage(id);
     }
 
     function changeDemo(url, btn) {
-      const frame = document.getElementById('demo-frame');
+      const frame = document.getElementById("demo-frame");
       currentDemoUrl = url;
-      frame.src = url;
-      document.querySelectorAll('.demo-item-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (frame) frame.src = url;
+
+      document
+        .querySelectorAll(".demo-item-btn")
+        .forEach((b) => b.classList.remove("active"));
+      if (btn) btn.classList.add("active");
     }
 
     function toggleImmersion(active) {
-      const demoPage = document.getElementById('page-demo');
-      if (active) {
-        demoPage.classList.add('immersion-mode');
-      } else {
-        demoPage.classList.remove('immersion-mode');
-      }
+      const demoPage = document.getElementById("page-demo");
+      if (!demoPage) return;
+      demoPage.classList.toggle("immersion-mode", !!active);
     }
 
     function openDemoModal() {
-      const modal = document.getElementById('demo-modal');
-      const content = document.getElementById('modal-content');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      setTimeout(() => {
-        content.classList.remove('scale-95', 'opacity-0');
-        content.classList.add('scale-100', 'opacity-100');
-      }, 50);
+      const modal = document.getElementById("demo-modal");
+      const content = document.getElementById("modal-content");
+      if (!modal || !content) return;
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+
+      content.classList.add("scale-95", "opacity-0");
+      content.classList.remove("scale-100", "opacity-100");
+
+      requestAnimationFrame(() => {
+        content.classList.remove("scale-95", "opacity-0");
+        content.classList.add("scale-100", "opacity-100");
+      });
     }
 
     function closeDemoModal() {
-      const modal = document.getElementById('demo-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      const modal = document.getElementById("demo-modal");
+      const content = document.getElementById("modal-content");
+      if (!modal || !content) return;
+
+      content.classList.remove("scale-100", "opacity-100");
+      content.classList.add("scale-95", "opacity-0");
+
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }, 250);
     }
 
-    window.addEventListener('popstate', () => {
-      const hash = window.location.hash.substring(1) || 'home';
-      navigateToPage(hash);
+    function bindNavLinks() {
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          navigateToPage(link.dataset.page);
+        });
+      });
+    }
+
+    window.addEventListener("hashchange", () => {
+      showPage(getPageFromHash(), { openModalOnDemo: true });
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.substring(1) || 'home';
-      navigateToPage(hash);
+    window.addEventListener("DOMContentLoaded", () => {
+      bindNavLinks();
+      const initial = getPageFromHash();
+      showPage(initial, { openModalOnDemo: initial === "demo" });
     });
+
+    // expose global (compat onclick)
+    window.navigateToPage = navigateToPage;
+    window.toggleMobileMenu = toggleMobileMenu;
+    window.mobileNav = mobileNav;
+    window.changeDemo = changeDemo;
+    window.toggleImmersion = toggleImmersion;
+    window.openDemoModal = openDemoModal;
+    window.closeDemoModal = closeDemoModal;
   </script>
+
 </body>
 </html>
