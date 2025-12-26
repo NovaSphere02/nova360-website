@@ -95,23 +95,21 @@
       left: 2.5rem;
       background: white;
       width: 140px;
-      /* Hauteur augmentée pour que le logo descende sous les 80px de la nav */
       height: 170px;
       z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* Le logo est poussé vers le bas pour apparaître sous la barre petrol */
       justify-content: flex-end;
       padding: 15px 15px 25px 15px;
       border-radius: 0 0 2rem 2rem;
       box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(0,0,0,0.05);
-      pointer-events: none; /* Non cliquable comme demandé */
+      pointer-events: none;
       transition: transform 0.3s ease;
     }
 
-    /* EFFET YO-YO AUTOMATIQUE */
+    /* EFFET YO-YO AUTOMATIQUE (gardé si tu veux le réutiliser ailleurs) */
     @keyframes cta-yoyo {
       0%, 100% {
         transform: scale(1);
@@ -121,6 +119,21 @@
         transform: scale(1.05);
         box-shadow: 0 20px 25px -5px rgba(0, 86, 94, 0.3);
       }
+    }
+
+    /* ✅ Va-et-vient HORIZONTAL pour le bouton "Lancer l'App" */
+    @keyframes cta-sway-x {
+      0%   { transform: translateX(0); }
+      25%  { transform: translateX(10px); }
+      55%  { transform: translateX(-6px); }
+      80%  { transform: translateX(4px); }
+      100% { transform: translateX(0); }
+    }
+
+    .nav-cta-sway {
+      display: inline-flex;
+      animation: cta-sway-x 2.8s ease-in-out infinite;
+      will-change: transform;
     }
 
     /* Animation du reflet métallique au survol */
@@ -168,7 +181,6 @@
       animation: cta-yoyo 3s ease-in-out infinite;
     }
 
-    /* État au passage de la souris : Remplissage + Reflet Métallique */
     .cta-button:hover {
       transform: scale(1.08);
       border-color: var(--accent);
@@ -185,6 +197,72 @@
     .nav-cta-highlight {
       border: 2px solid rgba(255, 255, 255, 0.4) !important;
       box-shadow: 0 0 15px rgba(43, 167, 194, 0.3);
+    }
+
+    /* ✅ Logo "Accueil" intégré dans un rectangle + effet métallique */
+    .hero-logo-card {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+
+      padding: 18px 22px;
+      border-radius: 18px;
+
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid rgba(0, 86, 94, 0.18);
+      box-shadow: 0 18px 40px -18px rgba(0,0,0,0.35);
+
+      overflow: hidden;
+      user-select: none;
+      cursor: default;
+
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .hero-logo-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-logo-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(43, 167, 194, 0.55);
+      box-shadow: 0 28px 70px -24px rgba(0, 86, 94, 0.35);
+    }
+
+    .hero-logo-card:hover::after {
+      animation: shine 0.8s ease-in-out;
+    }
+
+    .hero-logo-card img {
+      height: 46px;
+      width: auto;
+    }
+
+    .hero-logo-tag {
+      color: var(--dark);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      position: relative;
+      z-index: 3;
     }
 
     /* Cartes */
@@ -334,7 +412,7 @@
       position: fixed;
       inset: 0;
       background: var(--dark);
-      z-index: 2000; /* ✅ au-dessus du badge logo + nav */
+      z-index: 2000;
       display: none;
       flex-direction: column;
       align-items: center;
@@ -357,7 +435,7 @@
           <span class="text-[#00565e] font-black tracking-widest text-[10px] uppercase italic mt-3">Nova360</span>
         </div>
 
-        <!-- Espace vide pour compenser le logo à gauche (ajusté pour le badge plus large) -->
+        <!-- Espace vide pour compenser le logo à gauche -->
         <div class="hidden lg:block w-[160px]"></div>
 
         <div class="hidden md:flex space-x-10 text-white">
@@ -369,9 +447,14 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
-            Lancer l'App
-          </button>
+          <!-- ✅ Wrapper animé HORIZONTAL -->
+          <div class="nav-cta-sway">
+            <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')"
+              class="cta-button nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
+              Lancer l'App
+            </button>
+          </div>
+
           <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
         </div>
       </div>
@@ -392,7 +475,16 @@
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
-          <div class="mb-12 mt-24 md:mt-32">
+
+          <!-- ✅ Logo intégré dans un rectangle (main) + shine métallique -->
+          <div class="mt-24 md:mt-32 mb-10 flex justify-center">
+            <div class="hero-logo-card">
+              <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360">
+              <span class="hero-logo-tag">Nova360</span>
+            </div>
+          </div>
+
+          <div class="mb-12">
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-2 text-center w-full">Un seul endroit</span>
               <span class="font-serif italic text-[#00565e] text-6xl md:text-9xl block my-4 underline decoration-[#00565e]/5 underline-offset-8 text-center w-full">pour explorer</span>
@@ -405,8 +497,10 @@
           </p>
 
           <div class="flex flex-col sm:flex-row justify-center items-center gap-8 mb-32">
-            <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Explorer Nova 360</button>
-            <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl" onclick="navigateToPage('demo')">Voir les Démos</button>
+            <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl"
+              onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Explorer Nova 360</button>
+            <button class="cta-button min-w-[280px] px-14 py-7 rounded-full font-black text-[11px] uppercase tracking-widest text-white shadow-2xl"
+              onclick="navigateToPage('demo')">Voir les Démos</button>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left max-w-7xl mx-auto">
@@ -706,7 +800,7 @@
 
   </div>
 
-  <!-- ✅ SCRIPT CORRIGÉ : navigation hash fiable + back/forward OK -->
+  <!-- ✅ SCRIPT : navigation hash fiable + back/forward OK -->
   <script>
     let currentDemoUrl =
       "https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html";
