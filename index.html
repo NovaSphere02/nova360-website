@@ -4,17 +4,18 @@
   <!-- 
        Architecture de Marque : Nova360
        Palette harmonisée : 
-       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Slider logos, Footer et Accents textuels
+       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Footer et Accents textuels
        - Accent Soft Teal (#278299) : Unification du titre et boutons
-       - Deep Blue Accent (#315a97) : Style du bouton de sortie d'immersion et survol cartes
+       - Deep Blue Accent (#315a97) : Survol cartes / éléments secondaires
        - Surface (#D4D3DC) : Gris Perle
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nova360 - Visites Virtuelles 360°</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
       --primary: #00565e;    /* Deep Petrol */
@@ -88,12 +89,11 @@
 
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* LOGO PANEL GAUCHE - DESIGN STUDIO ÉPURÉ (✅ corrigé) */
+    /* LOGO PANEL GAUCHE */
     .hero-logo-card {
-      background: #D4D3DC; /* gris perle */
+      background: #D4D3DC;
       padding: 2.5rem 2rem;
       border-radius: 2.5rem;
-
       border: 1px solid rgba(39, 130, 153, 0.55);
 
       box-shadow:
@@ -117,16 +117,6 @@
       transform: translateY(-2px);
     }
 
-    /* Animation Rebond Horizontal */
-    @keyframes bounce-x-right {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(10px); }
-    }
-
-    .animate-bounce-x-right {
-      animation: bounce-x-right 1.2s ease-in-out infinite;
-    }
-
     /* Boutons CTA */
     .cta-button {
       position: relative;
@@ -137,9 +127,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(255,255,255,0.1); 
+      border: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     .cta-button::after {
@@ -218,12 +208,37 @@
       background: radial-gradient(circle, rgba(43, 167, 194, 0.18) 0%, transparent 70%);
       pointer-events: none;
     }
-    /* Sécurité : si un jour tu changes la logique, le panneau QR reste lié à l'accueil */
     #page-home:not(.active) .qr-panel { display: none !important; }
+
+    /* Animations */
+    @keyframes bounce-x-right {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+    .animate-bounce-x-right { animation: bounce-x-right 1.2s ease-in-out infinite; }
+
+    .cta-breathe {
+      display: inline-flex;
+      transform-origin: center;
+      animation: ctaBreathe 3.8s ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes ctaBreathe {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.045); }
+    }
+
+    /* ✅ “Réduire animations” */
+    html.reduced-motion .cta-breathe,
+    html.reduced-motion .animate-bounce-x-right { animation: none !important; }
+    html.reduced-motion .page { transition: none !important; }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
     /* Demo Interface */
     .demo-topbar {
-      background: var(--dark); 
+      background: var(--dark);
       z-index: 110;
       height: 70px;
     }
@@ -247,16 +262,13 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
     /* Mode Immersion */
     #page-demo.active {
       display: flex;
       flex-direction: column;
       height: 100vh;
       width: 100vw;
-      background: #002c31; 
+      background: #002c31;
       position: fixed;
       top: 0; left: 0; z-index: 1000;
     }
@@ -306,44 +318,159 @@
       cursor: pointer;
       backdrop-filter: blur(8px);
     }
-
     .immersion-mode .exit-immersion { display: flex; }
 
-    /* Menu Mobile */
-    #mobile-menu {
+    /* ✅ Menu Mobile Drawer à droite + overlay */
+    .mobile-overlay {
       position: fixed;
       inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 999;
+    }
+    .mobile-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+
+      height: 100dvh;
+      width: min(88vw, 420px);
+
       background: var(--dark);
       z-index: 1000;
-      display: none;
+
+      display: flex;
       flex-direction: column;
+
+      transform: translateX(110%);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -24px 0 70px rgba(0,0,0,0.55);
+
+      padding:
+        calc(18px + env(safe-area-inset-top))
+        calc(18px + env(safe-area-inset-right))
+        calc(18px + env(safe-area-inset-bottom))
+        calc(18px + env(safe-area-inset-left));
+    }
+    #mobile-menu.show { transform: translateX(0); }
+
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .mobile-menu-title {
+      color: white;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 11px;
+      opacity: 0.95;
+    }
+    .mobile-menu-close {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 2.5rem;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: white;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+    .mobile-menu-close:hover { background: rgba(255,255,255,0.16); }
+
+    .mobile-menu-links {
+      padding-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .mobile-link-btn {
+      width: 100%;
+      text-align: left;
+      padding: 16px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.92);
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+    .mobile-link-btn:hover { background: rgba(255,255,255,0.12); }
+    .mobile-link-btn.active {
+      background: white;
+      color: var(--dark);
+      border-color: transparent;
+    }
+
+    .mobile-settings {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+    .mobile-settings-title {
+      color: rgba(255,255,255,0.65);
+      font-weight: 900;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.85);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .toggle-row input {
+      width: 44px;
+      height: 24px;
+      accent-color: var(--accent);
+    }
+
+    /* Confort mobile */
+    @media (max-width: 640px) {
+      #page-home, #page-categories, #page-about, #page-contact {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta-breathe, .animate-bounce-x-right { animation: none !important; }
     }
   </style>
 </head>
+
 <body class="h-full w-full">
-
   <div id="app" class="flex flex-col min-h-screen">
-    
-    <style>
-      .cta-breathe {
-        display: inline-flex;
-        transform-origin: center;
-        animation: ctaBreathe 3.8s ease-in-out infinite;
-        will-change: transform;
-      }
-      @keyframes ctaBreathe {
-        0%, 100% { transform: scale(1); }
-        50%      { transform: scale(1.045); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .cta-breathe { animation: none !important; }
-      }
-    </style>
 
-    <!-- NAVIGATION PRINCIPALE - CENTRÉE -->
+    <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto flex justify-center items-center h-full relative px-6 gap-12">
 
@@ -363,7 +490,7 @@
             </button>
           </span>
 
-          <button id="mobile-menu-btn" class="md:hidden text-white text-2xl ml-4" onclick="toggleMobileMenu()">
+          <button class="md:hidden text-white text-2xl ml-4" onclick="toggleMobileMenu()">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
             </svg>
@@ -373,27 +500,44 @@
       </div>
     </nav>
 
-    <!-- MENU MOBILE -->
-    <div id="mobile-menu">
-      <button class="absolute top-8 right-8 text-white" onclick="toggleMobileMenu()">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-      <a href="#" onclick="mobileNav('home')" class="text-white text-3xl font-serif italic">Accueil</a>
-      <a href="#" onclick="mobileNav('categories')" class="text-white text-3xl font-serif italic">Catégories</a>
-      <a href="#" onclick="mobileNav('demo')" class="text-white text-3xl font-serif italic">Démonstrations</a>
-      <a href="#" onclick="mobileNav('about')" class="text-white text-3xl font-serif italic">Notre Vision</a>
-      <a href="#" onclick="mobileNav('contact')" class="text-white text-3xl font-serif italic">Contact</a>
-    </div>
+    <!-- ✅ OVERLAY (clic = fermer) -->
+    <div id="mobile-overlay" class="mobile-overlay" onclick="toggleMobileMenu(false)"></div>
+
+    <!-- ✅ MENU MOBILE (drawer à droite) -->
+    <aside id="mobile-menu" aria-hidden="true">
+      <div class="mobile-menu-header">
+        <div class="mobile-menu-title">Menu / Paramètres</div>
+
+        <button class="mobile-menu-close" onclick="toggleMobileMenu(false)" aria-label="Fermer le menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-menu-links" aria-label="Navigation mobile">
+        <button class="mobile-link-btn" data-page="home" onclick="mobileNav('home')">Accueil</button>
+        <button class="mobile-link-btn" data-page="categories" onclick="mobileNav('categories')">Catégories</button>
+        <button class="mobile-link-btn" data-page="demo" onclick="mobileNav('demo')">Démos</button>
+        <button class="mobile-link-btn" data-page="about" onclick="mobileNav('about')">Vision</button>
+        <button class="mobile-link-btn" data-page="contact" onclick="mobileNav('contact')">Contact</button>
+      </nav>
+
+      <div class="mobile-settings">
+        <div class="mobile-settings-title">Paramètres</div>
+
+        <label class="toggle-row" for="reduce-motion-toggle">
+          <span>Réduire animations</span>
+          <input id="reduce-motion-toggle" type="checkbox" onchange="setReducedMotion(this.checked)">
+        </label>
+      </div>
+    </aside>
 
     <main class="flex-grow">
-      
+
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-10 pt-4 pb-32">
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center lg:items-start pt-12">
-          
-          <!-- LE LOGO PANEL GAUCHE -->
           <div class="flex-shrink-0">
             <div class="hero-logo-card">
               <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-40 h-auto object-contain">
@@ -401,7 +545,6 @@
             </div>
           </div>
 
-          <!-- CONTENU TEXTUEL -->
           <div class="flex-grow text-center lg:text-left flex flex-col justify-center pt-8">
             <div class="mb-10">
               <h1 class="text-5xl md:text-7xl font-light leading-[1.1] tracking-tight text-slate-800">
@@ -413,20 +556,23 @@
                 <span class="font-black text-2xl md:text-5xl uppercase tracking-[0.5em] text-[#278299] mt-6 block">tous les autres</span>
               </h1>
             </div>
-            
+
             <p class="text-lg md:text-xl text-slate-500 max-w-2xl mb-12 font-light leading-relaxed">
-              Découvrez les lieux autrement grâce à la visite virtuelle 360° 
-              de Nova360. Plus qu'une visite, une expérience interactive innovante.
+              Découvrez les lieux autrement grâce à la visite virtuelle 360° de Nova360.
+              Plus qu'une visite, une expérience interactive innovante.
             </p>
-            
+
             <div class="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-6 mb-12">
-              <button class="cta-button min-w-[280px] px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl" onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Lancer Nova360</button>
-              <button class="cta-button min-w-[280px] px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl" onclick="navigateToPage('demo')">Démonstrations</button>
+              <button class="cta-button min-w-[280px] px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl"
+                onclick="window.open('https://nova360.app.codinsight.app/', '_blank')">Lancer Nova360</button>
+
+              <button class="cta-button min-w-[280px] px-12 py-6 rounded-full font-black text-[11px] uppercase tracking-[0.3em] text-white shadow-2xl"
+                onclick="navigateToPage('demo')">Démonstrations</button>
             </div>
           </div>
         </div>
 
-        <!-- ✅ PANNEAU QR (remplace les 3 panneaux) -->
+        <!-- ✅ PANNEAU QR (Accueil uniquement) -->
         <div class="max-w-7xl mx-auto mt-16 qr-panel p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
           <div class="flex-grow text-center md:text-left relative z-10 text-white">
             <span class="text-[#2BA7C2] font-black text-[10px] uppercase tracking-[0.4em] block mb-4">Expérience Mobile</span>
@@ -465,107 +611,80 @@
       <!-- PAGE CATÉGORIES -->
       <section id="page-categories" class="page px-10 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="text-5xl md:text-6xl font-light text-slate-800 uppercase tracking-tighter">Nos <span class="font-serif italic text-[#00565e]">Catégories</span></h2>
+          <h2 class="text-5xl md:text-6xl font-light text-slate-800 uppercase tracking-tighter">
+            Nos <span class="font-serif italic text-[#00565e]">Catégories</span>
+          </h2>
           <p class="text-lg text-slate-500 max-w-2xl mx-auto mt-4 font-light leading-relaxed">Chaque secteur possède son propre langage immersif.</p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div class="feature-card p-8 rounded-[2rem] flex flex-col">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-6">🍽️</div>
             <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic uppercase tracking-wider">Restaurants</h3>
-            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light"> Faites découvrir votre établissement d'une autre façon. Vous donnez d'avantage confiance aux clients.</p>
-            <ul class="text-[9px] text-slate-400 space-y-3 mb-8 font-black uppercase tracking-[0.2em] border-t border-slate-50 pt-6">
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#278299] rounded-full"></span> Donnez un avant goût de l'ambiance</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#278299] rounded-full"></span> Mettez en valeurla salle, la décoration et les espaces</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#278299] rounded-full"></span> Augmentez vos réservations</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#278299] rounded-full"></span> Démarquez-vous de la concurrence</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">EXPLORER</button>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Faites découvrir votre établissement autrement, et donnez confiance avant même l’arrivée.</p>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full"
+              onclick="window.open('https://nova360.app.codinsight.app/?category=restaurants', '_blank')">EXPLORER</button>
           </div>
 
           <div class="feature-card p-8 rounded-[2rem] flex flex-col">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-6">🎯</div>
             <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic uppercase tracking-wider">Loisirs</h3>
-            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Montrez l'expérience avant même de venir. Un avant goût grâce à l'immersion.</p>
-            <ul class="text-[9px] text-slate-400 space-y-3 mb-8 font-black uppercase tracking-[0.2em] border-t border-slate-50 pt-6">
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Attirez plus de réservations</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Valorisez vos zones de jeu</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Boostez votre visibilité</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Simplifiez l'organisation avant la réservation</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">EXPLORER</button>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Montrez l’expérience avant même de venir : immersion = réservation plus simple.</p>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full"
+              onclick="window.open('https://nova360.app.codinsight.app/?category=activit%C3%A9s', '_blank')">EXPLORER</button>
           </div>
 
           <div class="feature-card p-8 rounded-[2rem] flex flex-col">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-6">🏡</div>
             <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic uppercase tracking-wider">Hébergements</h3>
-            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Accélérez vos réservations et valorisez chaque détails de votre hébergement dès le premier regard.</p>
-            <ul class="text-[9px] text-slate-400 space-y-3 mb-8 font-black uppercase tracking-[0.2em] border-t border-slate-50 pt-6">
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span>Mettez en avant vos atouts réels</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Boostez vos réservations</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Falicitez le voyages de vos clients</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Dégagez vous du temps en donnant les bonnes informations</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">EXPLORER</button>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Valorisez chaque détail et augmentez la conversion dès le premier regard.</p>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full"
+              onclick="window.open('https://nova360.app.codinsight.app/?category=h%C3%A9bergements', '_blank')">EXPLORER</button>
           </div>
 
           <div class="feature-card p-8 rounded-[2rem] flex flex-col">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-6">🛍️</div>
-            <h3 class="text-xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Commerces</h3>
-            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Montrez votre commerces en un instant en maitrisant votre image. </p>
-            <ul class="text-[9px] text-slate-400 space-y-3 mb-8 font-black uppercase tracking-[0.2em] border-t border-slate-50 pt-6">
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Valorisez votre savoir faire</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Attirez plus de clients</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Renforcez votre image de marque</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Optimisez votre présence</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">EXPLORER</button>
+            <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic uppercase tracking-wider">Commerces</h3>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Transformez votre boutique en showroom digital, sans perdre votre identité.</p>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full"
+              onclick="window.open('https://nova360.app.codinsight.app/?category=shopping', '_blank')">EXPLORER</button>
           </div>
 
           <div class="feature-card p-8 rounded-[2rem] flex flex-col">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-6">💼</div>
             <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic uppercase tracking-wider">Professionnelle</h3>
-            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Présentez vos espaces de manière professionenelle et donnez une image moderne dès le premier contact.</p>
-            <ul class="text-[9px] text-slate-400 space-y-3 mb-8 font-black uppercase tracking-[0.2em] border-t border-slate-50 pt-6">
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Montrez vos installations avec précisions</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Facilitez la prise de décision</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Renforcez votre crédibilité</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Accélérez les demandes d'inscriptions</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">EXPLORER</button>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Donnez une image moderne et crédible dès le premier contact.</p>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full"
+              onclick="window.open('https://nova360.app.codinsight.app/?category=professionnels', '_blank')">EXPLORER</button>
           </div>
 
           <div class="feature-card p-8 rounded-[2rem] flex flex-col">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-6">🏖️</div>
             <h3 class="text-xl font-bold text-slate-900 mb-3 font-serif italic uppercase tracking-wider">Tourisme</h3>
-            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Faites découvrir votre destination avant même l'arrivée des visiteurs.</p>
-            <ul class="text-[9px] text-slate-400 space-y-3 mb-8 font-black uppercase tracking-[0.2em] border-t border-slate-50 pt-6">
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Multilingue</li>
-              <li class="flex items-center gap-3"><span class="w-1 h-1 bg-[#00565e] rounded-full"></span> Hotspots</li>
-            </ul>
-            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full" onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">EXPLORER</button>
+            <p class="text-slate-500 text-xs mb-8 leading-relaxed font-light">Faites découvrir la destination avant l’arrivée des visiteurs.</p>
+            <button class="cta-button py-4 rounded-xl mt-auto font-black text-[10px] tracking-[0.3em] text-white !min-w-0 w-full"
+              onclick="window.open('https://nova360.app.codinsight.app/?category=tourisme', '_blank')">EXPLORER</button>
           </div>
         </div>
       </section>
 
-      <!-- PAGE DÉMONSTRATIONS -->
+      <!-- PAGE DÉMOS -->
       <section id="page-demo" class="page overflow-hidden">
         <div id="demo-modal" class="fixed inset-0 bg-black/95 z-[500] hidden items-center justify-center p-6 backdrop-blur-xl">
           <div class="bg-white max-w-md w-full p-12 rounded-[3rem] text-center shadow-2xl scale-95 opacity-0 transition-all duration-700" id="modal-content">
             <div class="text-6xl mb-8 text-[#00565e]">⛶</div>
-            <h2 class="text-3m font-serif italic text-[#00565e] mb-6">Immersion Maximale</h2>
+            <h2 class="text-3xl font-serif italic text-[#00565e] mb-6">Immersion Maximale</h2>
             <p class="text-slate-500 mb-10 font-light text-sm leading-relaxed uppercase tracking-widest">Activez le mode plein écran pour une expérience optimale.</p>
             <button onclick="closeDemoModal()" class="cta-button px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-[0.3em] text-white">Commencer</button>
           </div>
         </div>
 
-        <!-- TOP BAR DÉMO -->
         <div class="demo-topbar flex items-center justify-between px-8 py-3 shadow-2xl border-b border-white/5 flex-shrink-0">
           <div class="flex items-center gap-6 flex-grow min-w-0 overflow-hidden">
             <button
@@ -623,7 +742,13 @@
         <div class="demo-frame-container">
           <button onclick="toggleImmersion(false)" class="exit-immersion">⛶</button>
           <div class="tour-frame-architectural">
-            <iframe id="demo-frame" src="about:blank" class="w-full h-full border-none" allowfullscreen></iframe>
+            <iframe
+              id="demo-frame"
+              src="about:blank"
+              class="w-full h-full border-none"
+              allow="fullscreen; autoplay; gyroscope; accelerometer; xr-spatial-tracking"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
       </section>
@@ -632,9 +757,12 @@
       <section id="page-about" class="page px-10 py-24 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mt-6">
           <div class="space-y-10 text-left">
-            <h2 class="text-5xl md:text-6xl font-light text-slate-700 leading-[1.1]">Soyez visible <br><span class="font-serif italic text-[#00565e]">grâce à Nova360.</span></h2>
+            <h2 class="text-5xl md:text-6xl font-light text-slate-700 leading-[1.1]">
+              Soyez visible <br><span class="font-serif italic text-[#00565e]">grâce à Nova360.</span>
+            </h2>
             <p class="text-xl text-slate-500 font-light border-l-4 border-[#00565e] pl-10 py-4 leading-relaxed">
-              Nova360 rend la visite virtuelle interactive très intuitive, avec sa conception innovante, elle place l'humain au centre de l'expérience utilisateur.
+              Nova360 rend la visite virtuelle interactive très intuitive, avec sa conception innovante,
+              elle place l'humain au centre de l'expérience utilisateur.
             </p>
           </div>
           <div class="bg-[#00565e] p-16 rounded-[4rem] shadow-3xl text-white relative overflow-hidden">
@@ -662,39 +790,30 @@
           <form class="text-left max-w-3xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <label for="contact-nom" class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Nom</label>
+                <label class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Nom</label>
                 <div class="rounded-3xl p-[1px] bg-slate-200/90 transition-all hover:bg-slate-300/80 focus-within:bg-[#278299]/60 focus-within:shadow-[0_0_0_6px_rgba(39,130,153,0.12)]">
-                  <input id="contact-nom" name="nom" type="text" autocomplete="family-name" required
-                    class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none"
-                    placeholder="Votre nom" />
+                  <input required class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none" placeholder="Votre nom">
                 </div>
               </div>
-
               <div>
-                <label for="contact-prenom" class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Prénom</label>
+                <label class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Prénom</label>
                 <div class="rounded-3xl p-[1px] bg-slate-200/90 transition-all hover:bg-slate-300/80 focus-within:bg-[#278299]/60 focus-within:shadow-[0_0_0_6px_rgba(39,130,153,0.12)]">
-                  <input id="contact-prenom" name="prenom" type="text" autocomplete="given-name" required
-                    class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none"
-                    placeholder="Votre prénom" />
+                  <input required class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none" placeholder="Votre prénom">
                 </div>
               </div>
             </div>
 
             <div class="mb-6">
-              <label for="contact-email" class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">E-mail</label>
+              <label class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">E-mail</label>
               <div class="rounded-3xl p-[1px] bg-slate-200/90 transition-all hover:bg-slate-300/80 focus-within:bg-[#278299]/60 focus-within:shadow-[0_0_0_6px_rgba(39,130,153,0.12)]">
-                <input id="contact-email" name="email" type="email" autocomplete="email" required
-                  class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none"
-                  placeholder="ex : contact@votresite.fr" />
+                <input type="email" required class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none" placeholder="ex : contact@votresite.fr">
               </div>
             </div>
 
             <div class="mb-10">
-              <label for="contact-message" class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Commentaire</label>
+              <label class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Commentaire</label>
               <div class="rounded-3xl p-[1px] bg-slate-200/90 transition-all hover:bg-slate-300/80 focus-within:bg-[#278299]/60 focus-within:shadow-[0_0_0_6px_rgba(39,130,153,0.12)]">
-                <textarea id="contact-message" name="message" rows="6" required
-                  class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none resize-none"
-                  placeholder="Décrivez votre besoin (type d’activité, ville, objectif, délai...)"></textarea>
+                <textarea rows="6" required class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none resize-none" placeholder="Décrivez votre besoin (type d’activité, ville, objectif, délai...)"></textarea>
               </div>
             </div>
 
@@ -710,6 +829,7 @@
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footer id="main-footer" class="py-12 bg-[#00565e] border-t border-white/5">
       <div class="max-w-7xl mx-auto px-8 flex justify-between items-center">
         <div class="text-white/40 text-[10px] font-black uppercase tracking-[0.3em]">
@@ -722,32 +842,68 @@
   <script>
     let currentDemoUrl = 'https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html';
 
+    function setReducedMotion(enabled) {
+      document.documentElement.classList.toggle('reduced-motion', enabled);
+      localStorage.setItem('reducedMotion', enabled ? '1' : '0');
+    }
+
+    function toggleMobileMenu(show = null) {
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-overlay');
+
+      const isOpen = menu.classList.contains('show');
+      const shouldOpen = (typeof show === 'boolean') ? show : !isOpen;
+
+      menu.classList.toggle('show', shouldOpen);
+      overlay.classList.toggle('show', shouldOpen);
+
+      menu.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+
+      if (shouldOpen) document.body.style.overflow = 'hidden';
+      else document.body.style.overflow = '';
+    }
+
+    function mobileNav(id) {
+      toggleMobileMenu(false);
+      navigateToPage(id);
+    }
+
     function navigateToPage(pageId) {
       toggleMobileMenu(false);
+
       const pages = document.querySelectorAll('.page');
       const navLinks = document.querySelectorAll('.nav-link');
+      const mobileBtns = document.querySelectorAll('.mobile-link-btn');
+
       const mainNav = document.getElementById('main-nav');
       const footer = document.getElementById('main-footer');
       const frame = document.getElementById('demo-frame');
-      
+
       toggleImmersion(false);
+
       pages.forEach(p => p.classList.remove('active'));
+
       navLinks.forEach(l => {
         l.classList.remove('active');
-        if(l.dataset.page === pageId) l.classList.add('active');
+        if (l.dataset.page === pageId) l.classList.add('active');
       });
-      
+
+      mobileBtns.forEach(b => {
+        b.classList.remove('active');
+        if (b.dataset.page === pageId) b.classList.add('active');
+      });
+
       const target = document.getElementById(`page-${pageId}`);
       if (target) {
         target.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        
+
         if (pageId === 'demo') {
           mainNav.style.display = 'none';
           footer.style.display = 'none';
           document.body.style.overflow = 'hidden';
           openDemoModal();
-          if (frame.src === "about:blank") frame.src = currentDemoUrl;
+          if (frame && frame.src === "about:blank") frame.src = currentDemoUrl;
         } else {
           mainNav.style.display = 'block';
           footer.style.display = 'block';
@@ -755,21 +911,8 @@
           if (frame) frame.src = "about:blank";
         }
       }
+
       history.pushState(null, null, `#${pageId}`);
-    }
-
-    function toggleMobileMenu(forceClose = null) {
-      const menu = document.getElementById('mobile-menu');
-      if (forceClose === false || menu.style.display === 'flex') {
-        menu.style.display = 'none';
-      } else {
-        menu.style.display = 'flex';
-      }
-    }
-
-    function mobileNav(id) {
-      toggleMobileMenu(false);
-      navigateToPage(id);
     }
 
     function changeDemo(url, btn) {
@@ -782,18 +925,19 @@
 
     function toggleImmersion(active) {
       const demoPage = document.getElementById('page-demo');
-      if (active) {
-        demoPage.classList.add('immersion-mode');
-      } else {
-        demoPage.classList.remove('immersion-mode');
-      }
+      if (!demoPage) return;
+      if (active) demoPage.classList.add('immersion-mode');
+      else demoPage.classList.remove('immersion-mode');
     }
 
     function openDemoModal() {
       const modal = document.getElementById('demo-modal');
       const content = document.getElementById('modal-content');
+      if (!modal || !content) return;
+
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+
       setTimeout(() => {
         content.classList.remove('scale-95', 'opacity-0');
         content.classList.add('scale-100', 'opacity-100');
@@ -802,12 +946,18 @@
 
     function closeDemoModal() {
       const modal = document.getElementById('demo-modal');
+      if (!modal) return;
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }
 
-    /* ✅ Important : clic sur le menu desktop => change vraiment de page */
-    document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash.substring(1) || 'home';
+      navigateToPage(hash);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // ✅ Menu desktop : 100% cliquable (pilotage interne)
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
@@ -815,11 +965,13 @@
         });
       });
 
-      const hash = window.location.hash.substring(1) || 'home';
-      navigateToPage(hash);
-    });
+      // ✅ Restore réglage "réduire animations"
+      const saved = localStorage.getItem('reducedMotion') === '1';
+      setReducedMotion(saved);
+      const toggle = document.getElementById('reduce-motion-toggle');
+      if (toggle) toggle.checked = saved;
 
-    window.addEventListener('popstate', () => {
+      // ✅ Page initiale selon hash
       const hash = window.location.hash.substring(1) || 'home';
       navigateToPage(hash);
     });
