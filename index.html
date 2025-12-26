@@ -95,17 +95,20 @@
       left: 2.5rem;
       background: white;
       width: 150px;
+      /* Hauteur augmentée pour que le logo descende largement sous les 80px de la nav */
       height: 180px; 
       z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
+      /* On pousse le contenu vers le bas pour qu'il soit visible sous la barre nav */
       justify-content: flex-end; 
       padding: 20px 20px 30px 20px; 
       border-radius: 0 0 2.5rem 2.5rem;
       box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.35);
       border: 1px solid rgba(0,0,0,0.03);
-      pointer-events: none;
+      pointer-events: none; /* Non cliquable */
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Animation du reflet métallique au survol */
@@ -250,6 +253,26 @@
       max-height: 60px;
     }
 
+    /* Demo Interface */
+    .demo-topbar {
+      background: var(--dark);
+      z-index: 110;
+      transition: all 0.4s ease;
+      height: 60px;
+    }
+
+    .demo-item-btn {
+      padding: 8px 16px;
+      font-size: 0.65rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .demo-item-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -271,6 +294,39 @@
       width: 100%;
     }
 
+    .immersion-mode .demo-topbar { 
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .exit-immersion {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--secondary);
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .exit-immersion:hover {
+      background: var(--secondary);
+      transform: scale(1.1);
+    }
+
+    .immersion-mode .exit-immersion { display: flex; }
+
     /* Menu Mobile */
     #mobile-menu {
       position: fixed;
@@ -291,29 +347,29 @@
     
     <!-- NAVIGATION PRINCIPALE -->
     <nav id="main-nav" class="sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-6 flex items-center h-full relative">
-        <!-- LOGO BADGE EN RELIEF (GAUCHE) -->
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-full relative">
+        <!-- LOGO DÉPLACÉ DANS UN BADGE EN RELIEF (MACARON) -->
         <div class="logo-relief-card">
            <img src="https://i.postimg.cc/FKTBjyBR/Logo-Nova-360-V2-0.png" alt="Logo Nova 360" class="w-full h-auto object-contain">
            <span class="text-[#00565e] font-black tracking-widest text-[11px] uppercase italic mt-4">Nova360</span>
         </div>
 
-        <!-- ONGLETS ET BOUTON DÉCALÉS À DROITE (ml-auto) -->
-        <div class="ml-auto flex items-center gap-10">
-          <div class="hidden md:flex space-x-10 text-white">
-            <a href="#home" class="nav-link active font-bold text-[10px] uppercase" data-page="home">Accueil</a>
-            <a href="#categories" class="nav-link font-bold text-[10px] uppercase" data-page="categories">Catégories</a>
-            <a href="#demo" class="nav-link font-bold text-[10px] uppercase" data-page="demo">Démonstrations</a>
-            <a href="#about" class="nav-link font-bold text-[10px] uppercase" data-page="about">Vision</a>
-            <a href="#contact" class="nav-link font-bold text-[10px] uppercase" data-page="contact">Contact</a>
-          </div>
+        <!-- Espace vide pour compenser le logo à gauche -->
+        <div class="hidden lg:block w-[170px]"></div>
 
-          <div class="flex items-center gap-4">
-            <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
-              Lancer l'App
-            </button>
-            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
-          </div>
+        <div class="hidden md:flex space-x-10 text-white">
+          <a href="#home" class="nav-link active font-bold text-[10px] uppercase" data-page="home">Accueil</a>
+          <a href="#categories" class="nav-link font-bold text-[10px] uppercase" data-page="categories">Catégories</a>
+          <a href="#demo" class="nav-link font-bold text-[10px] uppercase" data-page="demo">Démonstrations</a>
+          <a href="#about" class="nav-link font-bold text-[10px] uppercase" data-page="about">Vision</a>
+          <a href="#contact" class="nav-link font-bold text-[10px] uppercase" data-page="contact">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button onclick="window.open('https://nova360.app.codinsight.app/', '_blank')" class="cta-button cta-attention nav-cta-highlight !min-w-0 text-[9px] font-black px-8 py-3 rounded-full uppercase tracking-widest shadow-lg text-white">
+            Lancer l'App
+          </button>
+          <button id="mobile-menu-btn" class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
         </div>
       </div>
     </nav>
@@ -333,6 +389,7 @@
       <!-- PAGE ACCUEIL -->
       <section id="page-home" class="page active px-6 pt-6 pb-24 lg:pt-10 lg:pb-40 bg-transparent">
         <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
+          <!-- Marge supérieure augmentée pour laisser le macaron respirer -->
           <div class="mb-12 mt-32 md:mt-48"> 
             <h1 class="text-4xl md:text-7xl font-light leading-tight tracking-tight text-slate-800 text-center">
               <span class="font-serif italic text-[#278299] block mb-2 text-center w-full">Un seul endroit</span>
@@ -419,6 +476,7 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+          <!-- Items Catégories inchangés -->
           <div class="feature-card p-10 rounded-3xl flex flex-col group">
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🍽️</div>
@@ -447,7 +505,7 @@
             <div class="status-half-circle"></div>
             <div class="text-5xl mb-8">🏡</div>
             <h3 class="text-2xl font-bold text-slate-900 mb-4 font-serif italic uppercase tracking-wider">Hébergements</h3>
-            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque detail de leur séjour. Tous les détails seront dans la visite virtuelle Immersive pour vous faire gagner du temps.</p>
+            <p class="text-slate-600 text-sm mb-10 leading-relaxed font-light">Le confort devient visible. Rassurez vos hôtes sur chaque détail de leur séjour. Tous les détails seront dans la visite virtuelle Immersive pour vous faire gagner du temps.</p>
             <ul class="text-[10px] text-slate-400 space-y-3 mb-10 font-black uppercase tracking-widest border-t pt-6">
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Accès aux réservations</li>
               <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#00565e]"></span> Airbnb, Booking</li>
@@ -549,10 +607,15 @@
   </div>
 
   <script>
+    let currentDemoUrl = 'https://filedn.eu/ltnoVzjomRBHzYirJIqOwRu/NovaVisio/D%C3%A9mos/Actif/11100%20-%20Tandoori%20Flame/output/index.html';
+
     function navigateToPage(pageId) {
       toggleMobileMenu(false);
       const pages = document.querySelectorAll('.page');
       const navLinks = document.querySelectorAll('.nav-link');
+      const mainNav = document.getElementById('main-nav');
+      const footer = document.getElementById('main-footer');
+      toggleImmersion(false);
       pages.forEach(p => p.classList.remove('active'));
       navLinks.forEach(l => {
         l.classList.remove('active');
@@ -578,6 +641,15 @@
     function mobileNav(id) {
       toggleMobileMenu(false);
       navigateToPage(id);
+    }
+
+    function toggleImmersion(active) {
+      const demoPage = document.getElementById('page-demo');
+      if (active) {
+        demoPage.classList.add('immersion-mode');
+      } else {
+        demoPage.classList.remove('immersion-mode');
+      }
     }
 
     window.addEventListener('popstate', () => {
