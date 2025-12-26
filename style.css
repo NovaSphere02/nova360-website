@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------
-   VARIABLES DE COULEURS ET DESIGN
+   DESIGN TOKENS
    ----------------------------------------------------------- */
 :root {
   --primary: #00565e;
@@ -102,6 +102,12 @@ body {
   transition: all 0.5s ease;
 }
 .feature-card:hover { transform: translateY(-10px); }
+
+.status-half-circle {
+  position: absolute; top: 0; right: 30px; width: 40px; height: 20px;
+  background: linear-gradient(to bottom, var(--dark), var(--secondary));
+  border-radius: 0 0 40px 40px;
+}
 
 /* MOBILE MENU */
 #mobile-menu {
