@@ -394,18 +394,103 @@
     .toggle-row input { width: 44px; height: 24px; accent-color: var(--accent); }
 
     /* =========================================================
-       ✅ AJUSTEMENT HOME MOBILE : remonte le texte vers le logo
+       ✅ HOME MOBILE — faire “rentrer” le bloc (logo + texte)
+       Sans toucher au PC : uniquement @media
        ========================================================= */
     @media (max-width: 640px) {
-      #page-home { padding-top: 10px !important; padding-bottom: 88px !important; }
-      #home-hero-row { padding-top: 14px !important; gap: 22px !important; }
-      .hero-logo-card { width: 220px; padding: 2rem 1.4rem; border-radius: 2.2rem; }
-      #home-copy { padding-top: 6px !important; }
-      #home-title { font-size: 2.25rem !important; line-height: 1.05 !important; margin-bottom: 14px !important; }
-      #home-title .home-sub { margin-top: 10px !important; letter-spacing: 0.35em !important; font-size: 1.15rem !important; }
-      #home-desc { margin-bottom: 18px !important; font-size: 1rem !important; }
-      #home-cta { margin-bottom: 26px !important; gap: 12px !important; }
-      #home-cta .cta-button { padding-top: 18px !important; padding-bottom: 18px !important; }
+      /* Section : moins d’air en haut/bas */
+      #page-home {
+        padding-top: 10px !important;
+        padding-bottom: 84px !important;
+      }
+
+      /* ✅ Cadre global mobile autour du bloc logo + texte */
+      #home-hero-row {
+        position: relative;
+        padding: 16px 14px 20px !important;  /* le “cadre” */
+        border-radius: 3rem;
+        border: 2px solid rgba(39, 130, 153, 0.42);
+        background: rgba(212, 211, 220, 0.72);
+        box-shadow:
+          0 30px 70px -25px rgba(0, 0, 0, 0.35),
+          0 0 0 5px rgba(39, 130, 153, 0.12),
+          0 0 24px rgba(39, 130, 153, 0.16);
+        gap: 18px !important;
+        margin-top: 10px !important;
+      }
+      #home-hero-row::before {
+        content: '';
+        position: absolute;
+        inset: -20%;
+        background: radial-gradient(circle at 40% 20%, rgba(39, 130, 153, 0.22) 0%, transparent 55%);
+        pointer-events: none;
+      }
+
+      /* Logo card : un peu plus compacte mais reste “premium” */
+      .hero-logo-card {
+        width: 100% !important;
+        max-width: 240px;
+        margin: 0 auto;
+        padding: 1.85rem 1.25rem;
+        border-radius: 2.3rem;
+      }
+      .hero-logo-card img {
+        width: 9rem !important; /* w-36 */
+      }
+      .hero-logo-card h2 {
+        font-size: 1.55rem !important;
+        letter-spacing: 0.26em !important; /* ✅ évite le dépassement */
+        margin-top: 16px !important;
+      }
+
+      /* Bloc texte : centré et contraint pour rester dans le cadre */
+      #home-copy {
+        padding-top: 8px !important;
+        max-width: 22rem;           /* ✅ empêche les longues lignes */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+      }
+
+      /* Titre : compacte + anti-overflow */
+      #home-title {
+        font-size: 2.05rem !important;
+        line-height: 1.03 !important;
+        margin-bottom: 12px !important;
+        overflow-wrap: anywhere;     /* ✅ si un device est très étroit */
+        word-break: break-word;
+      }
+
+      /* “tous les autres” : la tracking est la cause #1 des débords */
+      #home-title .home-sub {
+        margin-top: 10px !important;
+        letter-spacing: 0.22em !important; /* ✅ plus safe */
+        font-size: 1.05rem !important;
+        padding-left: 0.06em; /* compense visuellement la tracking */
+      }
+
+      /* Paragraphe : un poil plus petit pour tenir dans le cadre */
+      #home-desc {
+        margin-bottom: 16px !important;
+        font-size: 0.98rem !important;
+        line-height: 1.55 !important;
+        max-width: 22rem;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      /* CTA : moins haut pour garder tout “dans le cadre” */
+      #home-cta {
+        margin-bottom: 10px !important;
+        gap: 12px !important;
+      }
+      #home-cta .cta-button {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 320px;
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+      }
     }
 
     /* Confort mobile général */
@@ -420,9 +505,19 @@
        ✅ FIX MOBILE — MODE DÉMOS (catégories + iframe)
        ========================================================= */
     @media (max-width: 640px) {
-      #page-demo .demo-topbar { height: auto !important; padding: 10px 12px !important; align-items: flex-start !important; }
-      #page-demo .demo-topbar > div:first-child { flex-wrap: wrap !important; gap: 10px !important; overflow: visible !important; }
-      #page-demo .demo-topbar > div:first-child .h-8.w-px { display: none !important; }
+      #page-demo .demo-topbar {
+        height: auto !important;
+        padding: 10px 12px !important;
+        align-items: flex-start !important;
+      }
+      #page-demo .demo-topbar > div:first-child {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        overflow: visible !important;
+      }
+      #page-demo .demo-topbar > div:first-child .h-8.w-px {
+        display: none !important;
+      }
       #page-demo .demo-topbar > div:first-child nav {
         width: 100% !important;
         padding-top: 6px !important;
@@ -436,9 +531,20 @@
         font-size: 0.65rem !important;
         border-radius: 14px !important;
       }
-      #page-demo .demo-frame-container { padding: 0 !important; }
-      #page-demo .tour-frame-architectural { border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
-      #demo-frame { width: 100% !important; height: 100% !important; display: block !important; background: #000 !important; }
+      #page-demo .demo-frame-container {
+        padding: 0 !important;
+      }
+      #page-demo .tour-frame-architectural {
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+      #demo-frame {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        background: #000 !important;
+      }
       #page-demo .exit-immersion {
         top: auto !important;
         bottom: calc(18px + env(safe-area-inset-bottom)) !important;
@@ -446,15 +552,11 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .cta-breathe, .animate-bounce-x-right { animation: none !important; }
-    }
-
     /* =========================================================
        ✅ NEON + LISERET — MODAL "IMMERSION MAXIMALE"
        ========================================================= */
     #modal-content.modal-neon {
-      border: 3px solid rgba(49, 90, 151, 0.78); /* bleu #315a97 */
+      border: 3px solid rgba(49, 90, 151, 0.78);
       box-shadow:
         0 0 0 6px rgba(49, 90, 151, 0.22),
         0 0 26px rgba(49, 90, 151, 0.55),
@@ -462,7 +564,6 @@
         0 30px 90px -25px rgba(0, 0, 0, 0.78);
       animation: modalNeonPulse 2.6s ease-in-out infinite;
     }
-
     @keyframes modalNeonPulse {
       0%, 100% {
         box-shadow:
@@ -481,7 +582,10 @@
     }
 
     html.reduced-motion #modal-content.modal-neon { animation: none !important; }
-    @media (prefers-reduced-motion: reduce) { #modal-content.modal-neon { animation: none !important; } }
+    @media (prefers-reduced-motion: reduce) {
+      .cta-breathe, .animate-bounce-x-right { animation: none !important; }
+      #modal-content.modal-neon { animation: none !important; }
+    }
   </style>
 </head>
 
@@ -689,7 +793,6 @@
       <!-- DEMO -->
       <section id="page-demo" class="page overflow-hidden">
         <div id="demo-modal" class="fixed inset-0 bg-black/95 z-[500] hidden items-center justify-center p-6 backdrop-blur-xl">
-          <!-- ✅ modal-neon ajouté ici -->
           <div class="bg-white max-w-md w-full p-12 rounded-[3rem] text-center shadow-2xl scale-95 opacity-0 transition-all duration-700 modal-neon" id="modal-content">
             <div class="text-6xl mb-8 text-[#00565e]">⛶</div>
             <h2 class="text-3xl font-serif italic text-[#00565e] mb-6">Immersion Maximale</h2>
