@@ -95,7 +95,7 @@
     }
     .hero-logo-card:hover {
       box-shadow:
-        0 px 120px -22px rgba(0, 0, 0, 0.22),
+        0 44px 120px -22px rgba(0, 0, 0, 0.22),
         0 0 0 3px rgba(39, 130, 153, 0.22),
         0 0 30px rgba(39, 130, 153, 0.30);
       transform: translateY(-2px);
@@ -243,17 +243,31 @@
       background: #002c31;
       height: calc(100dvh - var(--demoTopbarH, 70px));
     }
+
+    /* ✅ CADRE IFRAME — ajout liseret bleu (ring) */
     .tour-frame-architectural {
       width: 100%;
       height: 100%;
       background: black;
       border: 8px solid #00565e;
       border-radius: 1.5rem;
-      box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
+
+      /* Liseret bleu + léger accent teal (extérieur) */
+      box-shadow:
+        0 0 0 2px rgba(49, 90, 151, 0.95),   /* liseret bleu */
+        0 0 0 6px rgba(43, 167, 194, 0.16),  /* petit accent */
+        0 40px 100px -20px rgba(0, 0, 0, 0.8);
+
       overflow: hidden;
       position: relative;
     }
-    .immersion-mode .tour-frame-architectural { border: 0px solid transparent; border-radius: 0; }
+
+    /* Immersion : on enlève aussi le liseret */
+    .immersion-mode .tour-frame-architectural {
+      border: 0px solid transparent;
+      border-radius: 0;
+      box-shadow: none;
+    }
     .immersion-mode .demo-topbar { height: 0; overflow: hidden; opacity: 0; }
     .immersion-mode .demo-frame-container { padding: 0; height: 100dvh; }
 
@@ -395,63 +409,17 @@
 
     /* =========================================================
        ✅ AJUSTEMENT HOME MOBILE : remonte le texte vers le logo
-       (pour que le titre soit “dans l’écran” sur Pixel Fold)
        ========================================================= */
     @media (max-width: 640px) {
-      /* Section : moins d’air en haut/bas */
-      #page-home {
-        padding-top: 10px !important;
-        padding-bottom: 88px !important;
-      }
-
-      /* Ligne logo + texte : moins de marge et moins d’écart */
-      #home-hero-row {
-        padding-top: 14px !important;
-        gap: 22px !important;
-      }
-
-      /* Logo card plus compacte */
-      .hero-logo-card {
-        width: 220px;
-        padding: 2rem 1.4rem;
-        border-radius: 2.2rem;
-      }
-
-      /* Remonte le bloc texte */
-      #home-copy {
-        padding-top: 6px !important;
-      }
-
-      /* Titre : un poil plus compact pour tenir “au-dessus du fold” */
-      #home-title {
-        font-size: 2.25rem !important; /* ~text-4xl */
-        line-height: 1.05 !important;
-        margin-bottom: 14px !important;
-      }
-
-      /* “tous les autres” : moins de marge haute */
-      #home-title .home-sub {
-        margin-top: 10px !important;
-        letter-spacing: 0.35em !important;
-        font-size: 1.15rem !important;
-      }
-
-      /* Paragraphe et boutons : plus rapprochés */
-      #home-desc {
-        margin-bottom: 18px !important;
-        font-size: 1rem !important;
-      }
-
-      #home-cta {
-        margin-bottom: 26px !important;
-        gap: 12px !important;
-      }
-
-      /* boutons : un peu moins hauts sur mobile */
-      #home-cta .cta-button {
-        padding-top: 18px !important;
-        padding-bottom: 18px !important;
-      }
+      #page-home { padding-top: 10px !important; padding-bottom: 88px !important; }
+      #home-hero-row { padding-top: 14px !important; gap: 22px !important; }
+      .hero-logo-card { width: 220px; padding: 2rem 1.4rem; border-radius: 2.2rem; }
+      #home-copy { padding-top: 6px !important; }
+      #home-title { font-size: 2.25rem !important; line-height: 1.05 !important; margin-bottom: 14px !important; }
+      #home-title .home-sub { margin-top: 10px !important; letter-spacing: 0.35em !important; font-size: 1.15rem !important; }
+      #home-desc { margin-bottom: 18px !important; font-size: 1rem !important; }
+      #home-cta { margin-bottom: 26px !important; gap: 12px !important; }
+      #home-cta .cta-button { padding-top: 18px !important; padding-bottom: 18px !important; }
     }
 
     /* Confort mobile général */
@@ -492,13 +460,11 @@
         font-size: 0.65rem !important;
         border-radius: 14px !important;
       }
-      #page-demo .demo-frame-container {
-        padding: 0 !important;
-      }
+      #page-demo .demo-frame-container { padding: 0 !important; }
       #page-demo .tour-frame-architectural {
         border: 0 !important;
         border-radius: 0 !important;
-        box-shadow: none !important;
+        box-shadow: none !important; /* garde le plein écran clean sur mobile */
       }
       #demo-frame {
         width: 100% !important;
@@ -592,7 +558,7 @@
             </div>
           </div>
 
-<div id="home-copy" class="flex-grow text-center lg:text-left flex flex-col justify-center pt-8 lg:pl-16">
+          <div id="home-copy" class="flex-grow text-center lg:text-left flex flex-col justify-center pt-8 lg:pl-16">
             <div class="mb-10">
               <h1 id="home-title" class="text-5xl md:text-7xl font-light leading-[1.1] tracking-tight text-slate-800">
                 <span class="font-serif italic text-[#278299] block mb-3 sm:mb-4">Un seul endroit</span>
@@ -620,7 +586,7 @@
         </div>
 
         <!-- QR -->
-          <div class="max-w-7xl mx-auto mt-2 qr-panel p-7 md:p-10 flex flex-col md:flex-row items-center gap-2">
+        <div class="max-w-7xl mx-auto mt-2 qr-panel p-7 md:p-10 flex flex-col md:flex-row items-center gap-2">
           <div class="flex-grow text-center md:text-left relative z-10 text-white">
             <span class="text-[#2BA7C2] font-black text-[10px] uppercase tracking-[0.4em] block mb-4">Expérience Mobile</span>
             <h3 class="text-4xl md:text-5xl font-serif italic mb-6 leading-tight">
