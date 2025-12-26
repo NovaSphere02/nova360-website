@@ -4,13 +4,13 @@
   <!-- 
        Architecture de Marque : Nova360
        Palette harmonisée : 
-       - Deep Petrol (#00565e) : Structure, navigation, panneau Vision, Footer et Accents textuels
-       - Accent Soft Teal (#278299) : Unification du titre et boutons
-       - Deep Blue Accent (#315a97) : Survol cartes / éléments secondaires
-       - Surface (#D4D3DC) : Gris Perle
+       - Deep Petrol (#00565e)
+       - Accent Soft Teal (#278299)
+       - Deep Blue Accent (#315a97)
+       - Surface (#D4D3DC)
   -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nova360 - Visites Virtuelles 360°</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,23 +18,18 @@
 
   <style>
     :root {
-      --primary: #00565e;    /* Deep Petrol */
-      --accent: #2BA7C2;     /* Accent Azure */
-      --hover-grad: #278299; /* Couleur de dégradé au survol */
-      --secondary: #315a97;  /* Bleu profond secondaire */
-      --dark: #00565e;       
-      --bg-custom: #D4D3DC;  
-      --text-main: #1F2937;  
-      --nav-height: 70px;    
+      --primary: #00565e;
+      --accent: #2BA7C2;
+      --hover-grad: #278299;
+      --secondary: #315a97;
+      --dark: #00565e;
+      --bg-custom: #D4D3DC;
+      --text-main: #1F2937;
+      --nav-height: 70px;
+      --demoTopbarH: 70px; /* ✅ hauteur topbar démo calculée en JS */
     }
 
-    * {
-      font-family: 'Inter', sans-serif;
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    * { font-family: 'Inter', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
     .font-serif { font-family: 'Playfair Display', serif; }
 
     body {
@@ -45,19 +40,14 @@
       scroll-behavior: smooth;
     }
 
-    /* Transitions de page */
+    /* Pages */
     .page {
       display: none;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    .page.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .page.active { display: block; opacity: 1; transform: translateY(0); }
 
     /* Navigation */
     #main-nav {
@@ -66,16 +56,13 @@
       box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
       transition: all 0.4s ease;
     }
-
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
       color: rgba(255, 255, 255, 0.6);
       letter-spacing: 0.15em;
     }
-
     .nav-link:hover, .nav-link.active { color: white; }
-
     .nav-link::after {
       content: '';
       position: absolute;
@@ -86,21 +73,18 @@
       background: var(--accent);
       transition: width 0.3s ease;
     }
-
     .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-    /* LOGO PANEL GAUCHE */
+    /* Logo panel */
     .hero-logo-card {
       background: #D4D3DC;
       padding: 2.5rem 2rem;
       border-radius: 2.5rem;
       border: 1px solid rgba(39, 130, 153, 0.55);
-
       box-shadow:
         0 40px 100px -20px rgba(0, 0, 0, 0.2),
         0 0 0 3px rgba(39, 130, 153, 0.16),
         0 0 22px rgba(39, 130, 153, 0.22);
-
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -108,7 +92,6 @@
       transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       width: 260px;
     }
-
     .hero-logo-card:hover {
       box-shadow:
         0 44px 120px -22px rgba(0, 0, 0, 0.22),
@@ -117,7 +100,7 @@
       transform: translateY(-2px);
     }
 
-    /* Boutons CTA */
+    /* CTA */
     .cta-button {
       position: relative;
       background-color: var(--dark);
@@ -131,7 +114,6 @@
       cursor: pointer;
       overflow: hidden;
     }
-
     .cta-button::after {
       content: '';
       position: absolute;
@@ -148,36 +130,26 @@
       transform: skewX(-25deg);
       z-index: 2;
     }
-
     .cta-button:hover {
       transform: translateY(-3px) scale(1.02);
       background-color: var(--hover-grad);
       box-shadow: 0 20px 40px -10px rgba(0, 86, 94, 0.3);
     }
+    .cta-button:hover::after { animation: shine 0.8s ease-in-out forwards; }
+    @keyframes shine { from { left: -100%; } to { left: 150%; } }
 
-    .cta-button:hover::after {
-      animation: shine 0.8s ease-in-out forwards;
-    }
-
-    @keyframes shine {
-      from { left: -100%; }
-      to { left: 150%; }
-    }
-
-    /* Cartes */
+    /* Cards */
     .feature-card {
       background: white;
       border: 2px solid rgba(0, 86, 94, 0.05);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
-
     .feature-card:hover {
       transform: translateY(-12px);
       box-shadow: 0 50px 80px -20px rgba(0, 86, 94, 0.12);
       border-color: var(--hover-grad);
     }
-
     .status-half-circle {
       position: absolute;
       top: 0;
@@ -189,7 +161,7 @@
       opacity: 0.9;
     }
 
-    /* ✅ PANNEAU QR (Accueil uniquement) */
+    /* QR Panel (Accueil uniquement) */
     .qr-panel {
       background: linear-gradient(135deg, #00565e 0%, #003a40 100%);
       border-radius: 3.5rem;
@@ -208,13 +180,9 @@
       background: radial-gradient(circle, rgba(43, 167, 194, 0.18) 0%, transparent 70%);
       pointer-events: none;
     }
-    #page-home:not(.active) .qr-panel { display: none !important; }
 
-    /* Animations */
-    @keyframes bounce-x-right {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(10px); }
-    }
+    /* Anim */
+    @keyframes bounce-x-right { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
     .animate-bounce-x-right { animation: bounce-x-right 1.2s ease-in-out infinite; }
 
     .cta-breathe {
@@ -223,12 +191,9 @@
       animation: ctaBreathe 3.8s ease-in-out infinite;
       will-change: transform;
     }
-    @keyframes ctaBreathe {
-      0%, 100% { transform: scale(1); }
-      50%      { transform: scale(1.045); }
-    }
+    @keyframes ctaBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
 
-    /* ✅ “Réduire animations” */
+    /* Réduire animations */
     html.reduced-motion .cta-breathe,
     html.reduced-motion .animate-bounce-x-right { animation: none !important; }
     html.reduced-motion .page { transition: none !important; }
@@ -236,13 +201,8 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Demo Interface */
-    .demo-topbar {
-      background: var(--dark);
-      z-index: 110;
-      height: 70px;
-    }
-
+    /* Démos */
+    .demo-topbar { background: var(--dark); z-index: 110; height: 70px; }
     .demo-item-btn {
       padding: 10px 24px;
       font-size: 0.7rem;
@@ -254,7 +214,6 @@
       border: 1px solid rgba(255,255,255,0.1);
       color: rgba(255, 255, 255, 0.5);
     }
-
     .demo-item-btn.active {
       background: white;
       color: var(--dark);
@@ -262,17 +221,17 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
-    /* Mode Immersion */
+    /* ✅ Mode Démo : vrai plein écran */
     #page-demo.active {
       display: flex;
       flex-direction: column;
-      height: 100vh;
       width: 100vw;
       background: #002c31;
       position: fixed;
-      top: 0; left: 0; z-index: 1000;
+      inset: 0;
+      z-index: 1000;
+      height: 100dvh; /* ✅ au lieu de 100vh */
     }
-
     .demo-frame-container {
       flex-grow: 1;
       padding: 20px;
@@ -280,8 +239,8 @@
       align-items: center;
       justify-content: center;
       background: #002c31;
+      height: calc(100dvh - var(--demoTopbarH, 70px)); /* ✅ espace restant sous la topbar */
     }
-
     .tour-frame-architectural {
       width: 100%;
       height: 100%;
@@ -292,14 +251,9 @@
       overflow: hidden;
       position: relative;
     }
-
-    .immersion-mode .tour-frame-architectural {
-      border: 0px solid transparent;
-      border-radius: 0;
-    }
-
+    .immersion-mode .tour-frame-architectural { border: 0px solid transparent; border-radius: 0; }
     .immersion-mode .demo-topbar { height: 0; overflow: hidden; opacity: 0; }
-    .immersion-mode .demo-frame-container { padding: 0; }
+    .immersion-mode .demo-frame-container { padding: 0; height: 100dvh; }
 
     .exit-immersion {
       display: none;
@@ -320,7 +274,7 @@
     }
     .immersion-mode .exit-immersion { display: flex; }
 
-    /* ✅ Menu Mobile Drawer à droite + overlay */
+    /* Menu mobile (drawer à droite) */
     .mobile-overlay {
       position: fixed;
       inset: 0;
@@ -331,29 +285,21 @@
       transition: opacity 0.25s ease;
       z-index: 999;
     }
-    .mobile-overlay.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .mobile-overlay.show { opacity: 1; pointer-events: auto; }
 
     #mobile-menu {
       position: fixed;
       top: 0;
       right: 0;
-
       height: 100dvh;
       width: min(88vw, 420px);
-
       background: var(--dark);
       z-index: 1000;
-
       display: flex;
       flex-direction: column;
-
       transform: translateX(110%);
       transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: -24px 0 70px rgba(0,0,0,0.55);
-
       padding:
         calc(18px + env(safe-area-inset-top))
         calc(18px + env(safe-area-inset-right))
@@ -415,11 +361,7 @@
       transition: 0.25s ease;
     }
     .mobile-link-btn:hover { background: rgba(255,255,255,0.12); }
-    .mobile-link-btn.active {
-      background: white;
-      color: var(--dark);
-      border-color: transparent;
-    }
+    .mobile-link-btn.active { background: white; color: var(--dark); border-color: transparent; }
 
     .mobile-settings {
       margin-top: auto;
@@ -447,17 +389,78 @@
       font-size: 11px;
       font-weight: 700;
     }
-    .toggle-row input {
-      width: 44px;
-      height: 24px;
-      accent-color: var(--accent);
-    }
+    .toggle-row input { width: 44px; height: 24px; accent-color: var(--accent); }
 
-    /* Confort mobile */
+    /* Confort mobile général */
     @media (max-width: 640px) {
       #page-home, #page-categories, #page-about, #page-contact {
         padding-left: 18px !important;
         padding-right: 18px !important;
+      }
+    }
+
+    /* =========================================================
+       ✅ FIX MOBILE — MODE DÉMOS (catégories + iframe)
+       ========================================================= */
+    @media (max-width: 640px) {
+      /* topbar sur 2 lignes, plus compacte */
+      #page-demo .demo-topbar {
+        height: auto !important;
+        padding: 10px 12px !important;
+        align-items: flex-start !important;
+      }
+
+      /* zone gauche (Quitter + nav) : wrap */
+      #page-demo .demo-topbar > div:first-child {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        overflow: visible !important;
+      }
+
+      /* enlève le séparateur */
+      #page-demo .demo-topbar > div:first-child .h-8.w-px {
+        display: none !important;
+      }
+
+      /* nav catégories : pleine largeur, scroll fluide */
+      #page-demo .demo-topbar > div:first-child nav {
+        width: 100% !important;
+        padding-top: 6px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory;
+      }
+
+      #page-demo .demo-topbar > div:first-child nav .demo-item-btn {
+        scroll-snap-align: start;
+        padding: 10px 14px !important;
+        font-size: 0.65rem !important;
+        border-radius: 14px !important;
+      }
+
+      /* donne tout l'écran à l'iframe */
+      #page-demo .demo-frame-container {
+        padding: 0 !important;
+      }
+
+      #page-demo .tour-frame-architectural {
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      #demo-frame {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        background: #000 !important;
+      }
+
+      /* bouton exit au pouce */
+      #page-demo .exit-immersion {
+        top: auto !important;
+        bottom: calc(18px + env(safe-area-inset-bottom)) !important;
+        right: calc(18px + env(safe-area-inset-right)) !important;
       }
     }
 
@@ -470,10 +473,9 @@
 <body class="h-full w-full">
   <div id="app" class="flex flex-col min-h-screen">
 
-    <!-- NAVIGATION PRINCIPALE -->
+    <!-- NAV -->
     <nav id="main-nav" class="sticky top-0 z-50">
       <div class="max-w-7xl mx-auto flex justify-center items-center h-full relative px-6 gap-12">
-
         <div class="hidden md:flex space-x-12 text-white items-center">
           <a href="#home" class="nav-link active font-bold text-[11px] uppercase tracking-[0.2em]" data-page="home">Accueil</a>
           <a href="#categories" class="nav-link font-bold text-[11px] uppercase tracking-[0.2em]" data-page="categories">Catégories</a>
@@ -496,18 +498,15 @@
             </svg>
           </button>
         </div>
-
       </div>
     </nav>
 
-    <!-- ✅ OVERLAY (clic = fermer) -->
+    <!-- overlay + drawer -->
     <div id="mobile-overlay" class="mobile-overlay" onclick="toggleMobileMenu(false)"></div>
 
-    <!-- ✅ MENU MOBILE (drawer à droite) -->
     <aside id="mobile-menu" aria-hidden="true">
       <div class="mobile-menu-header">
         <div class="mobile-menu-title">Menu / Paramètres</div>
-
         <button class="mobile-menu-close" onclick="toggleMobileMenu(false)" aria-label="Fermer le menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -525,7 +524,6 @@
 
       <div class="mobile-settings">
         <div class="mobile-settings-title">Paramètres</div>
-
         <label class="toggle-row" for="reduce-motion-toggle">
           <span>Réduire animations</span>
           <input id="reduce-motion-toggle" type="checkbox" onchange="setReducedMotion(this.checked)">
@@ -535,7 +533,7 @@
 
     <main class="flex-grow">
 
-      <!-- PAGE ACCUEIL -->
+      <!-- HOME -->
       <section id="page-home" class="page active px-10 pt-4 pb-32">
         <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center lg:items-start pt-12">
           <div class="flex-shrink-0">
@@ -572,7 +570,7 @@
           </div>
         </div>
 
-        <!-- ✅ PANNEAU QR (Accueil uniquement) -->
+        <!-- QR -->
         <div class="max-w-7xl mx-auto mt-16 qr-panel p-10 md:p-16 flex flex-col md:flex-row items-center gap-12">
           <div class="flex-grow text-center md:text-left relative z-10 text-white">
             <span class="text-[#2BA7C2] font-black text-[10px] uppercase tracking-[0.4em] block mb-4">Expérience Mobile</span>
@@ -608,7 +606,7 @@
         </div>
       </section>
 
-      <!-- PAGE CATÉGORIES -->
+      <!-- CATEGORIES -->
       <section id="page-categories" class="page px-10 py-24 max-w-7xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-5xl md:text-6xl font-light text-slate-800 uppercase tracking-tighter">
@@ -674,7 +672,7 @@
         </div>
       </section>
 
-      <!-- PAGE DÉMOS -->
+      <!-- DEMO -->
       <section id="page-demo" class="page overflow-hidden">
         <div id="demo-modal" class="fixed inset-0 bg-black/95 z-[500] hidden items-center justify-center p-6 backdrop-blur-xl">
           <div class="bg-white max-w-md w-full p-12 rounded-[3rem] text-center shadow-2xl scale-95 opacity-0 transition-all duration-700" id="modal-content">
@@ -687,6 +685,7 @@
 
         <div class="demo-topbar flex items-center justify-between px-8 py-3 shadow-2xl border-b border-white/5 flex-shrink-0">
           <div class="flex items-center gap-6 flex-grow min-w-0 overflow-hidden">
+
             <button
               type="button"
               onclick="navigateToPage('home')"
@@ -730,7 +729,7 @@
 
             <button
               type="button"
-              onclick="toggleImmersion(true)"
+              onclick="toggleImmersion(true); syncDemoTopbarHeight();"
               class="w-14 h-14 flex items-center justify-center bg-white/10 rounded-2xl text-white hover:bg-white/20 transition-all border border-white/10 hover:border-accent shadow-xl group"
               aria-label="Activer l’immersion"
             >
@@ -740,7 +739,7 @@
         </div>
 
         <div class="demo-frame-container">
-          <button onclick="toggleImmersion(false)" class="exit-immersion">⛶</button>
+          <button onclick="toggleImmersion(false); syncDemoTopbarHeight();" class="exit-immersion">⛶</button>
           <div class="tour-frame-architectural">
             <iframe
               id="demo-frame"
@@ -753,7 +752,7 @@
         </div>
       </section>
 
-      <!-- PAGE VISION -->
+      <!-- ABOUT -->
       <section id="page-about" class="page px-10 py-24 max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mt-6">
           <div class="space-y-10 text-left">
@@ -765,6 +764,7 @@
               elle place l'humain au centre de l'expérience utilisateur.
             </p>
           </div>
+
           <div class="bg-[#00565e] p-16 rounded-[4rem] shadow-3xl text-white relative overflow-hidden">
             <h3 class="font-serif italic text-4xl mb-16 text-center">Nos Valeurs</h3>
             <div class="space-y-8">
@@ -777,7 +777,7 @@
         </div>
       </section>
 
-      <!-- PAGE CONTACT -->
+      <!-- CONTACT -->
       <section id="page-contact" class="page px-10 py-24 max-w-5xl mx-auto">
         <div class="bg-white p-16 rounded-[4rem] shadow-3xl text-center border border-slate-200/70">
           <span class="text-[#278299] font-black text-[12px] uppercase tracking-[0.4em] block mb-6">Contactez-nous</span>
@@ -795,6 +795,7 @@
                   <input required class="w-full px-6 py-5 rounded-3xl bg-slate-50/70 text-slate-900 placeholder:text-slate-400 border border-transparent focus:outline-none" placeholder="Votre nom">
                 </div>
               </div>
+
               <div>
                 <label class="block text-[11px] font-black uppercase tracking-[0.25em] text-slate-700 mb-3">Prénom</label>
                 <div class="rounded-3xl p-[1px] bg-slate-200/90 transition-all hover:bg-slate-300/80 focus-within:bg-[#278299]/60 focus-within:shadow-[0_0_0_6px_rgba(39,130,153,0.12)]">
@@ -829,7 +830,6 @@
       </section>
     </main>
 
-    <!-- FOOTER -->
     <footer id="main-footer" class="py-12 bg-[#00565e] border-t border-white/5">
       <div class="max-w-7xl mx-auto px-8 flex justify-between items-center">
         <div class="text-white/40 text-[10px] font-black uppercase tracking-[0.3em]">
@@ -856,7 +856,6 @@
 
       menu.classList.toggle('show', shouldOpen);
       overlay.classList.toggle('show', shouldOpen);
-
       menu.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
 
       if (shouldOpen) document.body.style.overflow = 'hidden';
@@ -866,6 +865,14 @@
     function mobileNav(id) {
       toggleMobileMenu(false);
       navigateToPage(id);
+    }
+
+    /* ✅ calcule hauteur topbar démos pour laisser l'iframe respirer */
+    function syncDemoTopbarHeight() {
+      const topbar = document.querySelector('#page-demo .demo-topbar');
+      if (!topbar) return;
+      const h = Math.ceil(topbar.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--demoTopbarH', `${h}px`);
     }
 
     function navigateToPage(pageId) {
@@ -902,8 +909,14 @@
           mainNav.style.display = 'none';
           footer.style.display = 'none';
           document.body.style.overflow = 'hidden';
+
           openDemoModal();
+
           if (frame && frame.src === "about:blank") frame.src = currentDemoUrl;
+
+          // ✅ recalcul topbar (mobile wrap / fold / rotation)
+          setTimeout(syncDemoTopbarHeight, 50);
+          setTimeout(syncDemoTopbarHeight, 250);
         } else {
           mainNav.style.display = 'block';
           footer.style.display = 'block';
@@ -919,8 +932,12 @@
       const frame = document.getElementById('demo-frame');
       currentDemoUrl = url;
       frame.src = url;
+
       document.querySelectorAll('.demo-item-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      // ✅ sur mobile certains sites recalculent après chargement
+      setTimeout(syncDemoTopbarHeight, 120);
     }
 
     function toggleImmersion(active) {
@@ -956,8 +973,18 @@
       navigateToPage(hash);
     });
 
+    // ✅ recalcul sur rotation / fold / resize (important Pixel Fold)
+    window.addEventListener('resize', () => {
+      const demoActive = document.getElementById('page-demo')?.classList.contains('active');
+      if (demoActive) syncDemoTopbarHeight();
+    });
+    window.addEventListener('orientationchange', () => {
+      const demoActive = document.getElementById('page-demo')?.classList.contains('active');
+      if (demoActive) setTimeout(syncDemoTopbarHeight, 250);
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
-      // ✅ Menu desktop : 100% cliquable (pilotage interne)
+      // Desktop nav : pilotage interne
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
@@ -965,13 +992,11 @@
         });
       });
 
-      // ✅ Restore réglage "réduire animations"
       const saved = localStorage.getItem('reducedMotion') === '1';
       setReducedMotion(saved);
       const toggle = document.getElementById('reduce-motion-toggle');
       if (toggle) toggle.checked = saved;
 
-      // ✅ Page initiale selon hash
       const hash = window.location.hash.substring(1) || 'home';
       navigateToPage(hash);
     });
